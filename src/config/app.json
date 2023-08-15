@@ -1,0 +1,8 @@
+{
+    "name": "cosmos",
+    "version": "1.0.0",
+    "author": "Martin Ortiz",
+    "description": "gui to visualize data",
+    "license": "MIT",
+    "copy_right": "Starlab Rocket Propulsion Laboratory 2023, by Martin Ortiz"
+}
