@@ -15,52 +15,14 @@
 # Date 06.08.2023
 #
 #############################################################
-
-"""
-NOTE: 
-TODO: 
-- restart button.
-- open the records folder.
-- cloud, auth and file upload.
-- turn toggle small button, into menu button, with a lot more of options
-- separate the profiles
-
-IDEAS:
-- rocket and satellite mode ?
-- multi sage mode with tabs.
-- Graphical Replay Interface, and recovery tool. (reconstruct logs from arduino etc...)
-- Socket interconnection.
-- Missions:
-    - pre flight checks. (with the phone ? web)
-    - shared profile.
-    - shared countdown.
-    - with the same google account
-- Graphical Editor For Profiles.
-- Multi Lenguage
-- refactor for data donde by ai
-"""
-
 import os
 import sys
-import logging
-import argparse
 
 from PyQt5.QtGui import QIcon
 from PyQt5.QtCore import Qt
 from PyQt5.QtWidgets import QApplication
 
-from src import Window
-
-
-def parse_arguments():
-    """
-    parse command-line arguments
-    returns: parsed arguments
-    """
-    parser = argparse.ArgumentParser()
-    parser.add_argument("-debug", action="store_true", help="Enable debugging mode")
-    return parser.parse_args()
-
+from src import MainWindow
 
 def fix_dpi():
     """
@@ -73,47 +35,8 @@ def fix_dpi():
     QApplication.setHighDpiScaleFactorRoundingPolicy(
         Qt.HighDpiScaleFactorRoundingPolicy.PassThrough
     )
-
-
-def setup_logger(debug):
-    """
-    set up logging with custom formatting and log levels.
-    args: enable debugging mode if True.
-    returns: configured logger instance.
-    """
-    # define the log message format and different log level formats
-    FMT = "{asctime} {name}: \33[1m{message}"
-    FORMATS = {
-        logging.DEBUG: f"\33[1m\33[34m(D)\33[0m \33[34m{FMT}\33[0m",
-        logging.INFO: f"\33[1m\33[32m(I)\33[0m \33[32m{FMT}\33[0m",
-        logging.WARNING: f"\33[1m\33[33m(W)\33[0m \33[1m\33[33m{FMT}\33[0m",
-        logging.ERROR: f"\33[1m\33[31;m(E)\33[0m \33[1m\33[31m{FMT}\33[0m",
-        logging.CRITICAL: f"\33[1m\33[31;1m(C)\33[0m \33[1m\33[31;1m{FMT}\33[0m",
-    }
-
-    # custom formatter for logging
-    class CustomFormatter(logging.Formatter):
-        def format(self, record):
-            log_fmt = FORMATS.get(record.levelno, f"{FMT}")
-            formatter = logging.Formatter(log_fmt, style="{")
-            return formatter.format(record)
-
-    # create a logging handler and set the custom formatter
-    handler = logging.StreamHandler()
-    handler.setFormatter(CustomFormatter())
-
-    # determine the log level based on the 'debug' attribute and configure the root logger
-    level = logging.DEBUG if debug else logging.WARNING
-    logging.basicConfig(level=level, handlers=[handler])
-
-    # get a named logger instance and return it
-    logger = logging.getLogger("cosmos")
-    logger.debug("initializing cosmos in DEBUG mode")
-
-    return logger
-
-
-def setup_application(parsed_args):
+    
+def setup_application_and_window():
     """
     set up the application, application icon, and main window.
     args: parsed command-line arguments.
@@ -127,23 +50,18 @@ def setup_application(parsed_args):
     application.setAttribute(Qt.ApplicationAttribute.AA_DontCreateNativeWidgetSiblings)
 
     # set the window icon and application name
-    application.setWindowIcon(QIcon("./app/ui/assets/app_icon.ico"))
+    application.setWindowIcon(QIcon("./app/ui/resources/app_icon.ico"))
     application.setApplicationName("STARLAB COSMOS")
-
-    # get the logger
-    logger = setup_logger(parsed_args.debug)
-
-    # initialize the main application window
-    window = Window(debug=parsed_args.debug, logger=logger)
+    
+    window = MainWindow()
+    
     return application, window
 
 
 if __name__ == "__main__":
-    # parse command-line arguments
-    parsed_args = parse_arguments()
 
     # set up the application and main window
-    application, window = setup_application(parsed_args)
+    application, window = setup_application_and_window()
 
     # start the application's event loop
     sys.exit(application.exec())

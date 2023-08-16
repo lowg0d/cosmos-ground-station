@@ -1,5 +1,6 @@
 import os
 
+ui_resources_dir = "./src/ui/resources"
 ui_files_dir = "./src/ui/desing_files"
 ui_scripts_dir = "./src/ui/generated_files"
 pyuic5_command = "pyuic5"
@@ -27,9 +28,9 @@ def convert_ui():
         modified_lines = []
         with open(py_script_path, "r") as py_file:
             for line in py_file:
-                if "import src_rc_rc" in line:
+                if "import src_rc" in line:
                     modified_lines.append(
-                        line.replace("import src_rc_rc", "from ..generated_files import src_rc")
+                        line.replace("import src_rc", "from ..generated_files import src_rc")
                     )
                 else:
                     modified_lines.append(line)
@@ -43,12 +44,12 @@ def convert_ui():
 
 def convert_qrc():
     # Get a list of all .ui files in the ui_files directory
-    qrc_files = [file for file in os.listdir(ui_files_dir) if file.endswith(".ui")]
+    qrc_files = [file for file in os.listdir(ui_resources_dir) if file.endswith(".qrc")]
     # Loop through each .ui file and generate the corresponding .py file
     for qrc_file in qrc_files:
-        ui_file_path = os.path.join(ui_files_dir, qrc_file)
+        ui_file_path = os.path.join(ui_resources_dir, qrc_file)
         base_name = os.path.splitext(qrc_file)[0]
-        py_script_path = os.path.join(ui_scripts_dir, f"{base_name}.py")
+        py_script_path = os.path.join(ui_scripts_dir, f"{base_name}_rc.py")
 
         # Construct the pyuic5 command
         command = f"{pyrcc5_command} {ui_file_path} -o {py_script_path}"

@@ -16,8 +16,74 @@ class Ui_MainWindow(object):
         MainWindow.setObjectName("MainWindow")
         MainWindow.resize(1000, 550)
         MainWindow.setMinimumSize(QtCore.QSize(1000, 550))
+        MainWindow.setStyleSheet("/* Global Styling */\n"
+"QMainWindow {\n"
+"    background-color: #111217;\n"
+"}\n"
+"\n"
+"QWidget {\n"
+"    background-color: #111217;\n"
+"    color: #b3b8c2;\n"
+"    font: 500 9.5pt \"Video Med\";\n"
+"}\n"
+"\n"
+"/* ToolTip Styling */\n"
+"QToolTip {\n"
+"    background-color: #0a0c10;\n"
+"    font: 500 9pt \"Video Med\";\n"
+"    color: #FFFFFF;\n"
+"    border-right: 3px solid #6C5FB4;\n"
+"    border-radius: 3px;\n"
+"}\n"
+"\n"
+"/** STATUS BAR **/\n"
+"#statusBarFrame QFrame{\n"
+"    margin-top:1px;\n"
+"    font: 600 8pt \"Video SemBd\";\n"
+"    background-color: rgba(0,0,0,0);\n"
+"    border:0;\n"
+"    color: rgb(73,78,89);\n"
+"}")
         self.centralwidget = QtWidgets.QWidget(MainWindow)
         self.centralwidget.setObjectName("centralwidget")
+        self.verticalLayout = QtWidgets.QVBoxLayout(self.centralwidget)
+        self.verticalLayout.setContentsMargins(0, 27, 0, 0)
+        self.verticalLayout.setSpacing(0)
+        self.verticalLayout.setObjectName("verticalLayout")
+        self.centralFrame = QtWidgets.QFrame(self.centralwidget)
+        self.centralFrame.setFrameShape(QtWidgets.QFrame.NoFrame)
+        self.centralFrame.setFrameShadow(QtWidgets.QFrame.Raised)
+        self.centralFrame.setObjectName("centralFrame")
+        self.verticalLayout_2 = QtWidgets.QVBoxLayout(self.centralFrame)
+        self.verticalLayout_2.setContentsMargins(4, 0, 4, 0)
+        self.verticalLayout_2.setSpacing(0)
+        self.verticalLayout_2.setObjectName("verticalLayout_2")
+        self.stackedWidget_central = QtWidgets.QStackedWidget(self.centralFrame)
+        self.stackedWidget_central.setObjectName("stackedWidget_central")
+        self.page_centralLoading = QtWidgets.QWidget()
+        self.page_centralLoading.setObjectName("page_centralLoading")
+        self.stackedWidget_central.addWidget(self.page_centralLoading)
+        self.page_centralDashboard = QtWidgets.QWidget()
+        self.page_centralDashboard.setObjectName("page_centralDashboard")
+        self.stackedWidget_central.addWidget(self.page_centralDashboard)
+        self.verticalLayout_2.addWidget(self.stackedWidget_central)
+        self.statusBarFrame = QtWidgets.QFrame(self.centralFrame)
+        self.statusBarFrame.setMinimumSize(QtCore.QSize(0, 17))
+        self.statusBarFrame.setMaximumSize(QtCore.QSize(16777215, 17))
+        self.statusBarFrame.setFrameShape(QtWidgets.QFrame.NoFrame)
+        self.statusBarFrame.setFrameShadow(QtWidgets.QFrame.Raised)
+        self.statusBarFrame.setLineWidth(0)
+        self.statusBarFrame.setObjectName("statusBarFrame")
+        self.horizontalLayout = QtWidgets.QHBoxLayout(self.statusBarFrame)
+        self.horizontalLayout.setContentsMargins(0, 0, 0, 0)
+        self.horizontalLayout.setObjectName("horizontalLayout")
+        self.label_statusBar = QtWidgets.QLabel(self.statusBarFrame)
+        self.label_statusBar.setObjectName("label_statusBar")
+        self.horizontalLayout.addWidget(self.label_statusBar)
+        spacerItem = QtWidgets.QSpacerItem(933, 13, QtWidgets.QSizePolicy.Expanding, QtWidgets.QSizePolicy.Minimum)
+        self.horizontalLayout.addItem(spacerItem)
+        self.verticalLayout_2.addWidget(self.statusBarFrame)
+        self.verticalLayout.addWidget(self.centralFrame)
         MainWindow.setCentralWidget(self.centralwidget)
 
         self.retranslateUi(MainWindow)
@@ -26,4 +92,5 @@ class Ui_MainWindow(object):
     def retranslateUi(self, MainWindow):
         _translate = QtCore.QCoreApplication.translate
         MainWindow.setWindowTitle(_translate("MainWindow", "MainWindow"))
-import src_rc
+        self.label_statusBar.setText(_translate("MainWindow", "Version"))
+from ..generated_files import src_rc

@@ -1,7 +1,7 @@
 import os
 import argparse
 
-header = f'''\
+header = f"""\
 ######################### Xnxe9 <3? #########################
 #
 #   .o88b.  .d88b.  .d8888. .88b  d88.  .d88b.  .d8888.
@@ -19,12 +19,7 @@ header = f'''\
 # Date 06.08.2023
 #
 #############################################################
-
-"""
-TODO: 
-NOTE:
-"""
-\n'''
+\n"""
 
 
 def add_header(file_path):
@@ -58,6 +53,7 @@ def process_directory(directory, operation):
             if file.endswith(".py"):
                 file_path = os.path.join(root, file)
                 if operation == "add":
+                    remove_header(file_path)
                     add_header(file_path)
                     print(f"[OK] Added header to {file_path}")
                 elif operation == "remove":
