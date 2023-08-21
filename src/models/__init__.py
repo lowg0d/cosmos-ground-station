@@ -16,3 +16,4 @@
 #
 #############################################################
 
+from .preferences import PreferenceModel

@@ -1,5 +1,14 @@
 <RCC>
   <qresource prefix="icons">
-    <file>app.ico</file>
+    <file>icons/home.png</file>
+    <file>icons/plug_volt.png</file>
+    <file>icons/arrow_left.png</file>
+    <file>icons/bin.png</file>
+    <file>icons/cloud.png</file>
+    <file>icons/logs.png</file>
+    <file>icons/plug.png</file>
+    <file>icons/preferences.png</file>
+    <file>icons/reload.png</file>
+    <file>icons/send.png</file>
   </qresource>
 </RCC>

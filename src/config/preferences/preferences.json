@@ -1,0 +1,8 @@
+{
+    "HIDDEN": {
+        "last_port": "COM3",
+        "last_bauds": "115200",
+        "auto_reConnect": true,
+        "small_mode": false
+    }
+}

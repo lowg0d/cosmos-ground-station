@@ -1,3 +1,21 @@
+######################### Xnxe9 <3? #########################
+#
+#   .o88b.  .d88b.  .d8888. .88b  d88.  .d88b.  .d8888.
+#  d8P  Y8 .8P  Y8. 88'  YP 88'YbdP`88 .8P  Y8. 88'  YP
+#  8P      88    88 `8bo.   88  88  88 88    88 `8bo.
+#  8b      88    88   `Y8b. 88  88  88 88    88   `Y8b.
+#  Y8b  d8 `8b  d8' db   8D 88  88  88 `8b  d8' db   8D
+#   `Y88P'  `Y88P'  `8888Y' YP  YP  YP  `Y88P'  `8888Y'
+# 
+# ★ StarLab RPL - COSMOS GROUND STATION ★
+# Communications and Observation Station for Mission Operations and Surveillance
+#
+# By Martin Ortiz
+# Version 1.0.0
+# Date 06.08.2023
+#
+#############################################################
+
 # -*- coding: utf-8 -*-
 
 # Form implementation generated from reading ui file './src/ui/desing_files\mainWindow.ui'
@@ -14,8 +32,9 @@ from PyQt5 import QtCore, QtGui, QtWidgets
 class Ui_MainWindow(object):
     def setupUi(self, MainWindow):
         MainWindow.setObjectName("MainWindow")
-        MainWindow.resize(1000, 550)
+        MainWindow.resize(1000, 551)
         MainWindow.setMinimumSize(QtCore.QSize(1000, 550))
+        MainWindow.setAutoFillBackground(False)
         MainWindow.setStyleSheet("/* Global Styling */\n"
 "QMainWindow {\n"
 "    background-color: #111217;\n"
@@ -24,8 +43,10 @@ class Ui_MainWindow(object):
 "QWidget {\n"
 "    background-color: #111217;\n"
 "    color: #b3b8c2;\n"
-"    font: 500 9.5pt \"Video Med\";\n"
+"    selection-color: #ffffff;\n"
+"    selection-background-color:#6357a3;\n"
 "}\n"
+"\n"
 "\n"
 "/* ToolTip Styling */\n"
 "QToolTip {\n"
@@ -35,36 +56,755 @@ class Ui_MainWindow(object):
 "    border-right: 3px solid #6C5FB4;\n"
 "    border-radius: 3px;\n"
 "}\n"
+"#label_loadingDots {\n"
+"    font: 63 68pt \"Video SemBd\";\n"
+"}\n"
 "\n"
-"/** STATUS BAR **/\n"
+"\n"
+"/** Status Bar**/\n"
 "#statusBarFrame QFrame{\n"
 "    margin-top:1px;\n"
 "    font: 600 8pt \"Video SemBd\";\n"
 "    background-color: rgba(0,0,0,0);\n"
 "    border:0;\n"
 "    color: rgb(73,78,89);\n"
+"}\n"
+"\n"
+"\n"
+"/* Sidebar Buttons */\n"
+"#frame_topSideBarButtons QPushButton{\n"
+"    font: 500 8pt \"Video Med\";\n"
+"    border-radius: 4px;\n"
+"    border: 1px solid #2b2d30;\n"
+"    color: #808183;\n"
+"}\n"
+"#frame_topSideBarButtons QPushButton:hover{\n"
+"    background-color: #1a1b1f;\n"
+"}\n"
+"#frame_topSideBarButtons QPushButton:pressed{\n"
+"    background-color: #2b2d30;\n"
+"}\n"
+"#frame_topSideBarButtons QPushButton:checked{\n"
+"    color:#ffffff;\n"
+"    border: 1px solid #6357a4;\n"
+"    background-color: #1b1a28;\n"
+"}\n"
+"#frame_topSideBarButtons QPushButton:disabled{\n"
+"    border: 1px solid #292a30;\n"
+"    color: #292b29;\n"
+"    background-color: #0f1015;\n"
+"}\n"
+"\n"
+"\n"
+"#frame_mainControls QPushButton,\n"
+"#frame_terminalContainer QPushButton,\n"
+"#frame_connectionDropDown QPushButton{\n"
+"    font: 500 8pt \"Video Med\";\n"
+"    border-radius: 4px;\n"
+"    border: 1px solid #2b2d30;\n"
+"    color: #808183;\n"
+"}\n"
+"#frame_mainControls QPushButton:hover,\n"
+"#frame_terminalContainer QPushButton:hover,\n"
+"#frame_connectionDropDown QPushButton:hover{\n"
+"    background-color: #1a1b1f;\n"
+"}\n"
+"#frame_mainControls QPushButton:pressed,\n"
+"#frame_terminalContainer QPushButton:pressed,\n"
+"#frame_connectionDropDown QPushButton:pressed{\n"
+"    background-color: #2b2d30;\n"
+"}\n"
+"\n"
+"\n"
+"#frame_connectionDropDown QPushButton:checked{\n"
+"    color:#ffffff;\n"
+"    border: 1px solid #6357a4;\n"
+"}\n"
+"#frame_connectionDropDown QPushButton:checked{\n"
+"    color:#ffffff;\n"
+"    border: 1px solid #6357a4;\n"
+"    background-color: #1b1a28;\n"
+"}\n"
+"\n"
+"#frame_connectionDropDown QPushButton:disabled{\n"
+"    border: 1px solid #292a30;\n"
+"    color: #292b29;\n"
+"    background-color: #12141a;\n"
+"}\n"
+"\n"
+"\n"
+"/* preferences page */\n"
+"#frame_preferencesSideBar QPushButton{\n"
+"    font: 500 8pt \"Video Med\";\n"
+"    border-radius: 4px;\n"
+"    border: 1px solid #2b2d30;\n"
+"    color: #808183;\n"
+"}\n"
+"#frame_preferencesSideBar QPushButton:hover{\n"
+"    background-color: #1a1b1f;\n"
+"}\n"
+"#frame_preferencesSideBar QPushButton:pressed{\n"
+"    background-color: #2b2d30;\n"
+"}\n"
+"#frame_preferencesSideBar QPushButton:checked{\n"
+"    color:#ffffff;\n"
+"    border: 1px solid #6357a4;\n"
+"    background-color: #1b1a28;\n"
+"}\n"
+"#frame_preferencesSideBar QPushButton:disabled{\n"
+"    border: 1px solid #292a30;\n"
+"    color: #292b29;\n"
+"    background-color: #12141a;\n"
+"}\n"
+"\n"
+"\n"
+"\n"
+"/*  STATE AND COUNTDONW  LABEL // BTN */\n"
+"#frame_StateAndCountdownContainer QLabel{\n"
+"    border-radius: 4px;\n"
+"    font: 600 10.5pt \"Video SemBd\";\n"
+"    border: 1px solid #45484e;\n"
+"    background-color: #212227;\n"
+"}\n"
+"#frame_StateAndCountdownContainer QPushButton{\n"
+"    border-radius: 4px;\n"
+"    font: 600 10.5pt \"Video SemBd\";\n"
+"    border: 1px solid #45484e;\n"
+"    background-color: #212227;\n"
+"}\n"
+"#frame_StateAndCountdownContainer QPushButton:hover{\n"
+"    background-color: #37383d;\n"
+"}\n"
+"#frame_StateAndCountdownContainer QPushButton:pressed{\n"
+"    background-color: #4d4e52;\n"
+"}\n"
+"\n"
+"\n"
+"\n"
+"/*  TLM CONTAINERS */\n"
+"#frame_mainTlmLabels QFrame{\n"
+"    border-radius: 4px;\n"
+"    border: 1px solid #45484e;\n"
+"    background-color: #212227;\n"
+"    font: 600 9.5pt \"Video SemBd\";\n"
+"}\n"
+"#frame_secondaryAndButtonContainer QFrame{\n"
+"    border-radius: 4px;\n"
+"    border: 1px solid #45484e;\n"
+"    background-color: #212227;\n"
+"    font: 600 9.5pt \"Video SemBd\";\n"
+"}\n"
+"\n"
+"#frame_mainTlmLabels QLabel{\n"
+"    font: 600 9.5pt \"Video SemBd\";\n"
+"}\n"
+"\n"
+"#frame_secondaryAndButtonContainer QLabel{\n"
+"    font: 600 9.5pt \"Video SemBd\";\n"
+"}\n"
+"\n"
+"#frame_BigTlmLabels QLabel {\n"
+"    font: 600 10.5pt \"Video SemBd\";\n"
+"}\n"
+"\n"
+"\n"
+"/** DROP COMBO BOX **/\n"
+"#frame_connectionDropDown QComboBox{\n"
+"    font: 500 8pt \"Video Med\";\n"
+"    padding-left: 5px;\n"
+"    border-radius: 4px;\n"
+"    color: #808183; \n"
+"    border: 1px solid #2b2d30;\n"
+"}\n"
+"#frame_connectionDropDown QComboBox:hover{\n"
+"    background-color: #32313e;\n"
+"}\n"
+"#frame_connectionDropDown QComboBox:drop-down{\n"
+"    border:0px;\n"
+"}\n"
+"#frame_connectionDropDown QComboBox QAbstractItem{\n"
+"    selection-background-color:  none;\n"
+"    border: none;\n"
+"}\n"
+"#frame_connectionDropDown QComboBox QAbstractItemView::item:selected {\n"
+"    border-radius: 1px;\n"
+"    border: none;\n"
+"    background-color: #6357a4;\n"
+"}\n"
+"#frame_connectionDropDown QListView{\n"
+"     border: 1px solid #2b2d30;\n"
+"    background-color: #12141a;\n"
+"}\n"
+"\n"
+"/* WINDOW CONTROL BUTTONS */\n"
+"#frame_mainControls QPushButton:checked{\n"
+"    border-bottom: 2px solid #6357a3;\n"
+"    border-left: 2px solid rgba(108, 95, 180, 228);\n"
+"    background-color: rgba(32,34,38,155)\n"
+"}\n"
+"\n"
+"\n"
+"\n"
+"/* TERMINAL */\n"
+"/* message sender */\n"
+"#frame_MessageSender,\n"
+"#frame_graphContainer,\n"
+"#frame_terminalContainer {\n"
+"    border-radius: 4px;\n"
+"    border: 1px solid #373a3e;\n"
+"}\n"
+"/* TEXT BROWSER */\n"
+"#textBrowser_terminal {\n"
+"    padding-left: 4px;\n"
+"    color: #808183;\n"
+"    border: 1px solid #373a3e;\n"
+"    text-align: left;\n"
+"    font: 500 10pt \"Video Med\";\n"
+"    border-radius: 4px;\n"
+"    selection-color: #ffffff;\n"
+"    selection-background-color:#6357a3;\n"
+"}\n"
+"\n"
+"/* LINE EDIT */\n"
+"#frame_MessageSender QLineEdit {\n"
+"    background-color: transparent;\n"
+"    border: none;\n"
+"    padding-left: 4px;\n"
+"    padding-right: 15px;\n"
+"    font: 500 9pt \"Video Med\";\n"
+"    color: #737476;\n"
+"    padding-bottom: 2px;\n"
+"    selection-color: #ffffff;\n"
+"    selection-background-color:#6357a3;\n"
+"}\n"
+"#frame_MessageSender QLineEdit:focus {\n"
+"    color: #808183;\n"
+"}\n"
+"\n"
+"/* SEPARATOR LINES */\n"
+"#line,\n"
+"#line_1,\n"
+"#line_2,\n"
+"#line_3,\n"
+"#line_4,\n"
+"#line_5,\n"
+"#line_6,\n"
+"#line_7,\n"
+"#line_8,\n"
+"#line_9 {    \n"
+"    border: 0;\n"
+"    background-color: #45484e;\n"
 "}")
         self.centralwidget = QtWidgets.QWidget(MainWindow)
         self.centralwidget.setObjectName("centralwidget")
         self.verticalLayout = QtWidgets.QVBoxLayout(self.centralwidget)
-        self.verticalLayout.setContentsMargins(0, 27, 0, 0)
+        self.verticalLayout.setContentsMargins(4, 32, 4, 0)
         self.verticalLayout.setSpacing(0)
         self.verticalLayout.setObjectName("verticalLayout")
         self.centralFrame = QtWidgets.QFrame(self.centralwidget)
         self.centralFrame.setFrameShape(QtWidgets.QFrame.NoFrame)
         self.centralFrame.setFrameShadow(QtWidgets.QFrame.Raised)
+        self.centralFrame.setLineWidth(0)
         self.centralFrame.setObjectName("centralFrame")
         self.verticalLayout_2 = QtWidgets.QVBoxLayout(self.centralFrame)
         self.verticalLayout_2.setContentsMargins(4, 0, 4, 0)
         self.verticalLayout_2.setSpacing(0)
         self.verticalLayout_2.setObjectName("verticalLayout_2")
         self.stackedWidget_central = QtWidgets.QStackedWidget(self.centralFrame)
+        self.stackedWidget_central.setLineWidth(0)
         self.stackedWidget_central.setObjectName("stackedWidget_central")
         self.page_centralLoading = QtWidgets.QWidget()
         self.page_centralLoading.setObjectName("page_centralLoading")
+        self.horizontalLayout_7 = QtWidgets.QHBoxLayout(self.page_centralLoading)
+        self.horizontalLayout_7.setContentsMargins(0, 0, 0, 0)
+        self.horizontalLayout_7.setSpacing(0)
+        self.horizontalLayout_7.setObjectName("horizontalLayout_7")
+        spacerItem = QtWidgets.QSpacerItem(459, 20, QtWidgets.QSizePolicy.Expanding, QtWidgets.QSizePolicy.Minimum)
+        self.horizontalLayout_7.addItem(spacerItem)
+        self.frame_loadingFrame = QtWidgets.QFrame(self.page_centralLoading)
+        self.frame_loadingFrame.setFrameShape(QtWidgets.QFrame.NoFrame)
+        self.frame_loadingFrame.setFrameShadow(QtWidgets.QFrame.Raised)
+        self.frame_loadingFrame.setObjectName("frame_loadingFrame")
+        self.verticalLayout_14 = QtWidgets.QVBoxLayout(self.frame_loadingFrame)
+        self.verticalLayout_14.setContentsMargins(0, 0, 0, 50)
+        self.verticalLayout_14.setSpacing(0)
+        self.verticalLayout_14.setObjectName("verticalLayout_14")
+        spacerItem1 = QtWidgets.QSpacerItem(20, 40, QtWidgets.QSizePolicy.Minimum, QtWidgets.QSizePolicy.Expanding)
+        self.verticalLayout_14.addItem(spacerItem1)
+        self.label_loadingDots = QtWidgets.QLabel(self.frame_loadingFrame)
+        self.label_loadingDots.setAlignment(QtCore.Qt.AlignHCenter|QtCore.Qt.AlignTop)
+        self.label_loadingDots.setObjectName("label_loadingDots")
+        self.verticalLayout_14.addWidget(self.label_loadingDots)
+        spacerItem2 = QtWidgets.QSpacerItem(20, 40, QtWidgets.QSizePolicy.Minimum, QtWidgets.QSizePolicy.Expanding)
+        self.verticalLayout_14.addItem(spacerItem2)
+        self.horizontalLayout_7.addWidget(self.frame_loadingFrame)
+        spacerItem3 = QtWidgets.QSpacerItem(459, 20, QtWidgets.QSizePolicy.Expanding, QtWidgets.QSizePolicy.Minimum)
+        self.horizontalLayout_7.addItem(spacerItem3)
         self.stackedWidget_central.addWidget(self.page_centralLoading)
+        self.page_preferences = QtWidgets.QWidget()
+        self.page_preferences.setObjectName("page_preferences")
+        self.horizontalLayout_8 = QtWidgets.QHBoxLayout(self.page_preferences)
+        self.horizontalLayout_8.setContentsMargins(0, 0, 0, 0)
+        self.horizontalLayout_8.setSpacing(4)
+        self.horizontalLayout_8.setObjectName("horizontalLayout_8")
+        self.frame_preferencesSideBar = QtWidgets.QFrame(self.page_preferences)
+        self.frame_preferencesSideBar.setMinimumSize(QtCore.QSize(250, 0))
+        self.frame_preferencesSideBar.setMaximumSize(QtCore.QSize(250, 16777215))
+        self.frame_preferencesSideBar.setFrameShape(QtWidgets.QFrame.NoFrame)
+        self.frame_preferencesSideBar.setFrameShadow(QtWidgets.QFrame.Raised)
+        self.frame_preferencesSideBar.setObjectName("frame_preferencesSideBar")
+        self.verticalLayout_16 = QtWidgets.QVBoxLayout(self.frame_preferencesSideBar)
+        self.verticalLayout_16.setContentsMargins(0, 0, 0, 0)
+        self.verticalLayout_16.setSpacing(4)
+        self.verticalLayout_16.setObjectName("verticalLayout_16")
+        self.btn_goBackHome = QtWidgets.QPushButton(self.frame_preferencesSideBar)
+        self.btn_goBackHome.setMinimumSize(QtCore.QSize(0, 32))
+        self.btn_goBackHome.setMaximumSize(QtCore.QSize(16777215, 32))
+        self.btn_goBackHome.setCursor(QtGui.QCursor(QtCore.Qt.PointingHandCursor))
+        self.btn_goBackHome.setObjectName("btn_goBackHome")
+        self.verticalLayout_16.addWidget(self.btn_goBackHome)
+        self.line_6 = QtWidgets.QFrame(self.frame_preferencesSideBar)
+        self.line_6.setMinimumSize(QtCore.QSize(0, 1))
+        self.line_6.setMaximumSize(QtCore.QSize(16777215, 1))
+        self.line_6.setFrameShape(QtWidgets.QFrame.HLine)
+        self.line_6.setFrameShadow(QtWidgets.QFrame.Sunken)
+        self.line_6.setObjectName("line_6")
+        self.verticalLayout_16.addWidget(self.line_6)
+        self.btn_reloadWIndow = QtWidgets.QPushButton(self.frame_preferencesSideBar)
+        self.btn_reloadWIndow.setMinimumSize(QtCore.QSize(0, 32))
+        self.btn_reloadWIndow.setMaximumSize(QtCore.QSize(16777215, 32))
+        self.btn_reloadWIndow.setCursor(QtGui.QCursor(QtCore.Qt.PointingHandCursor))
+        self.btn_reloadWIndow.setObjectName("btn_reloadWIndow")
+        self.verticalLayout_16.addWidget(self.btn_reloadWIndow)
+        self.btn_openDashboardEditor = QtWidgets.QPushButton(self.frame_preferencesSideBar)
+        self.btn_openDashboardEditor.setMinimumSize(QtCore.QSize(0, 32))
+        self.btn_openDashboardEditor.setMaximumSize(QtCore.QSize(16777215, 32))
+        self.btn_openDashboardEditor.setCursor(QtGui.QCursor(QtCore.Qt.PointingHandCursor))
+        self.btn_openDashboardEditor.setObjectName("btn_openDashboardEditor")
+        self.verticalLayout_16.addWidget(self.btn_openDashboardEditor)
+        spacerItem4 = QtWidgets.QSpacerItem(20, 438, QtWidgets.QSizePolicy.Minimum, QtWidgets.QSizePolicy.Expanding)
+        self.verticalLayout_16.addItem(spacerItem4)
+        self.horizontalLayout_8.addWidget(self.frame_preferencesSideBar)
+        self.frame_preferencesContainer = QtWidgets.QFrame(self.page_preferences)
+        self.frame_preferencesContainer.setFrameShape(QtWidgets.QFrame.NoFrame)
+        self.frame_preferencesContainer.setFrameShadow(QtWidgets.QFrame.Raised)
+        self.frame_preferencesContainer.setObjectName("frame_preferencesContainer")
+        self.verticalLayout_17 = QtWidgets.QVBoxLayout(self.frame_preferencesContainer)
+        self.verticalLayout_17.setContentsMargins(85, 4, 85, 4)
+        self.verticalLayout_17.setSpacing(8)
+        self.verticalLayout_17.setObjectName("verticalLayout_17")
+        self.layout_preferences = QtWidgets.QVBoxLayout()
+        self.layout_preferences.setObjectName("layout_preferences")
+        spacerItem5 = QtWidgets.QSpacerItem(20, 40, QtWidgets.QSizePolicy.Minimum, QtWidgets.QSizePolicy.Expanding)
+        self.layout_preferences.addItem(spacerItem5)
+        self.verticalLayout_17.addLayout(self.layout_preferences)
+        self.horizontalLayout_8.addWidget(self.frame_preferencesContainer)
+        self.stackedWidget_central.addWidget(self.page_preferences)
         self.page_centralDashboard = QtWidgets.QWidget()
         self.page_centralDashboard.setObjectName("page_centralDashboard")
+        self.horizontalLayout_2 = QtWidgets.QHBoxLayout(self.page_centralDashboard)
+        self.horizontalLayout_2.setContentsMargins(0, 0, 0, 0)
+        self.horizontalLayout_2.setSpacing(4)
+        self.horizontalLayout_2.setObjectName("horizontalLayout_2")
+        self.frame_LeftSideBar = QtWidgets.QFrame(self.page_centralDashboard)
+        self.frame_LeftSideBar.setMinimumSize(QtCore.QSize(250, 0))
+        self.frame_LeftSideBar.setMaximumSize(QtCore.QSize(250, 16777215))
+        self.frame_LeftSideBar.setFrameShape(QtWidgets.QFrame.NoFrame)
+        self.frame_LeftSideBar.setFrameShadow(QtWidgets.QFrame.Raised)
+        self.frame_LeftSideBar.setLineWidth(1)
+        self.frame_LeftSideBar.setObjectName("frame_LeftSideBar")
+        self.verticalLayout_3 = QtWidgets.QVBoxLayout(self.frame_LeftSideBar)
+        self.verticalLayout_3.setContentsMargins(0, 0, 4, 0)
+        self.verticalLayout_3.setSpacing(4)
+        self.verticalLayout_3.setObjectName("verticalLayout_3")
+        self.frame_topSideBarButtons = QtWidgets.QFrame(self.frame_LeftSideBar)
+        self.frame_topSideBarButtons.setFrameShape(QtWidgets.QFrame.NoFrame)
+        self.frame_topSideBarButtons.setFrameShadow(QtWidgets.QFrame.Raised)
+        self.frame_topSideBarButtons.setObjectName("frame_topSideBarButtons")
+        self.verticalLayout_12 = QtWidgets.QVBoxLayout(self.frame_topSideBarButtons)
+        self.verticalLayout_12.setContentsMargins(0, 0, 0, 0)
+        self.verticalLayout_12.setSpacing(4)
+        self.verticalLayout_12.setObjectName("verticalLayout_12")
+        self.btn_missionDisplay = QtWidgets.QPushButton(self.frame_topSideBarButtons)
+        self.btn_missionDisplay.setMinimumSize(QtCore.QSize(0, 32))
+        self.btn_missionDisplay.setMaximumSize(QtCore.QSize(16777215, 32))
+        self.btn_missionDisplay.setCursor(QtGui.QCursor(QtCore.Qt.PointingHandCursor))
+        self.btn_missionDisplay.setObjectName("btn_missionDisplay")
+        self.verticalLayout_12.addWidget(self.btn_missionDisplay)
+        self.frame_recordingButtons = QtWidgets.QFrame(self.frame_topSideBarButtons)
+        self.frame_recordingButtons.setFrameShape(QtWidgets.QFrame.NoFrame)
+        self.frame_recordingButtons.setFrameShadow(QtWidgets.QFrame.Raised)
+        self.frame_recordingButtons.setObjectName("frame_recordingButtons")
+        self.horizontalLayout_5 = QtWidgets.QHBoxLayout(self.frame_recordingButtons)
+        self.horizontalLayout_5.setContentsMargins(0, 0, 0, 0)
+        self.horizontalLayout_5.setSpacing(4)
+        self.horizontalLayout_5.setObjectName("horizontalLayout_5")
+        self.btn_toggleRecordings = QtWidgets.QPushButton(self.frame_recordingButtons)
+        self.btn_toggleRecordings.setMinimumSize(QtCore.QSize(11, 32))
+        self.btn_toggleRecordings.setMaximumSize(QtCore.QSize(16777215, 32))
+        self.btn_toggleRecordings.setCursor(QtGui.QCursor(QtCore.Qt.PointingHandCursor))
+        icon = QtGui.QIcon()
+        icon.addPixmap(QtGui.QPixmap(":/icons/icons/logs.png"), QtGui.QIcon.Normal, QtGui.QIcon.Off)
+        self.btn_toggleRecordings.setIcon(icon)
+        self.btn_toggleRecordings.setCheckable(True)
+        self.btn_toggleRecordings.setChecked(False)
+        self.btn_toggleRecordings.setObjectName("btn_toggleRecordings")
+        self.horizontalLayout_5.addWidget(self.btn_toggleRecordings)
+        self.btn_toggleCloudBackup = QtWidgets.QPushButton(self.frame_recordingButtons)
+        self.btn_toggleCloudBackup.setEnabled(False)
+        self.btn_toggleCloudBackup.setMinimumSize(QtCore.QSize(0, 32))
+        self.btn_toggleCloudBackup.setMaximumSize(QtCore.QSize(16777215, 32))
+        self.btn_toggleCloudBackup.setCursor(QtGui.QCursor(QtCore.Qt.PointingHandCursor))
+        icon1 = QtGui.QIcon()
+        icon1.addPixmap(QtGui.QPixmap(":/icons/icons/cloud.png"), QtGui.QIcon.Normal, QtGui.QIcon.Off)
+        self.btn_toggleCloudBackup.setIcon(icon1)
+        self.btn_toggleCloudBackup.setCheckable(True)
+        self.btn_toggleCloudBackup.setObjectName("btn_toggleCloudBackup")
+        self.horizontalLayout_5.addWidget(self.btn_toggleCloudBackup)
+        self.verticalLayout_12.addWidget(self.frame_recordingButtons)
+        self.verticalLayout_3.addWidget(self.frame_topSideBarButtons)
+        self.line_5 = QtWidgets.QFrame(self.frame_LeftSideBar)
+        self.line_5.setMinimumSize(QtCore.QSize(0, 1))
+        self.line_5.setMaximumSize(QtCore.QSize(16777215, 1))
+        self.line_5.setFrameShadow(QtWidgets.QFrame.Plain)
+        self.line_5.setFrameShape(QtWidgets.QFrame.HLine)
+        self.line_5.setObjectName("line_5")
+        self.verticalLayout_3.addWidget(self.line_5)
+        self.frame_StateAndCountdownContainer = QtWidgets.QFrame(self.frame_LeftSideBar)
+        self.frame_StateAndCountdownContainer.setFrameShape(QtWidgets.QFrame.NoFrame)
+        self.frame_StateAndCountdownContainer.setFrameShadow(QtWidgets.QFrame.Raised)
+        self.frame_StateAndCountdownContainer.setObjectName("frame_StateAndCountdownContainer")
+        self.verticalLayout_11 = QtWidgets.QVBoxLayout(self.frame_StateAndCountdownContainer)
+        self.verticalLayout_11.setContentsMargins(0, 0, 0, 0)
+        self.verticalLayout_11.setSpacing(4)
+        self.verticalLayout_11.setObjectName("verticalLayout_11")
+        self.label_state = QtWidgets.QLabel(self.frame_StateAndCountdownContainer)
+        self.label_state.setMinimumSize(QtCore.QSize(0, 39))
+        self.label_state.setMaximumSize(QtCore.QSize(16777215, 39))
+        self.label_state.setAlignment(QtCore.Qt.AlignCenter)
+        self.label_state.setObjectName("label_state")
+        self.verticalLayout_11.addWidget(self.label_state)
+        self.btn_countdown = QtWidgets.QPushButton(self.frame_StateAndCountdownContainer)
+        self.btn_countdown.setMinimumSize(QtCore.QSize(0, 27))
+        self.btn_countdown.setMaximumSize(QtCore.QSize(16777215, 27))
+        self.btn_countdown.setCursor(QtGui.QCursor(QtCore.Qt.PointingHandCursor))
+        self.btn_countdown.setObjectName("btn_countdown")
+        self.verticalLayout_11.addWidget(self.btn_countdown)
+        self.verticalLayout_3.addWidget(self.frame_StateAndCountdownContainer)
+        self.line_4 = QtWidgets.QFrame(self.frame_LeftSideBar)
+        self.line_4.setMinimumSize(QtCore.QSize(0, 1))
+        self.line_4.setMaximumSize(QtCore.QSize(16777215, 1))
+        self.line_4.setFrameShadow(QtWidgets.QFrame.Plain)
+        self.line_4.setFrameShape(QtWidgets.QFrame.HLine)
+        self.line_4.setObjectName("line_4")
+        self.verticalLayout_3.addWidget(self.line_4)
+        self.frame_mainTlmLabels = QtWidgets.QFrame(self.frame_LeftSideBar)
+        self.frame_mainTlmLabels.setFrameShape(QtWidgets.QFrame.NoFrame)
+        self.frame_mainTlmLabels.setFrameShadow(QtWidgets.QFrame.Raised)
+        self.frame_mainTlmLabels.setObjectName("frame_mainTlmLabels")
+        self.verticalLayout_8 = QtWidgets.QVBoxLayout(self.frame_mainTlmLabels)
+        self.verticalLayout_8.setContentsMargins(0, 0, 0, 0)
+        self.verticalLayout_8.setSpacing(4)
+        self.verticalLayout_8.setObjectName("verticalLayout_8")
+        self.frame_BigTlmLabels = QtWidgets.QFrame(self.frame_mainTlmLabels)
+        self.frame_BigTlmLabels.setFrameShape(QtWidgets.QFrame.NoFrame)
+        self.frame_BigTlmLabels.setFrameShadow(QtWidgets.QFrame.Raised)
+        self.frame_BigTlmLabels.setObjectName("frame_BigTlmLabels")
+        self.verticalLayout_10 = QtWidgets.QVBoxLayout(self.frame_BigTlmLabels)
+        self.verticalLayout_10.setContentsMargins(4, 4, 4, 4)
+        self.verticalLayout_10.setSpacing(0)
+        self.verticalLayout_10.setObjectName("verticalLayout_10")
+        self.layout_BigTlmLabels = QtWidgets.QGridLayout()
+        self.layout_BigTlmLabels.setSpacing(4)
+        self.layout_BigTlmLabels.setObjectName("layout_BigTlmLabels")
+        self.verticalLayout_10.addLayout(self.layout_BigTlmLabels)
+        self.verticalLayout_8.addWidget(self.frame_BigTlmLabels)
+        self.frame_PrimaryTlmLabels = QtWidgets.QFrame(self.frame_mainTlmLabels)
+        self.frame_PrimaryTlmLabels.setFrameShape(QtWidgets.QFrame.NoFrame)
+        self.frame_PrimaryTlmLabels.setFrameShadow(QtWidgets.QFrame.Raised)
+        self.frame_PrimaryTlmLabels.setObjectName("frame_PrimaryTlmLabels")
+        self.verticalLayout_9 = QtWidgets.QVBoxLayout(self.frame_PrimaryTlmLabels)
+        self.verticalLayout_9.setContentsMargins(4, 4, 4, 4)
+        self.verticalLayout_9.setSpacing(0)
+        self.verticalLayout_9.setObjectName("verticalLayout_9")
+        self.layout_PrimaryTlmLabel = QtWidgets.QGridLayout()
+        self.layout_PrimaryTlmLabel.setSpacing(4)
+        self.layout_PrimaryTlmLabel.setObjectName("layout_PrimaryTlmLabel")
+        self.verticalLayout_9.addLayout(self.layout_PrimaryTlmLabel)
+        self.verticalLayout_8.addWidget(self.frame_PrimaryTlmLabels)
+        self.verticalLayout_3.addWidget(self.frame_mainTlmLabels)
+        self.line_3 = QtWidgets.QFrame(self.frame_LeftSideBar)
+        self.line_3.setMinimumSize(QtCore.QSize(0, 1))
+        self.line_3.setMaximumSize(QtCore.QSize(16777215, 1))
+        self.line_3.setFrameShadow(QtWidgets.QFrame.Plain)
+        self.line_3.setFrameShape(QtWidgets.QFrame.HLine)
+        self.line_3.setObjectName("line_3")
+        self.verticalLayout_3.addWidget(self.line_3)
+        self.scrollArea_SideBar = QtWidgets.QScrollArea(self.frame_LeftSideBar)
+        self.scrollArea_SideBar.setFrameShape(QtWidgets.QFrame.NoFrame)
+        self.scrollArea_SideBar.setHorizontalScrollBarPolicy(QtCore.Qt.ScrollBarAlwaysOff)
+        self.scrollArea_SideBar.setWidgetResizable(True)
+        self.scrollArea_SideBar.setObjectName("scrollArea_SideBar")
+        self.scrollAreaWidgetContents = QtWidgets.QWidget()
+        self.scrollAreaWidgetContents.setGeometry(QtCore.QRect(0, 0, 246, 188))
+        self.scrollAreaWidgetContents.setObjectName("scrollAreaWidgetContents")
+        self.verticalLayout_7 = QtWidgets.QVBoxLayout(self.scrollAreaWidgetContents)
+        self.verticalLayout_7.setContentsMargins(0, 0, 0, 0)
+        self.verticalLayout_7.setSpacing(4)
+        self.verticalLayout_7.setObjectName("verticalLayout_7")
+        self.frame_secondaryAndButtonContainer = QtWidgets.QFrame(self.scrollAreaWidgetContents)
+        self.frame_secondaryAndButtonContainer.setFrameShape(QtWidgets.QFrame.NoFrame)
+        self.frame_secondaryAndButtonContainer.setFrameShadow(QtWidgets.QFrame.Raised)
+        self.frame_secondaryAndButtonContainer.setObjectName("frame_secondaryAndButtonContainer")
+        self.verticalLayout_18 = QtWidgets.QVBoxLayout(self.frame_secondaryAndButtonContainer)
+        self.verticalLayout_18.setContentsMargins(0, 0, 0, 0)
+        self.verticalLayout_18.setSpacing(4)
+        self.verticalLayout_18.setObjectName("verticalLayout_18")
+        self.frame_SecondaryTlmLabel = QtWidgets.QFrame(self.frame_secondaryAndButtonContainer)
+        self.frame_SecondaryTlmLabel.setFrameShape(QtWidgets.QFrame.NoFrame)
+        self.frame_SecondaryTlmLabel.setFrameShadow(QtWidgets.QFrame.Raised)
+        self.frame_SecondaryTlmLabel.setObjectName("frame_SecondaryTlmLabel")
+        self.verticalLayout_5 = QtWidgets.QVBoxLayout(self.frame_SecondaryTlmLabel)
+        self.verticalLayout_5.setContentsMargins(4, 4, 4, 4)
+        self.verticalLayout_5.setSpacing(0)
+        self.verticalLayout_5.setObjectName("verticalLayout_5")
+        self.layout_SecondaryTlmLabelContainer = QtWidgets.QGridLayout()
+        self.layout_SecondaryTlmLabelContainer.setSpacing(4)
+        self.layout_SecondaryTlmLabelContainer.setObjectName("layout_SecondaryTlmLabelContainer")
+        self.verticalLayout_5.addLayout(self.layout_SecondaryTlmLabelContainer)
+        self.verticalLayout_18.addWidget(self.frame_SecondaryTlmLabel)
+        self.frame_CommandButton = QtWidgets.QFrame(self.frame_secondaryAndButtonContainer)
+        self.frame_CommandButton.setFrameShape(QtWidgets.QFrame.NoFrame)
+        self.frame_CommandButton.setFrameShadow(QtWidgets.QFrame.Raised)
+        self.frame_CommandButton.setObjectName("frame_CommandButton")
+        self.verticalLayout_6 = QtWidgets.QVBoxLayout(self.frame_CommandButton)
+        self.verticalLayout_6.setContentsMargins(4, 4, 4, 4)
+        self.verticalLayout_6.setSpacing(0)
+        self.verticalLayout_6.setObjectName("verticalLayout_6")
+        self.layout_buttonContainer = QtWidgets.QGridLayout()
+        self.layout_buttonContainer.setSpacing(4)
+        self.layout_buttonContainer.setObjectName("layout_buttonContainer")
+        self.verticalLayout_6.addLayout(self.layout_buttonContainer)
+        self.verticalLayout_18.addWidget(self.frame_CommandButton)
+        self.verticalLayout_7.addWidget(self.frame_secondaryAndButtonContainer)
+        spacerItem6 = QtWidgets.QSpacerItem(20, 152, QtWidgets.QSizePolicy.Minimum, QtWidgets.QSizePolicy.Expanding)
+        self.verticalLayout_7.addItem(spacerItem6)
+        self.scrollArea_SideBar.setWidget(self.scrollAreaWidgetContents)
+        self.verticalLayout_3.addWidget(self.scrollArea_SideBar)
+        self.frame_connectionDropDown = QtWidgets.QFrame(self.frame_LeftSideBar)
+        self.frame_connectionDropDown.setMaximumSize(QtCore.QSize(16777215, 70))
+        self.frame_connectionDropDown.setFrameShape(QtWidgets.QFrame.NoFrame)
+        self.frame_connectionDropDown.setFrameShadow(QtWidgets.QFrame.Raised)
+        self.frame_connectionDropDown.setLineWidth(0)
+        self.frame_connectionDropDown.setObjectName("frame_connectionDropDown")
+        self.verticalLayout_4 = QtWidgets.QVBoxLayout(self.frame_connectionDropDown)
+        self.verticalLayout_4.setContentsMargins(0, 0, 0, 0)
+        self.verticalLayout_4.setSpacing(4)
+        self.verticalLayout_4.setObjectName("verticalLayout_4")
+        self.line_2 = QtWidgets.QFrame(self.frame_connectionDropDown)
+        self.line_2.setMinimumSize(QtCore.QSize(0, 1))
+        self.line_2.setMaximumSize(QtCore.QSize(16777215, 1))
+        self.line_2.setFrameShadow(QtWidgets.QFrame.Plain)
+        self.line_2.setFrameShape(QtWidgets.QFrame.HLine)
+        self.line_2.setObjectName("line_2")
+        self.verticalLayout_4.addWidget(self.line_2)
+        self.frame_connectionOptions = QtWidgets.QFrame(self.frame_connectionDropDown)
+        self.frame_connectionOptions.setFrameShape(QtWidgets.QFrame.NoFrame)
+        self.frame_connectionOptions.setFrameShadow(QtWidgets.QFrame.Raised)
+        self.frame_connectionOptions.setObjectName("frame_connectionOptions")
+        self.horizontalLayout_4 = QtWidgets.QHBoxLayout(self.frame_connectionOptions)
+        self.horizontalLayout_4.setContentsMargins(0, 0, 0, 0)
+        self.horizontalLayout_4.setSpacing(4)
+        self.horizontalLayout_4.setObjectName("horizontalLayout_4")
+        self.cb_bauds = QtWidgets.QComboBox(self.frame_connectionOptions)
+        self.cb_bauds.setMinimumSize(QtCore.QSize(72, 27))
+        self.cb_bauds.setMaximumSize(QtCore.QSize(1000, 27))
+        self.cb_bauds.setCursor(QtGui.QCursor(QtCore.Qt.PointingHandCursor))
+        self.cb_bauds.setObjectName("cb_bauds")
+        self.horizontalLayout_4.addWidget(self.cb_bauds)
+        self.cb_ports = QtWidgets.QComboBox(self.frame_connectionOptions)
+        self.cb_ports.setMinimumSize(QtCore.QSize(72, 27))
+        self.cb_ports.setMaximumSize(QtCore.QSize(1000, 27))
+        self.cb_ports.setCursor(QtGui.QCursor(QtCore.Qt.PointingHandCursor))
+        self.cb_ports.setObjectName("cb_ports")
+        self.horizontalLayout_4.addWidget(self.cb_ports)
+        self.btn_toggleAutoReconnection = QtWidgets.QPushButton(self.frame_connectionOptions)
+        self.btn_toggleAutoReconnection.setMinimumSize(QtCore.QSize(47, 27))
+        self.btn_toggleAutoReconnection.setMaximumSize(QtCore.QSize(47, 27))
+        self.btn_toggleAutoReconnection.setCursor(QtGui.QCursor(QtCore.Qt.PointingHandCursor))
+        self.btn_toggleAutoReconnection.setText("")
+        icon2 = QtGui.QIcon()
+        icon2.addPixmap(QtGui.QPixmap(":/icons/icons/plug_volt.png"), QtGui.QIcon.Normal, QtGui.QIcon.Off)
+        self.btn_toggleAutoReconnection.setIcon(icon2)
+        self.btn_toggleAutoReconnection.setIconSize(QtCore.QSize(14, 14))
+        self.btn_toggleAutoReconnection.setCheckable(True)
+        self.btn_toggleAutoReconnection.setChecked(False)
+        self.btn_toggleAutoReconnection.setObjectName("btn_toggleAutoReconnection")
+        self.horizontalLayout_4.addWidget(self.btn_toggleAutoReconnection)
+        self.verticalLayout_4.addWidget(self.frame_connectionOptions)
+        self.btn_connectBtn = QtWidgets.QPushButton(self.frame_connectionDropDown)
+        self.btn_connectBtn.setMinimumSize(QtCore.QSize(0, 32))
+        self.btn_connectBtn.setMaximumSize(QtCore.QSize(16777215, 32))
+        self.btn_connectBtn.setCursor(QtGui.QCursor(QtCore.Qt.PointingHandCursor))
+        self.btn_connectBtn.setCheckable(True)
+        self.btn_connectBtn.setObjectName("btn_connectBtn")
+        self.verticalLayout_4.addWidget(self.btn_connectBtn)
+        spacerItem7 = QtWidgets.QSpacerItem(20, 40, QtWidgets.QSizePolicy.Minimum, QtWidgets.QSizePolicy.Expanding)
+        self.verticalLayout_4.addItem(spacerItem7)
+        self.verticalLayout_3.addWidget(self.frame_connectionDropDown)
+        self.line = QtWidgets.QFrame(self.frame_LeftSideBar)
+        self.line.setMinimumSize(QtCore.QSize(0, 1))
+        self.line.setMaximumSize(QtCore.QSize(16777215, 1))
+        self.line.setFrameShadow(QtWidgets.QFrame.Plain)
+        self.line.setLineWidth(0)
+        self.line.setFrameShape(QtWidgets.QFrame.HLine)
+        self.line.setObjectName("line")
+        self.verticalLayout_3.addWidget(self.line)
+        self.frame_mainControls = QtWidgets.QFrame(self.frame_LeftSideBar)
+        self.frame_mainControls.setMinimumSize(QtCore.QSize(0, 38))
+        self.frame_mainControls.setMaximumSize(QtCore.QSize(16777215, 38))
+        self.frame_mainControls.setFrameShape(QtWidgets.QFrame.NoFrame)
+        self.frame_mainControls.setFrameShadow(QtWidgets.QFrame.Raised)
+        self.frame_mainControls.setLineWidth(0)
+        self.frame_mainControls.setObjectName("frame_mainControls")
+        self.horizontalLayout_3 = QtWidgets.QHBoxLayout(self.frame_mainControls)
+        self.horizontalLayout_3.setContentsMargins(0, 0, 0, 0)
+        self.horizontalLayout_3.setSpacing(4)
+        self.horizontalLayout_3.setObjectName("horizontalLayout_3")
+        self.btn_smallModeTogle = QtWidgets.QPushButton(self.frame_mainControls)
+        self.btn_smallModeTogle.setMinimumSize(QtCore.QSize(58, 38))
+        self.btn_smallModeTogle.setMaximumSize(QtCore.QSize(16777215, 38))
+        self.btn_smallModeTogle.setCursor(QtGui.QCursor(QtCore.Qt.PointingHandCursor))
+        self.btn_smallModeTogle.setText("")
+        icon3 = QtGui.QIcon()
+        icon3.addPixmap(QtGui.QPixmap(":/icons/icons/arrow_left.png"), QtGui.QIcon.Normal, QtGui.QIcon.Off)
+        self.btn_smallModeTogle.setIcon(icon3)
+        self.btn_smallModeTogle.setCheckable(True)
+        self.btn_smallModeTogle.setObjectName("btn_smallModeTogle")
+        self.horizontalLayout_3.addWidget(self.btn_smallModeTogle)
+        self.btn_preferencesToggle = QtWidgets.QPushButton(self.frame_mainControls)
+        self.btn_preferencesToggle.setMinimumSize(QtCore.QSize(58, 38))
+        self.btn_preferencesToggle.setMaximumSize(QtCore.QSize(16777215, 38))
+        self.btn_preferencesToggle.setCursor(QtGui.QCursor(QtCore.Qt.PointingHandCursor))
+        self.btn_preferencesToggle.setText("")
+        icon4 = QtGui.QIcon()
+        icon4.addPixmap(QtGui.QPixmap(":/icons/icons/preferences.png"), QtGui.QIcon.Normal, QtGui.QIcon.Off)
+        self.btn_preferencesToggle.setIcon(icon4)
+        self.btn_preferencesToggle.setCheckable(False)
+        self.btn_preferencesToggle.setObjectName("btn_preferencesToggle")
+        self.horizontalLayout_3.addWidget(self.btn_preferencesToggle)
+        self.btn_connectionDroDown = QtWidgets.QPushButton(self.frame_mainControls)
+        self.btn_connectionDroDown.setMinimumSize(QtCore.QSize(58, 38))
+        self.btn_connectionDroDown.setMaximumSize(QtCore.QSize(16777215, 38))
+        self.btn_connectionDroDown.setCursor(QtGui.QCursor(QtCore.Qt.PointingHandCursor))
+        self.btn_connectionDroDown.setText("")
+        icon5 = QtGui.QIcon()
+        icon5.addPixmap(QtGui.QPixmap(":/icons/icons/plug.png"), QtGui.QIcon.Normal, QtGui.QIcon.Off)
+        self.btn_connectionDroDown.setIcon(icon5)
+        self.btn_connectionDroDown.setCheckable(True)
+        self.btn_connectionDroDown.setChecked(True)
+        self.btn_connectionDroDown.setObjectName("btn_connectionDroDown")
+        self.horizontalLayout_3.addWidget(self.btn_connectionDroDown)
+        self.verticalLayout_3.addWidget(self.frame_mainControls)
+        self.horizontalLayout_2.addWidget(self.frame_LeftSideBar)
+        self.frame_dsahboardGraph = QtWidgets.QFrame(self.page_centralDashboard)
+        self.frame_dsahboardGraph.setFrameShape(QtWidgets.QFrame.NoFrame)
+        self.frame_dsahboardGraph.setFrameShadow(QtWidgets.QFrame.Raised)
+        self.frame_dsahboardGraph.setLineWidth(0)
+        self.frame_dsahboardGraph.setObjectName("frame_dsahboardGraph")
+        self.verticalLayout_15 = QtWidgets.QVBoxLayout(self.frame_dsahboardGraph)
+        self.verticalLayout_15.setContentsMargins(0, 0, 0, 0)
+        self.verticalLayout_15.setSpacing(0)
+        self.verticalLayout_15.setObjectName("verticalLayout_15")
+        self.splitter = QtWidgets.QSplitter(self.frame_dsahboardGraph)
+        self.splitter.setOrientation(QtCore.Qt.Vertical)
+        self.splitter.setOpaqueResize(False)
+        self.splitter.setHandleWidth(0)
+        self.splitter.setObjectName("splitter")
+        self.verticalLayoutWidget_2 = QtWidgets.QWidget(self.splitter)
+        self.verticalLayoutWidget_2.setObjectName("verticalLayoutWidget_2")
+        self.layout_Graphs = QtWidgets.QVBoxLayout(self.verticalLayoutWidget_2)
+        self.layout_Graphs.setContentsMargins(0, 0, 0, 1)
+        self.layout_Graphs.setSpacing(4)
+        self.layout_Graphs.setObjectName("layout_Graphs")
+        self.frame_graphContainer = QtWidgets.QFrame(self.verticalLayoutWidget_2)
+        self.frame_graphContainer.setMinimumSize(QtCore.QSize(0, 350))
+        self.frame_graphContainer.setFrameShape(QtWidgets.QFrame.NoFrame)
+        self.frame_graphContainer.setFrameShadow(QtWidgets.QFrame.Raised)
+        self.frame_graphContainer.setObjectName("frame_graphContainer")
+        self.verticalLayout_19 = QtWidgets.QVBoxLayout(self.frame_graphContainer)
+        self.verticalLayout_19.setContentsMargins(2, 2, 2, 2)
+        self.verticalLayout_19.setSpacing(0)
+        self.verticalLayout_19.setObjectName("verticalLayout_19")
+        self.layout_graphContainer = QtWidgets.QGridLayout()
+        self.layout_graphContainer.setSpacing(4)
+        self.layout_graphContainer.setObjectName("layout_graphContainer")
+        self.verticalLayout_19.addLayout(self.layout_graphContainer)
+        self.layout_Graphs.addWidget(self.frame_graphContainer)
+        self.verticalLayoutWidget = QtWidgets.QWidget(self.splitter)
+        self.verticalLayoutWidget.setObjectName("verticalLayoutWidget")
+        self.layout_terminalContainer = QtWidgets.QVBoxLayout(self.verticalLayoutWidget)
+        self.layout_terminalContainer.setContentsMargins(0, 1, 0, 0)
+        self.layout_terminalContainer.setSpacing(0)
+        self.layout_terminalContainer.setObjectName("layout_terminalContainer")
+        self.frame_terminalContainer = QtWidgets.QFrame(self.verticalLayoutWidget)
+        self.frame_terminalContainer.setMinimumSize(QtCore.QSize(0, 104))
+        self.frame_terminalContainer.setFrameShape(QtWidgets.QFrame.NoFrame)
+        self.frame_terminalContainer.setFrameShadow(QtWidgets.QFrame.Raised)
+        self.frame_terminalContainer.setObjectName("frame_terminalContainer")
+        self.verticalLayout_13 = QtWidgets.QVBoxLayout(self.frame_terminalContainer)
+        self.verticalLayout_13.setContentsMargins(4, 4, 4, 4)
+        self.verticalLayout_13.setSpacing(4)
+        self.verticalLayout_13.setObjectName("verticalLayout_13")
+        self.textBrowser_terminal = QtWidgets.QTextBrowser(self.frame_terminalContainer)
+        self.textBrowser_terminal.viewport().setProperty("cursor", QtGui.QCursor(QtCore.Qt.IBeamCursor))
+        self.textBrowser_terminal.setFrameShape(QtWidgets.QFrame.Box)
+        self.textBrowser_terminal.setHorizontalScrollBarPolicy(QtCore.Qt.ScrollBarAlwaysOff)
+        self.textBrowser_terminal.setAutoFormatting(QtWidgets.QTextEdit.AutoNone)
+        self.textBrowser_terminal.setOpenExternalLinks(True)
+        self.textBrowser_terminal.setObjectName("textBrowser_terminal")
+        self.verticalLayout_13.addWidget(self.textBrowser_terminal)
+        self.frame_MessageSender = QtWidgets.QFrame(self.frame_terminalContainer)
+        self.frame_MessageSender.setMinimumSize(QtCore.QSize(0, 35))
+        self.frame_MessageSender.setMaximumSize(QtCore.QSize(16777215, 35))
+        self.frame_MessageSender.setFrameShape(QtWidgets.QFrame.NoFrame)
+        self.frame_MessageSender.setFrameShadow(QtWidgets.QFrame.Raised)
+        self.frame_MessageSender.setObjectName("frame_MessageSender")
+        self.horizontalLayout_6 = QtWidgets.QHBoxLayout(self.frame_MessageSender)
+        self.horizontalLayout_6.setContentsMargins(3, 0, 3, 0)
+        self.horizontalLayout_6.setSpacing(4)
+        self.horizontalLayout_6.setObjectName("horizontalLayout_6")
+        self.btn_clearTerminal = QtWidgets.QPushButton(self.frame_MessageSender)
+        self.btn_clearTerminal.setMinimumSize(QtCore.QSize(30, 27))
+        self.btn_clearTerminal.setMaximumSize(QtCore.QSize(30, 27))
+        self.btn_clearTerminal.setCursor(QtGui.QCursor(QtCore.Qt.PointingHandCursor))
+        self.btn_clearTerminal.setText("")
+        icon6 = QtGui.QIcon()
+        icon6.addPixmap(QtGui.QPixmap(":/icons/icons/bin.png"), QtGui.QIcon.Normal, QtGui.QIcon.Off)
+        self.btn_clearTerminal.setIcon(icon6)
+        self.btn_clearTerminal.setIconSize(QtCore.QSize(12, 12))
+        self.btn_clearTerminal.setObjectName("btn_clearTerminal")
+        self.horizontalLayout_6.addWidget(self.btn_clearTerminal)
+        self.terminal_input = QtWidgets.QLineEdit(self.frame_MessageSender)
+        self.terminal_input.setMinimumSize(QtCore.QSize(0, 35))
+        self.terminal_input.setMaximumSize(QtCore.QSize(16777215, 35))
+        self.terminal_input.setObjectName("terminal_input")
+        self.horizontalLayout_6.addWidget(self.terminal_input)
+        self.btn_terminalSend = QtWidgets.QPushButton(self.frame_MessageSender)
+        self.btn_terminalSend.setMinimumSize(QtCore.QSize(30, 27))
+        self.btn_terminalSend.setMaximumSize(QtCore.QSize(30, 27))
+        self.btn_terminalSend.setCursor(QtGui.QCursor(QtCore.Qt.PointingHandCursor))
+        self.btn_terminalSend.setText("")
+        icon7 = QtGui.QIcon()
+        icon7.addPixmap(QtGui.QPixmap(":/icons/icons/send.png"), QtGui.QIcon.Normal, QtGui.QIcon.Off)
+        self.btn_terminalSend.setIcon(icon7)
+        self.btn_terminalSend.setIconSize(QtCore.QSize(12, 12))
+        self.btn_terminalSend.setObjectName("btn_terminalSend")
+        self.horizontalLayout_6.addWidget(self.btn_terminalSend)
+        self.verticalLayout_13.addWidget(self.frame_MessageSender)
+        self.layout_terminalContainer.addWidget(self.frame_terminalContainer)
+        self.verticalLayout_15.addWidget(self.splitter)
+        self.horizontalLayout_2.addWidget(self.frame_dsahboardGraph)
         self.stackedWidget_central.addWidget(self.page_centralDashboard)
         self.verticalLayout_2.addWidget(self.stackedWidget_central)
         self.statusBarFrame = QtWidgets.QFrame(self.centralFrame)
@@ -80,17 +820,38 @@ class Ui_MainWindow(object):
         self.label_statusBar = QtWidgets.QLabel(self.statusBarFrame)
         self.label_statusBar.setObjectName("label_statusBar")
         self.horizontalLayout.addWidget(self.label_statusBar)
-        spacerItem = QtWidgets.QSpacerItem(933, 13, QtWidgets.QSizePolicy.Expanding, QtWidgets.QSizePolicy.Minimum)
-        self.horizontalLayout.addItem(spacerItem)
+        spacerItem8 = QtWidgets.QSpacerItem(933, 13, QtWidgets.QSizePolicy.Expanding, QtWidgets.QSizePolicy.Minimum)
+        self.horizontalLayout.addItem(spacerItem8)
         self.verticalLayout_2.addWidget(self.statusBarFrame)
         self.verticalLayout.addWidget(self.centralFrame)
         MainWindow.setCentralWidget(self.centralwidget)
 
         self.retranslateUi(MainWindow)
+        self.stackedWidget_central.setCurrentIndex(2)
         QtCore.QMetaObject.connectSlotsByName(MainWindow)
 
     def retranslateUi(self, MainWindow):
         _translate = QtCore.QCoreApplication.translate
         MainWindow.setWindowTitle(_translate("MainWindow", "MainWindow"))
+        self.label_loadingDots.setText(_translate("MainWindow", "..."))
+        self.btn_goBackHome.setText(_translate("MainWindow", "GO BACK"))
+        self.btn_reloadWIndow.setText(_translate("MainWindow", "RELOAD WINDOW"))
+        self.btn_openDashboardEditor.setText(_translate("MainWindow", "OPEN DASHBOARD EDITOR"))
+        self.btn_missionDisplay.setText(_translate("MainWindow", "NO MISSION ACTIVE"))
+        self.btn_toggleRecordings.setText(_translate("MainWindow", "  TOGGLE RECS"))
+        self.btn_toggleCloudBackup.setText(_translate("MainWindow", "  CLOUD BACKUP"))
+        self.label_state.setText(_translate("MainWindow", "N/A"))
+        self.btn_countdown.setText(_translate("MainWindow", "T- 00:00:00.0"))
+        self.cb_bauds.setToolTip(_translate("MainWindow", "Baud Speed Option"))
+        self.cb_bauds.setPlaceholderText(_translate("MainWindow", "N/A"))
+        self.cb_ports.setToolTip(_translate("MainWindow", "Port Options"))
+        self.cb_ports.setPlaceholderText(_translate("MainWindow", "N/A"))
+        self.btn_toggleAutoReconnection.setToolTip(_translate("MainWindow", "Toggle Auto Reconnection"))
+        self.btn_connectBtn.setToolTip(_translate("MainWindow", "Connect Via Serial"))
+        self.btn_connectBtn.setText(_translate("MainWindow", "CONNECT"))
+        self.btn_smallModeTogle.setToolTip(_translate("MainWindow", "Toggle Small Mode"))
+        self.btn_preferencesToggle.setToolTip(_translate("MainWindow", "Go To Preferences"))
+        self.btn_connectionDroDown.setToolTip(_translate("MainWindow", "Toggle The Connection Menu"))
+        self.terminal_input.setPlaceholderText(_translate("MainWindow", "Type here a message to send to the serial port"))
         self.label_statusBar.setText(_translate("MainWindow", "Version"))
 from ..generated_files import src_rc
