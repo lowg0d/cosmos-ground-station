@@ -209,32 +209,45 @@ class Ui_MainWindow(object):
 "\n"
 "\n"
 "/** DROP COMBO BOX **/\n"
-"#frame_connectionDropDown QComboBox{\n"
+"#frame_connectionDropDown QComboBox {\n"
 "    font: 500 8pt \"Video Med\";\n"
 "    padding-left: 5px;\n"
 "    border-radius: 4px;\n"
-"    color: #808183; \n"
+"    color: #808183;\n"
 "    border: 1px solid #2b2d30;\n"
 "}\n"
-"#frame_connectionDropDown QComboBox:hover{\n"
-"    background-color: #32313e;\n"
+"\n"
+"#frame_connectionDropDown QComboBox:hover {\n"
+"    background-color: #1a1b1f;\n"
 "}\n"
-"#frame_connectionDropDown QComboBox:drop-down{\n"
-"    border:0px;\n"
+"\n"
+"#frame_connectionDropDown QComboBox:drop-down {\n"
+"    border: 0px;\n"
 "}\n"
-"#frame_connectionDropDown QComboBox QAbstractItem{\n"
-"    selection-background-color:  none;\n"
+"\n"
+"#frame_connectionDropDown QComboBox QAbstractItem {\n"
+"    padding: 4px 8px;\n"
+"    border-radius: 4px;\n"
+"    selection-background-color: none;\n"
 "    border: none;\n"
 "}\n"
+"#frame_connectionDropDown QComboBox QAbstractItem:item {\n"
+"    padding: 4px 8px;\n"
+"    border-radius: 4px;\n"
+"}\n"
+"\n"
 "#frame_connectionDropDown QComboBox QAbstractItemView::item:selected {\n"
-"    border-radius: 1px;\n"
 "    border: none;\n"
 "    background-color: #6357a4;\n"
 "}\n"
-"#frame_connectionDropDown QListView{\n"
-"     border: 1px solid #2b2d30;\n"
+"\n"
+"#frame_connectionDropDown QListView {\n"
+"    border-radius: 4px;\n"
+"    border: 1px solid #2b2d30;\n"
 "    background-color: #12141a;\n"
+"    outline: none;\n"
 "}\n"
+"\n"
 "\n"
 "/* WINDOW CONTROL BUTTONS */\n"
 "#frame_mainControls QPushButton:checked{\n"
@@ -257,12 +270,15 @@ class Ui_MainWindow(object):
 "#textBrowser_terminal {\n"
 "    padding-left: 4px;\n"
 "    color: #808183;\n"
-"    border: 1px solid #373a3e;\n"
 "    text-align: left;\n"
 "    font: 500 10pt \"Video Med\";\n"
-"    border-radius: 4px;\n"
 "    selection-color: #ffffff;\n"
 "    selection-background-color:#6357a3;\n"
+"    border: none;\n"
+"}\n"
+"#frame_terminalTextBrowserContainer {\n"
+"    border-radius: 4px;\n"
+"    border: 1px solid #373a3e;\n"
 "}\n"
 "\n"
 "/* LINE EDIT */\n"
@@ -280,6 +296,45 @@ class Ui_MainWindow(object):
 "#frame_MessageSender QLineEdit:focus {\n"
 "    color: #808183;\n"
 "}\n"
+"\n"
+"/*SCROLLBAR*/\n"
+"/*SCROLLBARS*/\n"
+"QScrollBar{\n"
+"    margin: 3px 0px 3px 3px;\n"
+"    border: 0;\n"
+"    border-radius: 4px;\n"
+"    width: 15px;\n"
+"}\n"
+"QScrollBar::handle::vertical{\n"
+"    border-radius: 3px;\n"
+"    background-color: #282A2E;\n"
+"    min-height: 20px;\n"
+"}\n"
+"QScrollBar::handle::vertical:hover {\n"
+"    border-radius: 3px;\n"
+"    background-color: #535558;\n"
+"    min-height: 20px;\n"
+"}\n"
+"QScrollBar::sub-line {\n"
+"    border: none;\n"
+"    height: 0;\n"
+"}\n"
+"QScrollBar::sub-line:vertical {\n"
+"    border: none;\n"
+"    height: 0;\n"
+"}\n"
+"QScrollBar::add-line:vertical {\n"
+"    border: none;\n"
+"    height: 0;\n"
+"}\n"
+"QScrollBar::up-arrow:vertical, QScrollBar::down-arrow:vertical {\n"
+"    background: none;\n"
+"}\n"
+"QScrollBar::add-page:vertical, QScrollBar::sub-page:vertical {\n"
+"    background: none;\n"
+"}\n"
+"\n"
+"\n"
 "\n"
 "/* SEPARATOR LINES */\n"
 "#line,\n"
@@ -748,7 +803,7 @@ class Ui_MainWindow(object):
         self.layout_terminalContainer.setSpacing(0)
         self.layout_terminalContainer.setObjectName("layout_terminalContainer")
         self.frame_terminalContainer = QtWidgets.QFrame(self.verticalLayoutWidget)
-        self.frame_terminalContainer.setMinimumSize(QtCore.QSize(0, 104))
+        self.frame_terminalContainer.setMinimumSize(QtCore.QSize(0, 100))
         self.frame_terminalContainer.setFrameShape(QtWidgets.QFrame.NoFrame)
         self.frame_terminalContainer.setFrameShadow(QtWidgets.QFrame.Raised)
         self.frame_terminalContainer.setObjectName("frame_terminalContainer")
@@ -756,14 +811,23 @@ class Ui_MainWindow(object):
         self.verticalLayout_13.setContentsMargins(4, 4, 4, 4)
         self.verticalLayout_13.setSpacing(4)
         self.verticalLayout_13.setObjectName("verticalLayout_13")
-        self.textBrowser_terminal = QtWidgets.QTextBrowser(self.frame_terminalContainer)
+        self.frame_terminalTextBrowserContainer = QtWidgets.QFrame(self.frame_terminalContainer)
+        self.frame_terminalTextBrowserContainer.setFrameShape(QtWidgets.QFrame.Box)
+        self.frame_terminalTextBrowserContainer.setFrameShadow(QtWidgets.QFrame.Raised)
+        self.frame_terminalTextBrowserContainer.setObjectName("frame_terminalTextBrowserContainer")
+        self.verticalLayout_20 = QtWidgets.QVBoxLayout(self.frame_terminalTextBrowserContainer)
+        self.verticalLayout_20.setContentsMargins(1, 1, 3, 1)
+        self.verticalLayout_20.setSpacing(0)
+        self.verticalLayout_20.setObjectName("verticalLayout_20")
+        self.textBrowser_terminal = QtWidgets.QTextBrowser(self.frame_terminalTextBrowserContainer)
         self.textBrowser_terminal.viewport().setProperty("cursor", QtGui.QCursor(QtCore.Qt.IBeamCursor))
         self.textBrowser_terminal.setFrameShape(QtWidgets.QFrame.Box)
         self.textBrowser_terminal.setHorizontalScrollBarPolicy(QtCore.Qt.ScrollBarAlwaysOff)
         self.textBrowser_terminal.setAutoFormatting(QtWidgets.QTextEdit.AutoNone)
         self.textBrowser_terminal.setOpenExternalLinks(True)
         self.textBrowser_terminal.setObjectName("textBrowser_terminal")
-        self.verticalLayout_13.addWidget(self.textBrowser_terminal)
+        self.verticalLayout_20.addWidget(self.textBrowser_terminal)
+        self.verticalLayout_13.addWidget(self.frame_terminalTextBrowserContainer)
         self.frame_MessageSender = QtWidgets.QFrame(self.frame_terminalContainer)
         self.frame_MessageSender.setMinimumSize(QtCore.QSize(0, 35))
         self.frame_MessageSender.setMaximumSize(QtCore.QSize(16777215, 35))
@@ -852,6 +916,11 @@ class Ui_MainWindow(object):
         self.btn_smallModeTogle.setToolTip(_translate("MainWindow", "Toggle Small Mode"))
         self.btn_preferencesToggle.setToolTip(_translate("MainWindow", "Go To Preferences"))
         self.btn_connectionDroDown.setToolTip(_translate("MainWindow", "Toggle The Connection Menu"))
+        self.textBrowser_terminal.setHtml(_translate("MainWindow", "<!DOCTYPE HTML PUBLIC \"-//W3C//DTD HTML 4.0//EN\" \"http://www.w3.org/TR/REC-html40/strict.dtd\">\n"
+"<html><head><meta name=\"qrichtext\" content=\"1\" /><style type=\"text/css\">\n"
+"p, li { white-space: pre-wrap; }\n"
+"</style></head><body style=\" font-family:\'Video Med\'; font-size:10pt; font-weight:504; font-style:normal;\">\n"
+"<p style=\"-qt-paragraph-type:empty; margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;\"><br /></p></body></html>"))
         self.terminal_input.setPlaceholderText(_translate("MainWindow", "Type here a message to send to the serial port"))
         self.label_statusBar.setText(_translate("MainWindow", "Version"))
 from ..generated_files import src_rc

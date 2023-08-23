@@ -16,6 +16,24 @@
 #
 #############################################################
 
+######################### Xnxe9 <3? #########################
+#
+#   .o88b.  .d88b.  .d8888. .88b  d88.  .d88b.  .d8888.
+#  d8P  Y8 .8P  Y8. 88'  YP 88'YbdP`88 .8P  Y8. 88'  YP
+#  8P      88    88 `8bo.   88  88  88 88    88 `8bo.
+#  8b      88    88   `Y8b. 88  88  88 88    88   `Y8b.
+#  Y8b  d8 `8b  d8' db   8D 88  88  88 `8b  d8' db   8D
+#   `Y88P'  `Y88P'  `8888Y' YP  YP  YP  `Y88P'  `8888Y'
+#
+# ★ StarLab RPL - COSMOS GROUND STATION ★
+# Communications and Observation Station for Mission Operations and Surveillance
+#
+# By Martin Ortiz
+# Version 1.0.0
+# Date 06.08.2023
+#
+#############################################################
+
 
 import json
 
@@ -79,10 +97,33 @@ class PreferenceModel:
 
         current[keys[-1]] = new_value
         with open(path, "w") as file:
-            json.dump(path_data, file, indent=4)
+            json.dump(path_data, file, indent=2)
 
     def get_preference(self, data_key):
-        pass
+        path = PATHS[PREFERENCES_PATH]
+        path_data = self.load_file(path)
+        keys = (data_key + ".value").split(".")
+
+        for key in keys:
+            if key not in path_data:
+                exit(f"[{data_key} ({key})] is not a valid key")
+
+            path_data = path_data[key]
+
+        return path_data
 
     def update_preference(self, data_key, new_value):
-        pass
+        path = PATHS[PREFERENCES_PATH]
+        path_data = self.load_file(path)
+        current = path_data
+        keys = (data_key + ".value").split(".")
+
+        for key in keys[:-1]:
+            if key not in current:
+                exit(f"[{data_key} ({key})] is not a valid key")
+
+            current = current[key]
+            
+        current[keys[-1]] = new_value
+        with open(path, "w") as file:
+            json.dump(path_data, file, indent=2)

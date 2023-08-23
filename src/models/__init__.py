@@ -17,3 +17,4 @@
 #############################################################
 
 from .preferences import PreferenceModel
+from .serial import SerialModel

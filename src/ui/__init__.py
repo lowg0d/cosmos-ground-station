@@ -17,5 +17,4 @@
 #############################################################
 
 from .generated_files.mainWindow import Ui_MainWindow
-
 from .custom_widgets.titleBar import CustomTitleBar

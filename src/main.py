@@ -34,14 +34,13 @@
 #
 #############################################################
 
-
 from PyQt5.QtCore import Qt
 from PyQt5.QtWidgets import QShortcut
 from PyQt5.QtGui import QIcon, QKeySequence
 from qframelesswindow import FramelessMainWindow
 
 from src.models import PreferenceModel
-from src.controllers import WindowController
+from src.controllers import WindowController, ConnectionController, TerminalController
 
 from src.ui import Ui_MainWindow, CustomTitleBar
 
@@ -62,6 +61,8 @@ class MainWindow(FramelessMainWindow):
         # load preferences
         self.preferences = PreferenceModel()
         self.window_controller = WindowController(self)
+        self.terminal_controller = TerminalController(self)
+        self.connection_controller = ConnectionController(self)
 
         # get the application information
         self.name = self.preferences.get("name")
@@ -90,9 +91,15 @@ class MainWindow(FramelessMainWindow):
         """
         connect all the signas of the components to the controllers
         """
+        ## SIGNALS
+        self.connection_controller.serial_model.write_to_terminal.connect(
+            self.terminal_controller.write
+        )
+
         ## WINDOW CONTROLLER
         shortcut = QShortcut(QKeySequence(Qt.Key_F11), self)
         shortcut.activated.connect(self.window_controller.toggle_fullscreen)
+
         self.ui.btn_smallModeTogle.clicked.connect(
             self.window_controller.toggle_small_mode
         )
@@ -105,3 +112,40 @@ class MainWindow(FramelessMainWindow):
         self.ui.btn_goBackHome.clicked.connect(
             self.window_controller.toggle_preferences_page
         )
+
+        # TERMINAL CONTROLLER
+        self.ui.btn_clearTerminal.clicked.connect(self.terminal_controller.clear)
+
+        # CONNECTION CONTROLLER
+        self.ui.btn_toggleAutoReconnection.clicked.connect(
+            self.connection_controller.toggle_auto_reconnect
+        )
+        self.ui.btn_connectBtn.clicked.connect(
+            self.connection_controller.connect_disconnect_action
+        )
+        self.ui.terminal_input.returnPressed.connect(
+            self.connection_controller.send_data_action
+        )
+        self.ui.btn_terminalSend.clicked.connect(
+            self.connection_controller.send_data_action
+        )
+
+        #
+        self.ui.btn_reloadWIndow.clicked.connect(self.reload_window)
+        self.ui.cb_bauds.currentIndexChanged.connect(self.on_bauds_changed)
+        self.ui.cb_ports.currentIndexChanged.connect(self.on_port_changed)
+
+    def reload_window(self):
+        """
+        Reload the window and start it again
+        """
+        self.close()
+        self.__init__()
+
+    def on_bauds_changed(self):
+        new_bauds = self.ui.cb_bauds.currentText()
+        self.preferences.update("HIDDEN.last_bauds", new_bauds, 1)
+
+    def on_port_changed(self):
+        new_port = self.ui.cb_ports.currentText()
+        self.preferences.update("HIDDEN.last_port", str(new_port), 1)

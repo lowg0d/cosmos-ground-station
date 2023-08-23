@@ -197,32 +197,45 @@ QToolTip {
 
 
 /** DROP COMBO BOX **/
-#frame_connectionDropDown QComboBox{
-	font: 500 8pt &quot;Video Med&quot;;
-	padding-left: 5px;
-	border-radius: 4px;
-	color: #808183; 
+#frame_connectionDropDown QComboBox {
+    font: 500 8pt &quot;Video Med&quot;;
+    padding-left: 5px;
+    border-radius: 4px;
+    color: #808183;
     border: 1px solid #2b2d30;
 }
-#frame_connectionDropDown QComboBox:hover{
-	background-color: #32313e;
+
+#frame_connectionDropDown QComboBox:hover {
+    background-color: #1a1b1f;
 }
-#frame_connectionDropDown QComboBox:drop-down{
-	border:0px;
+
+#frame_connectionDropDown QComboBox:drop-down {
+    border: 0px;
 }
-#frame_connectionDropDown QComboBox QAbstractItem{
-    selection-background-color:  none;
+
+#frame_connectionDropDown QComboBox QAbstractItem {
+    padding: 4px 8px;
+	border-radius: 4px;
+    selection-background-color: none;
     border: none;
 }
+#frame_connectionDropDown QComboBox QAbstractItem:item {
+    padding: 4px 8px;
+	border-radius: 4px;
+}
+
 #frame_connectionDropDown QComboBox QAbstractItemView::item:selected {
-	border-radius: 1px;
-	border: none;
-	background-color: #6357a4;
+    border: none;
+    background-color: #6357a4;
 }
-#frame_connectionDropDown QListView{
-     border: 1px solid #2b2d30;
+
+#frame_connectionDropDown QListView {
+    border-radius: 4px;
+    border: 1px solid #2b2d30;
     background-color: #12141a;
+    outline: none;
 }
+
 
 /* WINDOW CONTROL BUTTONS */
 #frame_mainControls QPushButton:checked{
@@ -245,12 +258,15 @@ QToolTip {
 #textBrowser_terminal {
 	padding-left: 4px;
 	color: #808183;
-	border: 1px solid #373a3e;
 	text-align: left;
 	font: 500 10pt &quot;Video Med&quot;;
-	border-radius: 4px;
 	selection-color: #ffffff;
 	selection-background-color:#6357a3;
+	border: none;
+}
+#frame_terminalTextBrowserContainer {
+	border-radius: 4px;
+	border: 1px solid #373a3e;
 }
 
 /* LINE EDIT */
@@ -268,6 +284,45 @@ QToolTip {
 #frame_MessageSender QLineEdit:focus {
 	color: #808183;
 }
+
+/*SCROLLBAR*/
+/*SCROLLBARS*/
+QScrollBar{
+	margin: 3px 0px 3px 3px;
+	border: 0;
+	border-radius: 4px;
+	width: 15px;
+}
+QScrollBar::handle::vertical{
+	border-radius: 3px;
+	background-color: #282A2E;
+	min-height: 20px;
+}
+QScrollBar::handle::vertical:hover {
+	border-radius: 3px;
+	background-color: #535558;
+	min-height: 20px;
+}
+QScrollBar::sub-line {
+	border: none;
+	height: 0;
+}
+QScrollBar::sub-line:vertical {
+	border: none;
+	height: 0;
+}
+QScrollBar::add-line:vertical {
+	border: none;
+	height: 0;
+}
+QScrollBar::up-arrow:vertical, QScrollBar::down-arrow:vertical {
+	background: none;
+}
+QScrollBar::add-page:vertical, QScrollBar::sub-page:vertical {
+	background: none;
+}
+
+
 
 /* SEPARATOR LINES */
 #line,
@@ -1725,7 +1780,7 @@ QToolTip {
                     <property name="minimumSize">
                      <size>
                       <width>0</width>
-                      <height>104</height>
+                      <height>100</height>
                      </size>
                     </property>
                     <property name="frameShape">
@@ -1751,22 +1806,56 @@ QToolTip {
                       <number>4</number>
                      </property>
                      <item>
-                      <widget class="QTextBrowser" name="textBrowser_terminal">
-                       <property name="cursor" stdset="0">
-                        <cursorShape>IBeamCursor</cursorShape>
-                       </property>
+                      <widget class="QFrame" name="frame_terminalTextBrowserContainer">
                        <property name="frameShape">
                         <enum>QFrame::Box</enum>
                        </property>
-                       <property name="horizontalScrollBarPolicy">
-                        <enum>Qt::ScrollBarAlwaysOff</enum>
+                       <property name="frameShadow">
+                        <enum>QFrame::Raised</enum>
                        </property>
-                       <property name="autoFormatting">
-                        <set>QTextEdit::AutoNone</set>
-                       </property>
-                       <property name="openExternalLinks">
-                        <bool>true</bool>
-                       </property>
+                       <layout class="QVBoxLayout" name="verticalLayout_20">
+                        <property name="spacing">
+                         <number>0</number>
+                        </property>
+                        <property name="leftMargin">
+                         <number>1</number>
+                        </property>
+                        <property name="topMargin">
+                         <number>1</number>
+                        </property>
+                        <property name="rightMargin">
+                         <number>3</number>
+                        </property>
+                        <property name="bottomMargin">
+                         <number>1</number>
+                        </property>
+                        <item>
+                         <widget class="QTextBrowser" name="textBrowser_terminal">
+                          <property name="cursor" stdset="0">
+                           <cursorShape>IBeamCursor</cursorShape>
+                          </property>
+                          <property name="frameShape">
+                           <enum>QFrame::Box</enum>
+                          </property>
+                          <property name="horizontalScrollBarPolicy">
+                           <enum>Qt::ScrollBarAlwaysOff</enum>
+                          </property>
+                          <property name="autoFormatting">
+                           <set>QTextEdit::AutoNone</set>
+                          </property>
+                          <property name="html">
+                           <string>&lt;!DOCTYPE HTML PUBLIC &quot;-//W3C//DTD HTML 4.0//EN&quot; &quot;http://www.w3.org/TR/REC-html40/strict.dtd&quot;&gt;
+&lt;html&gt;&lt;head&gt;&lt;meta name=&quot;qrichtext&quot; content=&quot;1&quot; /&gt;&lt;style type=&quot;text/css&quot;&gt;
+p, li { white-space: pre-wrap; }
+&lt;/style&gt;&lt;/head&gt;&lt;body style=&quot; font-family:'Video Med'; font-size:10pt; font-weight:504; font-style:normal;&quot;&gt;
+&lt;p style=&quot;-qt-paragraph-type:empty; margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;&quot;&gt;&lt;br /&gt;&lt;/p&gt;&lt;/body&gt;&lt;/html&gt;</string>
+                          </property>
+                          <property name="openExternalLinks">
+                           <bool>true</bool>
+                          </property>
+                         </widget>
+                        </item>
+                       </layout>
                       </widget>
                      </item>
                      <item>

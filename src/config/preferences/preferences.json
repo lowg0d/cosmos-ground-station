@@ -1,8 +1,28 @@
 {
-    "HIDDEN": {
-        "last_port": "COM3",
-        "last_bauds": "115200",
-        "auto_reConnect": true,
-        "small_mode": false
+  "packet": {
+    "signature_header": {
+      "name": "Packet Signature Header",
+      "description": "Header to identify valid data packets. Empty to disable.",
+      "preference_type": "edit_string",
+      "value": "@TARS_TLM:"
+    },
+    "split_char": {
+      "name": "Packet Split Char",
+      "description": "Chararcter that is used to separate values. Example: '123;321'",
+      "preference_type": "edit_string",
+      "value": ";"
+    },
+    "message_header": {
+      "name": "Message Signature Header",
+      "description": "Header for MESSAGE packets, put after signature header. Empty to disable.",
+      "preference_type": "edit_string",
+      "value": "@TARS_MSG:"
     }
+  },
+  "HIDDEN": {
+    "last_port": "COM4",
+    "last_bauds": "115200",
+    "auto_reConnect": true,
+    "small_mode": false
+  }
 }
