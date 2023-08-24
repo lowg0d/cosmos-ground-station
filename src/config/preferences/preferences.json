@@ -1,4 +1,12 @@
 {
+  "recordings": {
+    "path": {
+      "name": "Recording Save Folder",
+      "description": "The folder where recordings are saved.",
+      "preference_type": "select_folder",
+      "value": "./recordings"
+    }
+  },
   "packet": {
     "signature_header": {
       "name": "Packet Signature Header",

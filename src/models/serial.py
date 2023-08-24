@@ -16,6 +16,24 @@
 #
 #############################################################
 
+######################### Xnxe9 <3? #########################
+#
+#   .o88b.  .d88b.  .d8888. .88b  d88.  .d88b.  .d8888.
+#  d8P  Y8 .8P  Y8. 88'  YP 88'YbdP`88 .8P  Y8. 88'  YP
+#  8P      88    88 `8bo.   88  88  88 88    88 `8bo.
+#  8b      88    88   `Y8b. 88  88  88 88    88   `Y8b.
+#  Y8b  d8 `8b  d8' db   8D 88  88  88 `8b  d8' db   8D
+#   `Y88P'  `Y88P'  `8888Y' YP  YP  YP  `Y88P'  `8888Y'
+#
+# ★ StarLab RPL - COSMOS GROUND STATION ★
+# Communications and Observation Station for Mission Operations and Surveillance
+#
+# By Martin Ortiz
+# Version 1.0.0
+# Date 06.08.2023
+#
+#############################################################
+
 """
 This module provides a QObejct class, SerialModel, for managing
 serial communication with connected devices. It also includes a thread,
@@ -28,6 +46,7 @@ import serial.tools.list_ports as list_port_tool
 
 from PyQt5.QtCore import QObject, pyqtSignal, QThread
 
+from src.controllers.recordings import RecordingController
 
 class SerialModel(QObject):
     """
@@ -42,16 +61,16 @@ class SerialModel(QObject):
         super().__init__(parent)
 
         self.parent = parent
-        self.preferences = parent.parent.preferences
+        self.recording_model = None
 
         self.worker = None
         self.ser = serial.Serial(timeout=1)
 
         self.packet_header = str(
-            self.preferences.get_preference("packet.signature_header")
+            self.parent.parent.preferences.get_preference("packet.signature_header")
         )
         self.packet_split_char = str(
-            self.preferences.get_preference("packet.split_char")
+            self.parent.parent.preferences.get_preference("packet.split_char")
         )
 
         self.is_connected = False
@@ -117,23 +136,14 @@ class SerialModel(QObject):
     # THREAD
 
     def handle_thread_stop(self):
-        """
-        Handles stopping the thread if connected.
-        """
         if self.is_connected:
             self.parent.connect_disconnect_action()
 
     def start_read_thread(self):
-        """
-        Starts the serial read thread.
-        """
         self.worker = self.SerialReadThread(self)
         self.worker.start()
 
     def stop_read_thread(self):
-        """
-        Stops the serial read thread.
-        """
         self.worker.terminate()
 
     class SerialReadThread(QThread):

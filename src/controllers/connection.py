@@ -38,6 +38,7 @@ class ConnectionController(QObject):
         self.parent = parent
 
         self.serial_model = SerialModel(self)
+
         self.last_port_list = []
         self.current_selected_port = None
         self.reconnection_port = None
@@ -98,7 +99,6 @@ class ConnectionController(QObject):
 
         else:
             self.serial_model.update_ports()
-
 
     def update_ports_action(self):
         """

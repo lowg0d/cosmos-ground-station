@@ -34,13 +34,19 @@
 #
 #############################################################
 
+
 from PyQt5.QtCore import Qt
 from PyQt5.QtWidgets import QShortcut
 from PyQt5.QtGui import QIcon, QKeySequence
 from qframelesswindow import FramelessMainWindow
 
 from src.models import PreferenceModel
-from src.controllers import WindowController, ConnectionController, TerminalController
+from src.controllers import (
+    WindowController,
+    ConnectionController,
+    TerminalController,
+    RecordingController,
+)
 
 from src.ui import Ui_MainWindow, CustomTitleBar
 
@@ -62,6 +68,7 @@ class MainWindow(FramelessMainWindow):
         self.preferences = PreferenceModel()
         self.window_controller = WindowController(self)
         self.terminal_controller = TerminalController(self)
+        self.recording_controller = RecordingController(self)
         self.connection_controller = ConnectionController(self)
 
         # get the application information
@@ -111,6 +118,14 @@ class MainWindow(FramelessMainWindow):
         )
         self.ui.btn_goBackHome.clicked.connect(
             self.window_controller.toggle_preferences_page
+        )
+
+        # RECORDING CONTROLLER
+        self.ui.btn_toggleRecordings.clicked.connect(
+            self.recording_controller.toggle_recordings
+        )
+        self.ui.btn_toggleCloudBackup.clicked.connect(
+            self.recording_controller.toggle_cloud_backup
         )
 
         # TERMINAL CONTROLLER

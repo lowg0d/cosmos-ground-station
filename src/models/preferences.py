@@ -34,7 +34,6 @@
 #
 #############################################################
 
-
 import json
 
 from PyQt5.QtGui import *
@@ -123,7 +122,7 @@ class PreferenceModel:
                 exit(f"[{data_key} ({key})] is not a valid key")
 
             current = current[key]
-            
+
         current[keys[-1]] = new_value
         with open(path, "w") as file:
             json.dump(path_data, file, indent=2)

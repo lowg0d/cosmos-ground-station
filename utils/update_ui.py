@@ -1,36 +1,37 @@
 import os
+import sys
 
-ui_resources_dir = "./src/ui/resources"
-ui_files_dir = "./src/ui/desing_files"
-ui_scripts_dir = "./src/ui/generated_files"
-pyuic5_command = "pyuic5"
-pyrcc5_command = "pyrcc5"
+UI_RESOURCES_DIR = "./src/ui/resources"
+UI_FILES_DIR = "./src/ui/desing_files"
+UI_SCRIPTS_DIR = "./src/ui/generated_files"
+PYUIC5_COMMAND = "pyuic5"
+PYRCC5_COMMAND = "pyrcc5"
 
 
 def convert_ui():
+    """
+    Converts .ui files to .py files using pyuic5 command.
+    Modifies generated .py files to fix import statements.
+    Returns the total number of files converted.
+    """
     total_files = 0
-    
-    # Get a list of all .ui files in the ui_files directory
-    ui_files = [file for file in os.listdir(ui_files_dir) if file.endswith(".ui")]
-    # Loop through each .ui file and generate the corresponding .py file
+    ui_files = [file for file in os.listdir(UI_FILES_DIR) if file.endswith(".ui")]
     for ui_file in ui_files:
-        ui_file_path = os.path.join(ui_files_dir, ui_file)
+        ui_file_path = os.path.join(UI_FILES_DIR, ui_file)
         base_name = os.path.splitext(ui_file)[0]
-        py_script_path = os.path.join(ui_scripts_dir, f"{base_name}.py")
+        py_script_path = os.path.join(UI_SCRIPTS_DIR, f"{base_name}.py")
 
-        # Construct the pyuic5 command
-        command = f"{pyuic5_command} {ui_file_path} -o {py_script_path}"
-
-        # Run the command
+        command = f"{PYUIC5_COMMAND} {ui_file_path} -o {py_script_path}"
         os.system(command)
 
-        # Modify the generated .py file
         modified_lines = []
         with open(py_script_path, "r") as py_file:
             for line in py_file:
                 if "import src_rc" in line:
                     modified_lines.append(
-                        line.replace("import src_rc", "from ..generated_files import src_rc")
+                        line.replace(
+                            "import src_rc", "from ..generated_files import src_rc"
+                        )
                     )
                 else:
                     modified_lines.append(line)
@@ -43,35 +44,32 @@ def convert_ui():
 
 
 def convert_qrc():
-    # Get a list of all .ui files in the ui_files directory
-    qrc_files = [file for file in os.listdir(ui_resources_dir) if file.endswith(".qrc")]
-    # Loop through each .ui file and generate the corresponding .py file
+    """
+    Converts .qrc files to _rc.py files using pyrcc5 command.
+    """
+    qrc_files = [file for file in os.listdir(UI_RESOURCES_DIR) if file.endswith(".qrc")]
     for qrc_file in qrc_files:
-        ui_file_path = os.path.join(ui_resources_dir, qrc_file)
+        ui_file_path = os.path.join(UI_RESOURCES_DIR, qrc_file)
         base_name = os.path.splitext(qrc_file)[0]
-        py_script_path = os.path.join(ui_scripts_dir, f"{base_name}_rc.py")
+        py_script_path = os.path.join(UI_SCRIPTS_DIR, f"{base_name}_rc.py")
 
-        # Construct the pyuic5 command
-        command = f"{pyrcc5_command} {ui_file_path} -o {py_script_path}"
-        
+        command = f"{PYRCC5_COMMAND} {ui_file_path} -o {py_script_path}"
         os.system(command)
 
 
 if __name__ == "__main__":
-    print(f"[+] Converting... UI files.")
+    print("[+] Converting UI files...")
     try:
-        total_files = convert_ui()
+        total_ui_files = convert_ui()
+        print(f"[+] Converted {total_ui_files} UI files.")
     except Exception as e:
-        print("[-] error updating Ui files")
-        exit(e)
+        print("[-] Error updating UI files")
+        sys.exit(e)
 
-    print(f"[+] Converted {total_files} UI files.")
-    print(f"[+] Converting... QRC file")
-
+    print(f"[+] Converting QRC files...")
     try:
         convert_qrc()
+        print("[+] Converted QRC files.")
     except Exception as e:
-        print("[-] error convertin QRC files")
-        exit(e)
-
-    print(f"[+] Converted QRC file.")
+        print("[-] Error converting QRC files")
+        sys.exit(e)
