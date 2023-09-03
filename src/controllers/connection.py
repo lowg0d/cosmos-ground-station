@@ -37,7 +37,8 @@ class ConnectionController(QObject):
         super().__init__(parent)
         self.parent = parent
 
-        self.serial_model = SerialModel(self)
+        self.serial_model = self.parent.serial_model
+        self.data_handler_model = self.parent.data_handler_model
 
         self.last_port_list = []
         self.current_selected_port = None
@@ -135,14 +136,18 @@ class ConnectionController(QObject):
         """
         self.current_selected_port = self.parent.ui.cb_ports.currentText()
 
+        # Disconnect
         if self.serial_model.is_connected:
-            self.serial_model.close_serial()  # Disconnect
+            self.data_handler_model.stop_thread()
+
+            self.serial_model.close_serial()
 
             self.parent.window_controller.set_default_look()  # Reset UI
             self.parent.terminal_controller.write(
                 "<b style='color:#a8002a;'>[ DISCONNECTED ]</b>"
             )
 
+        # Connect
         else:
             # Set serial port settings
             self.serial_model.ser.port = self.current_selected_port
@@ -164,6 +169,8 @@ class ConnectionController(QObject):
                 if self.reconnection_enabled:
                     self.reconnection_port = self.current_selected_port
 
+                self.data_handler_model.start_thread()
+
             else:
                 self.handle_connection_error(message)
 
@@ -178,7 +185,7 @@ class ConnectionController(QObject):
         if message:
             self.parent.terminal_controller.write(
                 "<b style='color:#a8002a;'>[ ERROR CONNECTING ]</b>"
-                + f"- <b style='color:#a8002a;'>{message}</b>"
+                + f" - <b style='color:#a8002a;'>{message}</b>"
             )
         else:
             self.parent.terminal_controller.write(

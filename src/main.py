@@ -16,43 +16,30 @@
 #
 #############################################################
 
-######################### Xnxe9 <3? #########################
-#
-#   .o88b.  .d88b.  .d8888. .88b  d88.  .d88b.  .d8888.
-#  d8P  Y8 .8P  Y8. 88'  YP 88'YbdP`88 .8P  Y8. 88'  YP
-#  8P      88    88 `8bo.   88  88  88 88    88 `8bo.
-#  8b      88    88   `Y8b. 88  88  88 88    88   `Y8b.
-#  Y8b  d8 `8b  d8' db   8D 88  88  88 `8b  d8' db   8D
-#   `Y88P'  `Y88P'  `8888Y' YP  YP  YP  `Y88P'  `8888Y'
-#
-# ★ StarLab RPL - COSMOS GROUND STATION ★
-# Communications and Observation Station for Mission Operations and Surveillance
-#
-# By Martin Ortiz
-# Version 1.0.0
-# Date 06.08.2023
-#
-#############################################################
-
+"""
+This module defines the `MainWindow` class, which serves as the central component of the Cosmos.
+Encapsulates various UI components and controllers for the gui.
+"""
 
 from PyQt5.QtCore import Qt
 from PyQt5.QtWidgets import QShortcut
 from PyQt5.QtGui import QIcon, QKeySequence
 from qframelesswindow import FramelessMainWindow
 
-from src.models import PreferenceModel
-from src.controllers import (
-    WindowController,
-    ConnectionController,
-    TerminalController,
-    RecordingController,
-)
+from src.models import PreferenceModel, RecordingModel, SerialModel, DataHandlerModel
+from src.controllers import WindowController, ConnectionController, TerminalController
 
 from src.ui import Ui_MainWindow, CustomTitleBar
 
 
 class MainWindow(FramelessMainWindow):
-    """MainWindow class"""
+    """
+    The MainWindow class serves as the core of the user interface.
+    It manages various UI elements, preferences, and controllers.
+    This class handles user interactions related to connections,
+    terminal interactions, and window behaviors. Overall, it
+    encapsulates the core functionality and user interaction aspects.
+    """
 
     def __init__(self) -> None:
         super().__init__()
@@ -64,42 +51,43 @@ class MainWindow(FramelessMainWindow):
         self.ui = Ui_MainWindow()
         self.ui.setupUi(self)
 
-        # load preferences
+        # Initialize models
         self.preferences = PreferenceModel()
+        self.serial_model = SerialModel(self)
+        self.recording_model = RecordingModel(self)
+        self.data_handler_model = DataHandlerModel(self)
+
+        # Initialize Controllers
         self.window_controller = WindowController(self)
         self.terminal_controller = TerminalController(self)
-        self.recording_controller = RecordingController(self)
         self.connection_controller = ConnectionController(self)
 
-        # get the application information
+        # Get the application information
         self.name = self.preferences.get("name")
         self.version = self.preferences.get("version")
         self.dev_phase = self.preferences.get("dev_phase")
         self.author = self.preferences.get("author")
 
-        # set up window properties
+        # Set up window properties
         self.setWindowIcon(QIcon(self.preferences.get("icon")))
         self.setWindowTitle(self.name.upper())
 
-        # update the labels that display the info of the application
+        # Update the labels that display the info of the application
         self.ui.label_statusBar.setText(
             f"{self.name.lower()}-v{self.version}-{self.dev_phase}"
         )
 
+        self.setup_signals()
+
         # change the current apparence
         self.ui.stackedWidget_central.setCurrentWidget(self.ui.page_centralDashboard)
-
-        self.setup_signals()
 
         self.titleBar.raise_()
         self.show()
 
     def setup_signals(self):
-        """
-        connect all the signas of the components to the controllers
-        """
-        ## SIGNALS
-        self.connection_controller.serial_model.write_to_terminal.connect(
+        # signal from data handler to the terminal
+        self.data_handler_model.write_to_terminal.connect(
             self.terminal_controller.write
         )
 
@@ -121,12 +109,14 @@ class MainWindow(FramelessMainWindow):
         )
 
         # RECORDING CONTROLLER
+        """
         self.ui.btn_toggleRecordings.clicked.connect(
             self.recording_controller.toggle_recordings
         )
         self.ui.btn_toggleCloudBackup.clicked.connect(
             self.recording_controller.toggle_cloud_backup
         )
+        """
 
         # TERMINAL CONTROLLER
         self.ui.btn_clearTerminal.clicked.connect(self.terminal_controller.clear)
@@ -151,9 +141,6 @@ class MainWindow(FramelessMainWindow):
         self.ui.cb_ports.currentIndexChanged.connect(self.on_port_changed)
 
     def reload_window(self):
-        """
-        Reload the window and start it again
-        """
         self.close()
         self.__init__()
 

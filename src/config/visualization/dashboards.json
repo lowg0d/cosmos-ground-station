@@ -1,0 +1,11 @@
+{
+    "DASHBOARDS": {
+        "TARS": {
+            "max_columns": 2,            
+            "states": "TARS",
+            "buttons": "TARS",
+            "labels": "TARS",
+            "graphs": "TARS"
+        }
+    }
+}

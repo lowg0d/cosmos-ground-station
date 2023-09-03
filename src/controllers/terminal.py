@@ -34,9 +34,6 @@ class TerminalController:
     def __init__(self, parent):
         """
         Initializes the TerminalController.
-
-        Args:
-            parent: The parent object that this controller belongs to.
         """
         self.parent = parent
 
@@ -46,9 +43,6 @@ class TerminalController:
         self.terminal_clearer.start(30000)
 
     def write(self, data, custom_prefix=None):
-        """
-        Writes a message to the terminal.
-        """
         time_stamp = QTime.currentTime().toString("hh:mm:ss.zzz")
         if custom_prefix:
             message_prefix = f"[{time_stamp} <strong style='color:#786fa6';>{custom_prefix}</strong>]:"
@@ -59,9 +53,6 @@ class TerminalController:
         self.parent.ui.textBrowser_terminal.append(message)
 
     def clear(self):
-        """
-        Clears the terminal widget.
-        """
         self.parent.ui.textBrowser_terminal.clear()
 
     def check_line_count(self):

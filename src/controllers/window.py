@@ -16,27 +16,36 @@
 #
 #############################################################
 
-from PyQt5.QtGui import *
+"""
+This module defines a WindowController class that manages various functionalities for the application.
+"""
 from PyQt5.QtCore import *
+from PyQt5.QtGui import *
 from PyQt5.QtWidgets import *
 
 
 class WindowController:
+    """
+    It handles toggling pages, fullscreen mode,
+    dropdown animation, connection dropdown, small mode toggling, and setting visual looks. The module provides methods to interact with these features
+    and also includes a function to display error dialogs.
+    """
+
     def __init__(self, parent):
         self.parent = parent
         self.ui = parent.ui
         self.preferences = parent.preferences
 
-        self.setup_dropdown_animation()
-
         self.dropdown_enabled = True
         self.small_mode_was_toggled = None
         self.preferences_page_enabled = False
+
         self.small_mode_toggled = not self.preferences.get("HIDDEN.small_mode", 1)
 
+        self.setup_dropdown_animation()
         self.toggle_small_mode()
 
-    # pages
+    # Toggle pages
     def toggle_preferences_page(self):
         if self.preferences_page_enabled:
             self.preferences_page_enabled = False
@@ -55,14 +64,14 @@ class WindowController:
             if self.small_mode_toggled:
                 self.toggle_small_mode()
 
-    # fullscreen
+    # Toggle fullscreen
     def toggle_fullscreen(self):
         if self.parent.isFullScreen():
             self.parent.showNormal()
         else:
             self.parent.showFullScreen()
 
-    # dropdown
+    # Dropdown
     def setup_dropdown_animation(self):
         # Animation for showing the dropdown menu
         self.animation_dropdown_on = QPropertyAnimation(
@@ -94,7 +103,7 @@ class WindowController:
             self.dropdown_enabled = True
             self.animation_dropdown_on.start()
 
-    # small mode
+    # Toggle Small Mode
     def toggle_small_mode(self):
         if self.small_mode_toggled:
             self.preferences.update("HIDDEN.small_mode", False, 1)
@@ -119,6 +128,7 @@ class WindowController:
 
         self.small_mode_toggled = not self.small_mode_toggled
 
+    # Set Looks
     def set_default_look(self):
         self.ui.btn_connectBtn.setChecked(False)
         self.ui.btn_connectBtn.setText("CONNECT")
@@ -127,6 +137,7 @@ class WindowController:
         self.ui.btn_connectBtn.setChecked(True)
         self.ui.btn_connectBtn.setText(f"CONNECTED: [ {port} ]")
 
+    # Show Error Dialog
     def show_error_dialog(self, title, error_message):
         self.msg = QMessageBox()
         self.msg.setWindowTitle(f"Cosmos Runtime Error: {title}")
@@ -134,7 +145,6 @@ class WindowController:
         self.msg.setIcon(QMessageBox.Critical)
 
         close_btn = self.msg.addButton("Close", QMessageBox.AcceptRole)
-        self.msg.setWindowIcon(QIcon(self.preferences.get("icon")))
 
         self.msg.setDefaultButton(close_btn)
 
