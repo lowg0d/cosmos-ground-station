@@ -23,6 +23,7 @@ Also it provides functions to access the preferences inside the custom preferenc
 
 import json
 
+
 class PreferenceModel:
     def __init__(self):
         self.paths = [
@@ -80,7 +81,7 @@ class PreferenceModel:
     def get_preference(self, data_key):
         path = self.paths[self.preference_path]
         path_data = self.load_file(path)
-        keys = (data_key + ".value").split(".")
+        keys = ("PREFERENCES." + data_key + ".value").split(".")
 
         for key in keys:
             if key not in path_data:
@@ -94,7 +95,7 @@ class PreferenceModel:
         path = self.paths[self.preference_path]
         path_data = self.load_file(path)
         current = path_data
-        keys = (data_key + ".value").split(".")
+        keys = ("PREFERENCES." + data_key + ".value").split(".")
 
         for key in keys[:-1]:
             if key not in current:

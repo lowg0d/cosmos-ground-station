@@ -36,3 +36,4 @@
 
 from .generated_files.mainWindow import Ui_MainWindow
 from .custom_widgets.titleBar import CustomTitleBar
+from .custom_widgets.preferenceWidget import PreferenceWidget

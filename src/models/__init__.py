@@ -38,3 +38,5 @@ from .preferences import PreferenceModel
 from .data_handler import DataHandlerModel
 from .recordings import RecordingModel
 from .serial import SerialModel
+
+from .visualization.visualization import VisualizationModel

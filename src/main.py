@@ -22,14 +22,14 @@ Encapsulates various UI components and controllers for the gui.
 """
 
 from PyQt5.QtCore import Qt
-from PyQt5.QtWidgets import QShortcut
+from PyQt5.QtWidgets import QShortcut, QLabel
 from PyQt5.QtGui import QIcon, QKeySequence
 from qframelesswindow import FramelessMainWindow
 
-from src.models import PreferenceModel, RecordingModel, SerialModel, DataHandlerModel
+from src.models import PreferenceModel, RecordingModel, SerialModel, DataHandlerModel, VisualizationModel
 from src.controllers import WindowController, ConnectionController, TerminalController
 
-from src.ui import Ui_MainWindow, CustomTitleBar
+from src.ui import Ui_MainWindow, CustomTitleBar, PreferenceWidget
 
 
 class MainWindow(FramelessMainWindow):
@@ -62,6 +62,8 @@ class MainWindow(FramelessMainWindow):
         self.terminal_controller = TerminalController(self)
         self.connection_controller = ConnectionController(self)
 
+        self.visualization_model = VisualizationModel(self)
+
         # Get the application information
         self.name = self.preferences.get("name")
         self.version = self.preferences.get("version")
@@ -77,13 +79,42 @@ class MainWindow(FramelessMainWindow):
             f"{self.name.lower()}-v{self.version}-{self.dev_phase}"
         )
 
+        self.ui.label_longVersion.setText(
+            f"VERSION: {self.version}-{self.dev_phase} // BY: {self.author}"
+        )
+
         self.setup_signals()
+        self.generate_ui_preferences_widgets()
 
         # change the current apparence
         self.ui.stackedWidget_central.setCurrentWidget(self.ui.page_centralDashboard)
 
         self.titleBar.raise_()
         self.show()
+        
+        #self.showMaximized()
+
+    def generate_ui_preferences_widgets(self):
+        preferences_data = self.preferences.get("PREFERENCES", 1)
+
+        for category, items in preferences_data.items():
+            # Create a label for the category
+            category_label = QLabel(f"# {category.upper()}")
+            self.ui.layout_preferences.addWidget(category_label)
+
+            for name, setting_data in items.items():
+                full_setting_name = f"{category}.{name}"
+
+                # Create a widget for the setting
+                setting_widget = PreferenceWidget(
+                    self,
+                    name=setting_data.get("name"),
+                    description=setting_data.get("description"),
+                    config_name=full_setting_name,
+                    data_type=setting_data.get("preference_type"),
+                    data=setting_data,
+                )
+                self.ui.layout_preferences.addWidget(setting_widget)
 
     def setup_signals(self):
         # signal from data handler to the terminal
@@ -131,9 +162,6 @@ class MainWindow(FramelessMainWindow):
         self.ui.terminal_input.returnPressed.connect(
             self.connection_controller.send_data_action
         )
-        self.ui.btn_terminalSend.clicked.connect(
-            self.connection_controller.send_data_action
-        )
 
         #
         self.ui.btn_reloadWIndow.clicked.connect(self.reload_window)
@@ -141,7 +169,10 @@ class MainWindow(FramelessMainWindow):
         self.ui.cb_ports.currentIndexChanged.connect(self.on_port_changed)
 
     def reload_window(self):
+        self.update()
+        self.destroy()
         self.close()
+        
         self.__init__()
 
     def on_bauds_changed(self):

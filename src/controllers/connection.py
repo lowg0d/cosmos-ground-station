@@ -46,6 +46,7 @@ class ConnectionController(QObject):
         self.reconnection_enabled = self.parent.preferences.get(
             "HIDDEN.auto_reConnect", 1
         )
+
         if self.reconnection_enabled:
             self.parent.ui.btn_toggleAutoReconnection.setChecked(True)
 

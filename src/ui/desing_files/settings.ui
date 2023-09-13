@@ -6,24 +6,28 @@
    <rect>
     <x>0</x>
     <y>0</y>
-    <width>880</width>
-    <height>75</height>
+    <width>1154</width>
+    <height>70</height>
    </rect>
   </property>
   <property name="minimumSize">
    <size>
     <width>0</width>
-    <height>75</height>
+    <height>70</height>
    </size>
   </property>
   <property name="maximumSize">
    <size>
     <width>16777215</width>
-    <height>85</height>
+    <height>70</height>
    </size>
   </property>
   <property name="windowTitle">
    <string>Form</string>
+  </property>
+  <property name="styleSheet">
+   <string notr="true">  selection-color: #ffffff;
+  selection-background-color: #6357a3;</string>
   </property>
   <layout class="QVBoxLayout" name="verticalLayout_2">
    <property name="spacing">
@@ -46,28 +50,38 @@
      <property name="minimumSize">
       <size>
        <width>0</width>
-       <height>75</height>
+       <height>70</height>
       </size>
      </property>
      <property name="maximumSize">
       <size>
        <width>16777215</width>
-       <height>75</height>
+       <height>70</height>
       </size>
      </property>
      <property name="styleSheet">
       <string notr="true">QFrame{
-    font: 500 9pt &quot;Video Med&quot;;
-    border-radius: 6px;
-    border: 1px solid rgba(10,12,16,0.2);
-    background-color: rgba(52, 73, 94, 0.2);
+    font: 500 9.5pt &quot;Video Med&quot;;
+    border-radius: 4px;
+    background-color: rgba(58, 59, 63, 0.2);
+	margin-right: 3px;
 }
-
 
 QFrame:hover{
-     background-color: rgba(52, 73, 94, 0.3);
+     background-color: rgba(68, 69, 73, 0.3);
 }
-</string>
+
+QLabel {
+	background-color: none;
+	border: none;
+	margin-right: 10px;
+}
+
+QLabel:hover {
+	background-color: none;
+	border: none;
+	margin-right: 10px;
+}</string>
      </property>
      <property name="frameShape">
       <enum>QFrame::NoFrame</enum>
@@ -76,6 +90,9 @@ QFrame:hover{
       <enum>QFrame::Raised</enum>
      </property>
      <layout class="QHBoxLayout" name="horizontalLayout_2">
+      <property name="spacing">
+       <number>9</number>
+      </property>
       <property name="leftMargin">
        <number>25</number>
       </property>
@@ -83,18 +100,18 @@ QFrame:hover{
        <number>25</number>
       </property>
       <item>
-       <widget class="QFrame" name="frame">
+       <widget class="QFrame" name="name_desc">
         <property name="styleSheet">
          <string notr="true">border: none;
 background-color: rgba(255, 255, 255, 0);</string>
         </property>
         <property name="frameShape">
-         <enum>QFrame::StyledPanel</enum>
+         <enum>QFrame::NoFrame</enum>
         </property>
         <property name="frameShadow">
          <enum>QFrame::Raised</enum>
         </property>
-        <layout class="QVBoxLayout" name="verticalLayout">
+        <layout class="QHBoxLayout" name="horizontalLayout_4">
          <property name="spacing">
           <number>0</number>
          </property>
@@ -111,67 +128,98 @@ background-color: rgba(255, 255, 255, 0);</string>
           <number>0</number>
          </property>
          <item>
-          <widget class="QLabel" name="label_config_name">
+          <widget class="QFrame" name="more_name_desc">
            <property name="styleSheet">
-            <string notr="true">QLabel{
+            <string notr="true">border: none;
+background-color: rgba(255, 255, 255, 0);</string>
+           </property>
+           <property name="frameShape">
+            <enum>QFrame::StyledPanel</enum>
+           </property>
+           <property name="frameShadow">
+            <enum>QFrame::Raised</enum>
+           </property>
+           <layout class="QVBoxLayout" name="verticalLayout">
+            <property name="spacing">
+             <number>0</number>
+            </property>
+            <property name="leftMargin">
+             <number>0</number>
+            </property>
+            <property name="topMargin">
+             <number>0</number>
+            </property>
+            <property name="rightMargin">
+             <number>0</number>
+            </property>
+            <property name="bottomMargin">
+             <number>0</number>
+            </property>
+            <item>
+             <widget class="QLabel" name="label_config_name">
+              <property name="styleSheet">
+               <string notr="true">QLabel{
 	font: 600 15pt &quot;Video SemBd&quot;;
 	color: rgba(255, 255, 255, 0.6);
 	border:0;
 	background: rgba(0,0,0,0);
 }</string>
-           </property>
-           <property name="text">
-            <string>NAME</string>
-           </property>
-          </widget>
-         </item>
-         <item>
-          <widget class="QLabel" name="description_label">
-           <property name="minimumSize">
-            <size>
-             <width>400</width>
-             <height>0</height>
-            </size>
-           </property>
-           <property name="maximumSize">
-            <size>
-             <width>400</width>
-             <height>16777215</height>
-            </size>
-           </property>
-           <property name="styleSheet">
-            <string notr="true">QLabel{
+              </property>
+              <property name="text">
+               <string>NAME</string>
+              </property>
+             </widget>
+            </item>
+            <item>
+             <widget class="QLabel" name="description_label">
+              <property name="minimumSize">
+               <size>
+                <width>400</width>
+                <height>0</height>
+               </size>
+              </property>
+              <property name="maximumSize">
+               <size>
+                <width>16777215</width>
+                <height>16777215</height>
+               </size>
+              </property>
+              <property name="styleSheet">
+               <string notr="true">QLabel{
 	
 	
-	font: 300 10pt &quot;Video Light&quot;;
+	font: 300 11pt &quot;Video Light&quot;;
 	color: rgba(255, 255, 255, 0.4);
 	border:0;
 	background: rgba(0,0,0,0);
 }</string>
-           </property>
-           <property name="text">
-            <string>Description</string>
-           </property>
+              </property>
+              <property name="text">
+               <string>Description</string>
+              </property>
+             </widget>
+            </item>
+           </layout>
           </widget>
          </item>
         </layout>
        </widget>
       </item>
       <item>
-       <spacer name="horizontalSpacer_2">
+       <spacer name="horizontalSpacer">
         <property name="orientation">
          <enum>Qt::Horizontal</enum>
         </property>
         <property name="sizeHint" stdset="0">
          <size>
-          <width>629</width>
+          <width>40</width>
           <height>20</height>
          </size>
         </property>
        </spacer>
       </item>
       <item>
-       <widget class="QFrame" name="frame_2">
+       <widget class="QFrame" name="widgetcontainer">
         <property name="styleSheet">
          <string notr="true">QFrame{
 	border: none;
@@ -186,7 +234,7 @@ background-color: rgba(255, 255, 255, 0);</string>
         </property>
         <layout class="QHBoxLayout" name="horizontalLayout">
          <item>
-          <spacer name="horizontalSpacer">
+          <spacer name="horizontalSpacer_2">
            <property name="orientation">
             <enum>Qt::Horizontal</enum>
            </property>
@@ -199,25 +247,25 @@ background-color: rgba(255, 255, 255, 0);</string>
           </spacer>
          </item>
          <item>
-          <widget class="QLineEdit" name="lineEdit">
+          <widget class="QLineEdit" name="string">
            <property name="minimumSize">
             <size>
-             <width>88</width>
+             <width>120</width>
              <height>33</height>
             </size>
            </property>
            <property name="maximumSize">
             <size>
-             <width>88</width>
+             <width>120</width>
              <height>33</height>
             </size>
            </property>
            <property name="styleSheet">
             <string notr="true">QLineEdit{
-	font: 600 9.5pt &quot;Video SemBd&quot;;
+	font: 600 10.5pt &quot;Video SemBd&quot;;
 	padding-left: 5px;
 	padding-right: 5px;
-	border-radius: 5px;
+	border-radius: 4px;
 	color: rgba(255, 255, 255, 0.45); 
     border: 1px solid rgba(0,0,0,0.4);
     background-color: rgba(0,0,0,0.2);
@@ -226,22 +274,25 @@ QLineEdit:hover{
 	background-color: rgba(0,0,0,0.4);
 }</string>
            </property>
+           <property name="text">
+            <string/>
+           </property>
            <property name="alignment">
             <set>Qt::AlignCenter</set>
            </property>
           </widget>
          </item>
          <item>
-          <widget class="QComboBox" name="options_comboBox">
+          <widget class="QComboBox" name="options">
            <property name="minimumSize">
             <size>
-             <width>88</width>
+             <width>120</width>
              <height>33</height>
             </size>
            </property>
            <property name="maximumSize">
             <size>
-             <width>88</width>
+             <width>120</width>
              <height>33</height>
             </size>
            </property>
@@ -250,8 +301,8 @@ QLineEdit:hover{
            </property>
            <property name="styleSheet">
             <string notr="true">QComboBox {
-    font: 500 9pt &quot;Video Med&quot;;
-    padding-left: 5px;
+    font: 500 10.5pt &quot;Video Med&quot;;
+    padding-left: 8px;
     border-radius: 4px;
     color: rgba(255, 255, 255, 0.45);
     border: 1px solid rgba(0, 0, 0, 0.4);
@@ -265,15 +316,21 @@ QComboBox:hover {
 
 QComboBox:drop-down {
     border: 0px;
-	border-radius: 0px;
+    border-radius: 0px;
 }
 
-QFrame{
-	color: rgba(255, 255, 255, 0.6);
-	background-color: rgba(52, 73, 94, 0.3);
-	font: 500 10.5pt &quot;Video Med&quot;;
+QComboBox::down-arrow {
+	image: url(:/icons/icons/down_arrow.png);
+	width: 8px;
+	height: 8px;
+	margin-right: 10px;
 }
-</string>
+
+QFrame {
+    color: rgba(255, 255, 255, 0.6);
+    background-color: rgba(52, 73, 94, 0.3);
+    font: 500 10.5pt &quot;Video Med&quot;;
+}</string>
            </property>
            <property name="sizeAdjustPolicy">
             <enum>QComboBox::AdjustToContents</enum>
@@ -281,16 +338,16 @@ QFrame{
           </widget>
          </item>
          <item>
-          <widget class="QPushButton" name="checkeable">
+          <widget class="QPushButton" name="misc">
            <property name="minimumSize">
             <size>
-             <width>88</width>
+             <width>120</width>
              <height>33</height>
             </size>
            </property>
            <property name="maximumSize">
             <size>
-             <width>188</width>
+             <width>120</width>
              <height>33</height>
             </size>
            </property>
@@ -298,78 +355,339 @@ QFrame{
             <cursorShape>PointingHandCursor</cursorShape>
            </property>
            <property name="styleSheet">
-            <string notr="true">QPushButton{
-	padding: 1px 15px 1px 15px;
-    color: rgba(255, 255, 255, 0.8);
-    font: 500 9pt &quot;Video Med&quot;;
-    border-radius: 5px;
-    border: 1px solid rgba(255, 85, 127,0.6);
-    background-color: rgba(255, 85, 127,0.2);
-}
-QPushButton:hover{
-    background-color: rgba(255, 85, 127,0.4);
+            <string notr="true">QPushButton {
+    font: 500 10.5pt &quot;Video Med&quot;;
+    padding-left: 8px;
+    border-radius: 4px;
+    color: rgba(255, 255, 255, 0.45);
+    border: 1px solid rgba(0, 0, 0, 0.4);
+    background-color: rgba(0, 0, 0, 0.2);
+    text-align: center;
 }
 
-QPushButton:checked{
-	color: rgb(255,255,255);
-	background-color: rgba(156, 255, 136, 0.5);
-	border: 1px solid rgba(156, 255, 136,0.8);
+QPushButton:hover {
+    background-color: rgba(0, 0, 0, 0.4);
+}
+
+QPushButton:pressed {
+    background-color: rgba(0, 0, 0, 0.5);
 }</string>
            </property>
            <property name="text">
-            <string>DISABLED</string>
-           </property>
-           <property name="checkable">
-            <bool>false</bool>
-           </property>
-           <property name="checked">
-            <bool>false</bool>
+            <string>OPEN</string>
            </property>
           </widget>
          </item>
          <item>
-          <widget class="QSpinBox" name="spinBox">
-           <property name="minimumSize">
-            <size>
-             <width>88</width>
-             <height>33</height>
-            </size>
-           </property>
-           <property name="maximumSize">
-            <size>
-             <width>88</width>
-             <height>33</height>
-            </size>
-           </property>
+          <widget class="QFrame" name="toggle">
            <property name="styleSheet">
-            <string notr="true">QSpinBox{
-	font: 600 9.5pt &quot;Video SemBd&quot;;
+            <string notr="true">
+QPushButton:pressed {
+    background-color: rgba(0, 0, 0, 0.5);
+}</string>
+           </property>
+           <property name="frameShape">
+            <enum>QFrame::NoFrame</enum>
+           </property>
+           <property name="frameShadow">
+            <enum>QFrame::Raised</enum>
+           </property>
+           <layout class="QHBoxLayout" name="horizontalLayout_5">
+            <property name="spacing">
+             <number>0</number>
+            </property>
+            <property name="leftMargin">
+             <number>0</number>
+            </property>
+            <property name="topMargin">
+             <number>0</number>
+            </property>
+            <property name="rightMargin">
+             <number>0</number>
+            </property>
+            <property name="bottomMargin">
+             <number>0</number>
+            </property>
+            <item>
+             <widget class="QPushButton" name="btn_on">
+              <property name="minimumSize">
+               <size>
+                <width>60</width>
+                <height>33</height>
+               </size>
+              </property>
+              <property name="maximumSize">
+               <size>
+                <width>60</width>
+                <height>33</height>
+               </size>
+              </property>
+              <property name="cursor">
+               <cursorShape>PointingHandCursor</cursorShape>
+              </property>
+              <property name="styleSheet">
+               <string notr="true">QPushButton{
+	padding: 1px 15px 1px 15px;
+    font: 500 9.5pt &quot;Video Med&quot;;
+    border-radius: 4px;
+    color: rgba(255, 255, 255, 0.45);
+    border: 1px solid rgba(0, 0, 0, 0.4);
+    background-color: rgba(0, 0, 0, 0.2);
+
+	border-top-left-radius: 4px;
+	border-bottom-left-radius: 4px;
+	border-top-right-radius: 0px;
+	border-bottom-right-radius: 0px;
+	border-right: 0px;
+	
+}
+QPushButton:hover {
+    background-color: rgba(0, 0, 0, 0.4);
+}
+
+QPushButton:checked{
+	color: rgb(255,255,255);
+	background-color: rgba(186, 220, 88,0.5);
+	border: 1px solid  rgba(106, 176, 76,0.8);
+	border-right: 0px;
+	color: rgba(255, 255, 255, 0.65);
+	font: 500 10.5pt &quot;Video Med&quot;;
+}</string>
+              </property>
+              <property name="text">
+               <string>ON</string>
+              </property>
+              <property name="checkable">
+               <bool>true</bool>
+              </property>
+              <property name="checked">
+               <bool>true</bool>
+              </property>
+             </widget>
+            </item>
+            <item>
+             <widget class="QPushButton" name="btn_off">
+              <property name="minimumSize">
+               <size>
+                <width>60</width>
+                <height>33</height>
+               </size>
+              </property>
+              <property name="maximumSize">
+               <size>
+                <width>60</width>
+                <height>33</height>
+               </size>
+              </property>
+              <property name="cursor">
+               <cursorShape>PointingHandCursor</cursorShape>
+              </property>
+              <property name="styleSheet">
+               <string notr="true">QPushButton{
+	padding: 1px 15px 1px 15px;
+    color: rgba(255, 255, 255, 0.8);
+ 	font: 500 9.5pt &quot;Video Med&quot;;
+    border-radius: 4px;
+    color: rgba(255, 255, 255, 0.45);
+    border: 1px solid rgba(0, 0, 0, 0.4);
+    background-color: rgba(0, 0, 0, 0.2);
+
+	border-left: 0px;
+	border-top-left-radius: 0;
+	border-bottom-left-radius: 0;
+	border-top-right-radius: 4px;
+	border-bottom-right-radius: 4px;
+
+}
+QPushButton:hover {
+    background-color: rgba(0, 0, 0, 0.4);
+}
+
+QPushButton:checked{
+    border: 1px solid rgba(235, 77, 75,0.8);
+    background-color: rgba(255, 121, 121,0.5);
+	border-left: 0px;
+	color: rgba(255, 255, 255, 0.65);
+	font: 63 10.5pt &quot;Video SemBd&quot;;
+
+}</string>
+              </property>
+              <property name="text">
+               <string>OFF</string>
+              </property>
+              <property name="checkable">
+               <bool>true</bool>
+              </property>
+              <property name="checked">
+               <bool>false</bool>
+              </property>
+             </widget>
+            </item>
+           </layout>
+          </widget>
+         </item>
+         <item>
+          <widget class="QFrame" name="integer">
+           <property name="styleSheet">
+            <string notr="true">QPushButton {
+	font: 600 11.5pt &quot;Video SemBd&quot;;
 	padding-left: 5px;
 	padding-right: 5px;
-	border-radius: 5px;
 	color: rgba(255, 255, 255, 0.45); 
     border: 1px solid rgba(0,0,0,0.4);
-    background-color: rgba(0,0,0,0.2);
+   background-color: rgba(0,0,0,0.2);
+}
+QPushButton:hover{
+	background-color: rgba(0,0,0,0.4);
+}
+
+QPushButton:pressed {
+    background-color: rgba(0, 0, 0, 0.5);
+}</string>
+           </property>
+           <property name="frameShape">
+            <enum>QFrame::NoFrame</enum>
+           </property>
+           <property name="frameShadow">
+            <enum>QFrame::Raised</enum>
+           </property>
+           <layout class="QHBoxLayout" name="horizontalLayout_3">
+            <property name="spacing">
+             <number>0</number>
+            </property>
+            <property name="leftMargin">
+             <number>0</number>
+            </property>
+            <property name="topMargin">
+             <number>0</number>
+            </property>
+            <property name="rightMargin">
+             <number>0</number>
+            </property>
+            <property name="bottomMargin">
+             <number>0</number>
+            </property>
+            <item>
+             <widget class="QPushButton" name="minus">
+              <property name="minimumSize">
+               <size>
+                <width>40</width>
+                <height>0</height>
+               </size>
+              </property>
+              <property name="maximumSize">
+               <size>
+                <width>40</width>
+                <height>33</height>
+               </size>
+              </property>
+              <property name="cursor">
+               <cursorShape>PointingHandCursor</cursorShape>
+              </property>
+              <property name="styleSheet">
+               <string notr="true">border-top-left-radius: 4px;
+border-bottom-left-radius: 4px;
+border-top-right-radius: 0;
+border-bottom-right-radius: 0;</string>
+              </property>
+              <property name="text">
+               <string>-</string>
+              </property>
+             </widget>
+            </item>
+            <item>
+             <widget class="QSpinBox" name="spinBox">
+              <property name="minimumSize">
+               <size>
+                <width>43</width>
+                <height>33</height>
+               </size>
+              </property>
+              <property name="maximumSize">
+               <size>
+                <width>43</width>
+                <height>33</height>
+               </size>
+              </property>
+              <property name="styleSheet">
+               <string notr="true">QSpinBox{
+	font: 600 10.5pt &quot;Video SemBd&quot;;
+	padding-left: 5px;
+	padding-right: 5px;
+	color: rgba(255, 255, 255, 0.45); 
+    border: 1px solid rgba(0,0,0,0.4);
+	border-left: 0px;
+	border-right:0px; 
+   background-color: rgba(0,0,0,0.2);
 }
 QSpinBox:hover{
 	background-color: rgba(0,0,0,0.4);
-}</string>
-           </property>
-           <property name="buttonSymbols">
-            <enum>QAbstractSpinBox::UpDownArrows</enum>
-           </property>
-           <property name="accelerated">
-            <bool>true</bool>
-           </property>
-           <property name="showGroupSeparator" stdset="0">
-            <bool>false</bool>
-           </property>
-           <property name="suffix">
-            <string/>
-           </property>
-           <property name="maximum">
-            <number>100000</number>
-           </property>
+}
+QSpinBox::up-button, QSpinBox::down-button {
+    width: 0;
+    border: none;
+    background: none;
+}
+</string>
+              </property>
+              <property name="wrapping">
+               <bool>false</bool>
+              </property>
+              <property name="alignment">
+               <set>Qt::AlignCenter</set>
+              </property>
+              <property name="readOnly">
+               <bool>false</bool>
+              </property>
+              <property name="buttonSymbols">
+               <enum>QAbstractSpinBox::NoButtons</enum>
+              </property>
+              <property name="accelerated">
+               <bool>true</bool>
+              </property>
+              <property name="correctionMode">
+               <enum>QAbstractSpinBox::CorrectToPreviousValue</enum>
+              </property>
+              <property name="showGroupSeparator" stdset="0">
+               <bool>true</bool>
+              </property>
+              <property name="suffix">
+               <string/>
+              </property>
+              <property name="maximum">
+               <number>100000</number>
+              </property>
+             </widget>
+            </item>
+            <item>
+             <widget class="QPushButton" name="plus">
+              <property name="minimumSize">
+               <size>
+                <width>40</width>
+                <height>0</height>
+               </size>
+              </property>
+              <property name="maximumSize">
+               <size>
+                <width>40</width>
+                <height>33</height>
+               </size>
+              </property>
+              <property name="cursor">
+               <cursorShape>PointingHandCursor</cursorShape>
+              </property>
+              <property name="styleSheet">
+               <string notr="true">border-top-left-radius: 0;
+border-bottom-left-radius: 0;
+border-top-right-radius: 4px;
+border-bottom-right-radius: 4px;</string>
+              </property>
+              <property name="text">
+               <string>+</string>
+              </property>
+             </widget>
+            </item>
+           </layout>
           </widget>
          </item>
         </layout>
@@ -380,6 +698,73 @@ QSpinBox:hover{
    </item>
   </layout>
  </widget>
- <resources/>
- <connections/>
+ <resources>
+  <include location="../resources/src.qrc"/>
+ </resources>
+ <connections>
+  <connection>
+   <sender>plus</sender>
+   <signal>clicked()</signal>
+   <receiver>spinBox</receiver>
+   <slot>stepUp()</slot>
+   <hints>
+    <hint type="sourcelabel">
+     <x>907</x>
+     <y>37</y>
+    </hint>
+    <hint type="destinationlabel">
+     <x>867</x>
+     <y>37</y>
+    </hint>
+   </hints>
+  </connection>
+  <connection>
+   <sender>btn_on</sender>
+   <signal>clicked()</signal>
+   <receiver>btn_off</receiver>
+   <slot>toggle()</slot>
+   <hints>
+    <hint type="sourcelabel">
+     <x>757</x>
+     <y>37</y>
+    </hint>
+    <hint type="destinationlabel">
+     <x>812</x>
+     <y>37</y>
+    </hint>
+   </hints>
+  </connection>
+  <connection>
+   <sender>btn_off</sender>
+   <signal>clicked()</signal>
+   <receiver>btn_on</receiver>
+   <slot>toggle()</slot>
+   <hints>
+    <hint type="sourcelabel">
+     <x>812</x>
+     <y>37</y>
+    </hint>
+    <hint type="destinationlabel">
+     <x>757</x>
+     <y>37</y>
+    </hint>
+   </hints>
+  </connection>
+  <connection>
+   <sender>minus</sender>
+   <signal>clicked(bool)</signal>
+   <receiver>spinBox</receiver>
+   <slot>stepDown()</slot>
+   <hints>
+    <hint type="sourcelabel">
+     <x>866</x>
+     <y>37</y>
+    </hint>
+    <hint type="destinationlabel">
+     <x>913</x>
+     <y>37</y>
+    </hint>
+   </hints>
+  </connection>
+ </connections>
 </ui>

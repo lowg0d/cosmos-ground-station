@@ -1,0 +1,115 @@
+{
+  "LABELS": {
+    "TARS": {
+      "big": [
+        {
+          "name": "ALT",
+          "target_value_index": 10,
+          "unit": "m"
+        },
+        {
+          "name": "VEL",
+          "target_value_index": 13,
+          "unit": "m/s"
+        }
+      ],
+      "primary": [
+        {
+          "name": "State",
+          "target_value_index": 0,
+          "unit": ""
+        },
+        {
+          "name": "VOT",
+          "target_value_index": 1,
+          "unit": "time"
+        },
+        {
+          "name": "Voltage",
+          "target_value_index": 1,
+          "unit": "v",
+          "nominal_min": 5.1,
+          "nominal_max": 5.4
+        },
+        {
+          "name": "TLM Rate",
+          "target_value_index": "",
+          "unit": "tlm_rate",
+          "nominal_max": 200
+        }
+      ],
+      "secondary": [
+        {
+          "name": "Temp",
+          "target_value_index": 3,
+          "unit": "\u00baC"
+        },
+        {
+          "name": "aX",
+          "target_value_index": 4,
+          "unit": "m/s^2"
+        },
+        {
+          "name": "aY",
+          "target_value_index": 5,
+          "unit": "m/s^2"
+        },
+        {
+          "name": "aZ",
+          "target_value_index": 6,
+          "unit": "m/s^2"
+        },
+        {
+          "name": "gX",
+          "target_value_index": 7,
+          "unit": "m/s^2"
+        },
+        {
+          "name": "gY",
+          "target_value_index": 8,
+          "unit": "m/s^2"
+        },
+        {
+          "name": "gZ",
+          "target_value_index": 9,
+          "unit": "m/s^2"
+        },
+        {
+          "name": "Temp2",
+          "target_value_index": 11,
+          "unit": "\u00baC"
+        },
+        {
+          "name": "Yaw",
+          "target_value_index": 0,
+          "unit": "\u00ba/s"
+        },
+        {
+          "name": "Pitch",
+          "target_value_index": 0,
+          "unit": "\u00ba/s"
+        },
+        {
+          "name": "Roll",
+          "target_value_index": 0,
+          "unit": "\u00ba/s"
+        },
+        {
+          "name": "Alt",
+          "target_value_index": 10,
+          "unit": "m"
+        },
+        {
+          "name": "Vel",
+          "target_value_index": 13,
+          "unit": "m/s"
+        },
+        {
+          "name": "pressure",
+          "target_value_index": 12,
+          "unit": "hPa"
+        }
+      ]
+    }
+  }
+}

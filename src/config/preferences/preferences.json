@@ -1,30 +1,86 @@
 {
-  "recordings": {
-    "path": {
-      "name": "Recording Save Folder",
-      "description": "The folder where recordings are saved.",
-      "preference_type": "select_folder",
-      "value": "./recordings"
-    }
-  },
-  "packet": {
-    "signature_header": {
-      "name": "Packet Signature Header",
-      "description": "Header to identify valid data packets. Empty to disable.",
-      "preference_type": "edit_string",
-      "value": "@TARS_TLM:"
+  "PREFERENCES": {
+    "profiles": {
+      "visualization_dashboard": {
+        "name": "Visualization Dashboard",
+        "description": "Current visualization DASHBOARD, a customizable set of buttons, labels, graphs, and states.",
+        "preference_type": "select_dashboard",
+        "value": "TARS"
+      },
+      "toggle_state": {
+        "name": "Toggle State Label",
+        "description": "Toggle the label that shows the state.",
+        "preference_type": "toggle_widget",
+        "value": true,
+        "widget": "state_label"
+      },
+      "toggle_countdown": {
+        "name": "Toggle Countdown Label",
+        "description": "Toggle the label that shows the state.",
+        "preference_type": "toggle_widget",
+        "value": false,
+        "widget": "countdown_label"
+      },
+      "profile_file_open": {
+        "name": "Profile File",
+        "description": "Configure the profiles here.",
+        "preference_type": "open_file",
+        "value": "app/config/profiles/profiles.json"
+      }
     },
-    "split_char": {
-      "name": "Packet Split Char",
-      "description": "Chararcter that is used to separate values. Example: '123;321'",
-      "preference_type": "edit_string",
-      "value": ";"
+    "data": {
+      "update_interval": {
+        "name": "Update Interval",
+        "description": "Time between graph and label updates <b>(in ms)</b>",
+        "preference_type": "int",
+        "value": 500
+      },
+      "data_stale_detect_time": {
+        "name": "Stale Data Detection Time",
+        "description": "Time without data before enabling data stale mode <b>(in sec)</b>",
+        "preference_type": "int",
+        "value": 5
+      },
+      "data_filter": {
+        "name": "Data Filter",
+        "description": "Toggle the data filtration.",
+        "preference_type": "toggle",
+        "value": true
+      },
+      "data_filter_ranges": {
+        "name": "Data Filter Ranges",
+        "description": "Ranges used for data filtering (format: 'value': ['min', 'max']).",
+        "preference_type": "open_file",
+        "value": "app/config/data/filter_ranges.json"
+      }
     },
-    "message_header": {
-      "name": "Message Signature Header",
-      "description": "Header for MESSAGE packets, put after signature header. Empty to disable.",
-      "preference_type": "edit_string",
-      "value": "@TARS_MSG:"
+    "recordings": {
+      "path": {
+        "name": "Recording Save Folder",
+        "description": "The folder where recordings are saved.",
+        "preference_type": "open_folder",
+        "value": "./recordings"
+      }
+    },
+    "packet": {
+      "signature_header": {
+        "name": "Packet Signature Header",
+        "description": "Header to identify valid data packets. Empty to disable.",
+        "preference_type": "edit_string",
+        "value": "@TARS_TLM:"
+      },
+      "split_char": {
+        "name": "Packet Split Char",
+        "description": "Chararcter that is used to separate values. Example: '123;321'",
+        "preference_type": "edit_string",
+        "value": ";"
+      },
+      "message_header": {
+        "name": "Message Signature Header",
+        "description": "Header for MESSAGE packets, put after signature header. Empty to disable.",
+        "preference_type": "edit_string",
+        "value": "@TARS_MSG:"
+      }
     }
   },
   "HIDDEN": {

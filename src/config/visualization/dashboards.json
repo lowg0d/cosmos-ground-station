@@ -1,11 +1,208 @@
 {
-    "DASHBOARDS": {
-        "TARS": {
-            "max_columns": 2,            
-            "states": "TARS",
-            "buttons": "TARS",
-            "labels": "TARS",
-            "graphs": "TARS"
-        }
+  "DASHBOARDS": {
+    "TARS": {
+      "max_columns": 2,
+      "states": "TARS",
+      "buttons": "TARS",
+      "labels": "TARS",
+      "graphs": "TARS"
     }
+  },
+  "STATES": {
+    "TARS": {
+      "-1": ["TARS BOOTUP", "596275"],
+      "0": ["IDLE", "16a085"],
+      "1": ["GO FOR LAUNCH", "27ae60"],
+      "2": ["POWERED ASCENT", "474787"],
+      "3": ["BURNOUT", "ff793f"],
+      "4": ["FREE FALL", "fff200"],
+      "5": ["CHUTE FALL", "3ae374"],
+      "6": ["LANDED", "30336b"],
+      "7": ["!! ABORT !!", "b33939"],
+      "10": ["!! ERROR !!", "b33939"]
+    }
+  },
+  "BUTTONS": {
+    "TARS": [
+      {
+        "name": "SET GO LAUNCH",
+        "payload": 2,
+        "color": "27ae60"
+      },
+      {
+        "name": "SET IDLE",
+        "payload": 0,
+        "color": "16a085"
+      },
+      {
+        "name": "SET LAUNCHPAD",
+        "payload": 1,
+        "color": "27ae60"
+      },
+      {
+        "name": "ABORT",
+        "payload": 3,
+        "color": "b33939"
+      }
+    ]
+  },
+  "LABELS": {
+    "TARS": {
+      "big": [
+        {
+          "name": "ALT",
+          "unit": "m",
+          "value_index_in_chain": 10
+        },
+        {
+          "name": "VEL",
+          "value_index_in_chain": 13,
+          "unit": "m/s"
+        }
+      ],
+      "primary": [
+        {
+          "name": "State",
+          "value_index_in_chain": 0,
+          "unit": ""
+        },
+        {
+          "name": "VOT",
+          "value_index_in_chain": 1,
+          "unit": "format_seconds"
+        },
+        {
+          "name": "Voltage",
+          "value_index_in_chain": 1,
+          "unit": "v",
+          "min_max_nomial": [0, 10]
+        },
+        {
+          "name": "TLM Rate",
+          "value_index_in_chain": "",
+          "unit": "tlm_rate",
+          "min_max_nomial": [0, 10]
+        }
+      ],
+      "secondary": [
+        {
+          "name": "Temp",
+          "value_index_in_chain": 3,
+          "unit": "\u00baC"
+        },
+        {
+          "name": "aX",
+          "value_index_in_chain": 4,
+          "unit": "m/s^2"
+        },
+        {
+          "name": "aY",
+          "value_index_in_chain": 5,
+          "unit": "m/s^2"
+        },
+        {
+          "name": "aZ",
+          "value_index_in_chain": 6,
+          "unit": "m/s^2"
+        },
+        {
+          "name": "gX",
+          "value_index_in_chain": 7,
+          "unit": "m/s^2"
+        },
+        {
+          "name": "gY",
+          "value_index_in_chain": 8,
+          "unit": "m/s^2"
+        },
+        {
+          "name": "gZ",
+          "value_index_in_chain": 9,
+          "unit": "m/s^2"
+        },
+        {
+          "name": "Temp2",
+          "value_index_in_chain": 11,
+          "unit": "\u00baC"
+        },
+        {
+          "name": "Yaw",
+          "value_index_in_chain": 0,
+          "unit": "\u00ba/s"
+        },
+        {
+          "name": "Pitch",
+          "value_index_in_chain": 0,
+          "unit": "\u00ba/s"
+        },
+        {
+          "name": "Roll",
+          "value_index_in_chain": 0,
+          "unit": "\u00ba/s"
+        },
+        {
+          "name": "Alt",
+          "value_index_in_chain": 10,
+          "unit": "m"
+        },
+        {
+          "name": "Vel",
+          "value_index_in_chain": 13,
+          "unit": "m/s"
+        },
+        {
+          "name": "Ap",
+          "value_index_in_chain": 12,
+          "unit": "hPa"
+        }
+      ]
+    }
+  },
+  "GRAPHS": {
+    "TARS": [
+      {
+        "title": "Altitude",
+        "unit": "m",
+        "axes": 1,
+        "color_1": "e74c3c",
+        "value_index_in_chain_1": 10,
+        "row": 0,
+        "col": 0
+      },
+      {
+        "title": "Vertical Speed",
+        "unit": "m/s",
+        "axes": 1,
+        "color_1": "9b59b6",
+        "value_index_in_chain_1": 11,
+        "row": 0,
+        "col": 1
+      },
+      {
+        "title": "Orientation",
+        "unit": "\u00ba",
+        "axes": 3,
+        "1_x_axis_name": "Yaw",
+        "2_x_axis_name": "Pitch",
+        "3_x_axis_name": "Roll",
+        "value_index_in_chain_1": 14,
+        "2_value_index_in_chain": 15,
+        "3_value_index_in_chain": 16,
+        "row": 1,
+        "col": 0
+      },
+      {
+        "title": "GPS",
+        "unit": "m",
+        "axes": "gps",
+        "1_x_axis_name": "Latitude",
+        "2_x_axis_name": "Longitude",
+        "value_index_in_chain_1": 18,
+        "2_value_index_in_chain": 19,
+        "axe_color_1": "2ecc71",
+        "row": 1,
+        "col": 1
+      }
+    ]
+  }
 }

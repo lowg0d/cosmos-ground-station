@@ -32,45 +32,68 @@ from PyQt5 import QtCore, QtGui, QtWidgets
 class Ui_SettingsForm(object):
     def setupUi(self, SettingsForm):
         SettingsForm.setObjectName("SettingsForm")
-        SettingsForm.resize(880, 75)
-        SettingsForm.setMinimumSize(QtCore.QSize(0, 75))
-        SettingsForm.setMaximumSize(QtCore.QSize(16777215, 85))
+        SettingsForm.resize(1154, 70)
+        SettingsForm.setMinimumSize(QtCore.QSize(0, 70))
+        SettingsForm.setMaximumSize(QtCore.QSize(16777215, 70))
+        SettingsForm.setStyleSheet("  selection-color: #ffffff;\n"
+"  selection-background-color: #6357a3;")
         self.verticalLayout_2 = QtWidgets.QVBoxLayout(SettingsForm)
         self.verticalLayout_2.setContentsMargins(0, 0, 0, 0)
         self.verticalLayout_2.setSpacing(0)
         self.verticalLayout_2.setObjectName("verticalLayout_2")
         self.Config_1 = QtWidgets.QFrame(SettingsForm)
-        self.Config_1.setMinimumSize(QtCore.QSize(0, 75))
-        self.Config_1.setMaximumSize(QtCore.QSize(16777215, 75))
+        self.Config_1.setMinimumSize(QtCore.QSize(0, 70))
+        self.Config_1.setMaximumSize(QtCore.QSize(16777215, 70))
         self.Config_1.setStyleSheet("QFrame{\n"
-"    font: 500 9pt \"Video Med\";\n"
-"    border-radius: 6px;\n"
-"    border: 1px solid rgba(10,12,16,0.2);\n"
-"    background-color: rgba(52, 73, 94, 0.2);\n"
+"    font: 500 9.5pt \"Video Med\";\n"
+"    border-radius: 4px;\n"
+"    background-color: rgba(58, 59, 63, 0.2);\n"
+"    margin-right: 3px;\n"
 "}\n"
-"\n"
 "\n"
 "QFrame:hover{\n"
-"     background-color: rgba(52, 73, 94, 0.3);\n"
+"     background-color: rgba(68, 69, 73, 0.3);\n"
 "}\n"
-"")
+"\n"
+"QLabel {\n"
+"    background-color: none;\n"
+"    border: none;\n"
+"    margin-right: 10px;\n"
+"}\n"
+"\n"
+"QLabel:hover {\n"
+"    background-color: none;\n"
+"    border: none;\n"
+"    margin-right: 10px;\n"
+"}")
         self.Config_1.setFrameShape(QtWidgets.QFrame.NoFrame)
         self.Config_1.setFrameShadow(QtWidgets.QFrame.Raised)
         self.Config_1.setObjectName("Config_1")
         self.horizontalLayout_2 = QtWidgets.QHBoxLayout(self.Config_1)
         self.horizontalLayout_2.setContentsMargins(25, -1, 25, -1)
+        self.horizontalLayout_2.setSpacing(9)
         self.horizontalLayout_2.setObjectName("horizontalLayout_2")
-        self.frame = QtWidgets.QFrame(self.Config_1)
-        self.frame.setStyleSheet("border: none;\n"
+        self.name_desc = QtWidgets.QFrame(self.Config_1)
+        self.name_desc.setStyleSheet("border: none;\n"
 "background-color: rgba(255, 255, 255, 0);")
-        self.frame.setFrameShape(QtWidgets.QFrame.StyledPanel)
-        self.frame.setFrameShadow(QtWidgets.QFrame.Raised)
-        self.frame.setObjectName("frame")
-        self.verticalLayout = QtWidgets.QVBoxLayout(self.frame)
+        self.name_desc.setFrameShape(QtWidgets.QFrame.NoFrame)
+        self.name_desc.setFrameShadow(QtWidgets.QFrame.Raised)
+        self.name_desc.setObjectName("name_desc")
+        self.horizontalLayout_4 = QtWidgets.QHBoxLayout(self.name_desc)
+        self.horizontalLayout_4.setContentsMargins(0, 0, 0, 0)
+        self.horizontalLayout_4.setSpacing(0)
+        self.horizontalLayout_4.setObjectName("horizontalLayout_4")
+        self.more_name_desc = QtWidgets.QFrame(self.name_desc)
+        self.more_name_desc.setStyleSheet("border: none;\n"
+"background-color: rgba(255, 255, 255, 0);")
+        self.more_name_desc.setFrameShape(QtWidgets.QFrame.StyledPanel)
+        self.more_name_desc.setFrameShadow(QtWidgets.QFrame.Raised)
+        self.more_name_desc.setObjectName("more_name_desc")
+        self.verticalLayout = QtWidgets.QVBoxLayout(self.more_name_desc)
         self.verticalLayout.setContentsMargins(0, 0, 0, 0)
         self.verticalLayout.setSpacing(0)
         self.verticalLayout.setObjectName("verticalLayout")
-        self.label_config_name = QtWidgets.QLabel(self.frame)
+        self.label_config_name = QtWidgets.QLabel(self.more_name_desc)
         self.label_config_name.setStyleSheet("QLabel{\n"
 "    font: 600 15pt \"Video SemBd\";\n"
 "    color: rgba(255, 255, 255, 0.6);\n"
@@ -79,42 +102,43 @@ class Ui_SettingsForm(object):
 "}")
         self.label_config_name.setObjectName("label_config_name")
         self.verticalLayout.addWidget(self.label_config_name)
-        self.description_label = QtWidgets.QLabel(self.frame)
+        self.description_label = QtWidgets.QLabel(self.more_name_desc)
         self.description_label.setMinimumSize(QtCore.QSize(400, 0))
-        self.description_label.setMaximumSize(QtCore.QSize(400, 16777215))
+        self.description_label.setMaximumSize(QtCore.QSize(16777215, 16777215))
         self.description_label.setStyleSheet("QLabel{\n"
 "    \n"
 "    \n"
-"    font: 300 10pt \"Video Light\";\n"
+"    font: 300 11pt \"Video Light\";\n"
 "    color: rgba(255, 255, 255, 0.4);\n"
 "    border:0;\n"
 "    background: rgba(0,0,0,0);\n"
 "}")
         self.description_label.setObjectName("description_label")
         self.verticalLayout.addWidget(self.description_label)
-        self.horizontalLayout_2.addWidget(self.frame)
-        spacerItem = QtWidgets.QSpacerItem(629, 20, QtWidgets.QSizePolicy.Expanding, QtWidgets.QSizePolicy.Minimum)
+        self.horizontalLayout_4.addWidget(self.more_name_desc)
+        self.horizontalLayout_2.addWidget(self.name_desc)
+        spacerItem = QtWidgets.QSpacerItem(40, 20, QtWidgets.QSizePolicy.Expanding, QtWidgets.QSizePolicy.Minimum)
         self.horizontalLayout_2.addItem(spacerItem)
-        self.frame_2 = QtWidgets.QFrame(self.Config_1)
-        self.frame_2.setStyleSheet("QFrame{\n"
+        self.widgetcontainer = QtWidgets.QFrame(self.Config_1)
+        self.widgetcontainer.setStyleSheet("QFrame{\n"
 "    border: none;\n"
 "    background-color: none;\n"
 "    border-radius: none;}")
-        self.frame_2.setFrameShape(QtWidgets.QFrame.StyledPanel)
-        self.frame_2.setFrameShadow(QtWidgets.QFrame.Raised)
-        self.frame_2.setObjectName("frame_2")
-        self.horizontalLayout = QtWidgets.QHBoxLayout(self.frame_2)
+        self.widgetcontainer.setFrameShape(QtWidgets.QFrame.StyledPanel)
+        self.widgetcontainer.setFrameShadow(QtWidgets.QFrame.Raised)
+        self.widgetcontainer.setObjectName("widgetcontainer")
+        self.horizontalLayout = QtWidgets.QHBoxLayout(self.widgetcontainer)
         self.horizontalLayout.setObjectName("horizontalLayout")
         spacerItem1 = QtWidgets.QSpacerItem(40, 20, QtWidgets.QSizePolicy.Expanding, QtWidgets.QSizePolicy.Minimum)
         self.horizontalLayout.addItem(spacerItem1)
-        self.lineEdit = QtWidgets.QLineEdit(self.frame_2)
-        self.lineEdit.setMinimumSize(QtCore.QSize(88, 33))
-        self.lineEdit.setMaximumSize(QtCore.QSize(88, 33))
-        self.lineEdit.setStyleSheet("QLineEdit{\n"
-"    font: 600 9.5pt \"Video SemBd\";\n"
+        self.string = QtWidgets.QLineEdit(self.widgetcontainer)
+        self.string.setMinimumSize(QtCore.QSize(120, 33))
+        self.string.setMaximumSize(QtCore.QSize(120, 33))
+        self.string.setStyleSheet("QLineEdit{\n"
+"    font: 600 10.5pt \"Video SemBd\";\n"
 "    padding-left: 5px;\n"
 "    padding-right: 5px;\n"
-"    border-radius: 5px;\n"
+"    border-radius: 4px;\n"
 "    color: rgba(255, 255, 255, 0.45); \n"
 "    border: 1px solid rgba(0,0,0,0.4);\n"
 "    background-color: rgba(0,0,0,0.2);\n"
@@ -122,16 +146,17 @@ class Ui_SettingsForm(object):
 "QLineEdit:hover{\n"
 "    background-color: rgba(0,0,0,0.4);\n"
 "}")
-        self.lineEdit.setAlignment(QtCore.Qt.AlignCenter)
-        self.lineEdit.setObjectName("lineEdit")
-        self.horizontalLayout.addWidget(self.lineEdit)
-        self.options_comboBox = QtWidgets.QComboBox(self.frame_2)
-        self.options_comboBox.setMinimumSize(QtCore.QSize(88, 33))
-        self.options_comboBox.setMaximumSize(QtCore.QSize(88, 33))
-        self.options_comboBox.setCursor(QtGui.QCursor(QtCore.Qt.PointingHandCursor))
-        self.options_comboBox.setStyleSheet("QComboBox {\n"
-"    font: 500 9pt \"Video Med\";\n"
-"    padding-left: 5px;\n"
+        self.string.setText("")
+        self.string.setAlignment(QtCore.Qt.AlignCenter)
+        self.string.setObjectName("string")
+        self.horizontalLayout.addWidget(self.string)
+        self.options = QtWidgets.QComboBox(self.widgetcontainer)
+        self.options.setMinimumSize(QtCore.QSize(120, 33))
+        self.options.setMaximumSize(QtCore.QSize(120, 33))
+        self.options.setCursor(QtGui.QCursor(QtCore.Qt.PointingHandCursor))
+        self.options.setStyleSheet("QComboBox {\n"
+"    font: 500 10.5pt \"Video Med\";\n"
+"    padding-left: 8px;\n"
 "    border-radius: 4px;\n"
 "    color: rgba(255, 255, 255, 0.45);\n"
 "    border: 1px solid rgba(0, 0, 0, 0.4);\n"
@@ -148,66 +173,213 @@ class Ui_SettingsForm(object):
 "    border-radius: 0px;\n"
 "}\n"
 "\n"
-"QFrame{\n"
+"QComboBox::down-arrow {\n"
+"    image: url(:/icons/icons/down_arrow.png);\n"
+"    width: 8px;\n"
+"    height: 8px;\n"
+"    margin-right: 10px;\n"
+"}\n"
+"\n"
+"QFrame {\n"
 "    color: rgba(255, 255, 255, 0.6);\n"
 "    background-color: rgba(52, 73, 94, 0.3);\n"
 "    font: 500 10.5pt \"Video Med\";\n"
+"}")
+        self.options.setSizeAdjustPolicy(QtWidgets.QComboBox.AdjustToContents)
+        self.options.setObjectName("options")
+        self.horizontalLayout.addWidget(self.options)
+        self.misc = QtWidgets.QPushButton(self.widgetcontainer)
+        self.misc.setMinimumSize(QtCore.QSize(120, 33))
+        self.misc.setMaximumSize(QtCore.QSize(120, 33))
+        self.misc.setCursor(QtGui.QCursor(QtCore.Qt.PointingHandCursor))
+        self.misc.setStyleSheet("QPushButton {\n"
+"    font: 500 10.5pt \"Video Med\";\n"
+"    padding-left: 8px;\n"
+"    border-radius: 4px;\n"
+"    color: rgba(255, 255, 255, 0.45);\n"
+"    border: 1px solid rgba(0, 0, 0, 0.4);\n"
+"    background-color: rgba(0, 0, 0, 0.2);\n"
+"    text-align: center;\n"
 "}\n"
-"")
-        self.options_comboBox.setSizeAdjustPolicy(QtWidgets.QComboBox.AdjustToContents)
-        self.options_comboBox.setObjectName("options_comboBox")
-        self.horizontalLayout.addWidget(self.options_comboBox)
-        self.checkeable = QtWidgets.QPushButton(self.frame_2)
-        self.checkeable.setMinimumSize(QtCore.QSize(88, 33))
-        self.checkeable.setMaximumSize(QtCore.QSize(188, 33))
-        self.checkeable.setCursor(QtGui.QCursor(QtCore.Qt.PointingHandCursor))
-        self.checkeable.setStyleSheet("QPushButton{\n"
+"\n"
+"QPushButton:hover {\n"
+"    background-color: rgba(0, 0, 0, 0.4);\n"
+"}\n"
+"\n"
+"QPushButton:pressed {\n"
+"    background-color: rgba(0, 0, 0, 0.5);\n"
+"}")
+        self.misc.setObjectName("misc")
+        self.horizontalLayout.addWidget(self.misc)
+        self.toggle = QtWidgets.QFrame(self.widgetcontainer)
+        self.toggle.setStyleSheet("\n"
+"QPushButton:pressed {\n"
+"    background-color: rgba(0, 0, 0, 0.5);\n"
+"}")
+        self.toggle.setFrameShape(QtWidgets.QFrame.NoFrame)
+        self.toggle.setFrameShadow(QtWidgets.QFrame.Raised)
+        self.toggle.setObjectName("toggle")
+        self.horizontalLayout_5 = QtWidgets.QHBoxLayout(self.toggle)
+        self.horizontalLayout_5.setContentsMargins(0, 0, 0, 0)
+        self.horizontalLayout_5.setSpacing(0)
+        self.horizontalLayout_5.setObjectName("horizontalLayout_5")
+        self.btn_on = QtWidgets.QPushButton(self.toggle)
+        self.btn_on.setMinimumSize(QtCore.QSize(60, 33))
+        self.btn_on.setMaximumSize(QtCore.QSize(60, 33))
+        self.btn_on.setCursor(QtGui.QCursor(QtCore.Qt.PointingHandCursor))
+        self.btn_on.setStyleSheet("QPushButton{\n"
 "    padding: 1px 15px 1px 15px;\n"
-"    color: rgba(255, 255, 255, 0.8);\n"
-"    font: 500 9pt \"Video Med\";\n"
-"    border-radius: 5px;\n"
-"    border: 1px solid rgba(255, 85, 127,0.6);\n"
-"    background-color: rgba(255, 85, 127,0.2);\n"
+"    font: 500 9.5pt \"Video Med\";\n"
+"    border-radius: 4px;\n"
+"    color: rgba(255, 255, 255, 0.45);\n"
+"    border: 1px solid rgba(0, 0, 0, 0.4);\n"
+"    background-color: rgba(0, 0, 0, 0.2);\n"
+"\n"
+"    border-top-left-radius: 4px;\n"
+"    border-bottom-left-radius: 4px;\n"
+"    border-top-right-radius: 0px;\n"
+"    border-bottom-right-radius: 0px;\n"
+"    border-right: 0px;\n"
+"    \n"
 "}\n"
-"QPushButton:hover{\n"
-"    background-color: rgba(255, 85, 127,0.4);\n"
+"QPushButton:hover {\n"
+"    background-color: rgba(0, 0, 0, 0.4);\n"
 "}\n"
 "\n"
 "QPushButton:checked{\n"
 "    color: rgb(255,255,255);\n"
-"    background-color: rgba(156, 255, 136, 0.5);\n"
-"    border: 1px solid rgba(156, 255, 136,0.8);\n"
+"    background-color: rgba(186, 220, 88,0.5);\n"
+"    border: 1px solid  rgba(106, 176, 76,0.8);\n"
+"    border-right: 0px;\n"
+"    color: rgba(255, 255, 255, 0.65);\n"
+"    font: 500 10.5pt \"Video Med\";\n"
 "}")
-        self.checkeable.setCheckable(False)
-        self.checkeable.setChecked(False)
-        self.checkeable.setObjectName("checkeable")
-        self.horizontalLayout.addWidget(self.checkeable)
-        self.spinBox = QtWidgets.QSpinBox(self.frame_2)
-        self.spinBox.setMinimumSize(QtCore.QSize(88, 33))
-        self.spinBox.setMaximumSize(QtCore.QSize(88, 33))
-        self.spinBox.setStyleSheet("QSpinBox{\n"
-"    font: 600 9.5pt \"Video SemBd\";\n"
+        self.btn_on.setCheckable(True)
+        self.btn_on.setChecked(True)
+        self.btn_on.setObjectName("btn_on")
+        self.horizontalLayout_5.addWidget(self.btn_on)
+        self.btn_off = QtWidgets.QPushButton(self.toggle)
+        self.btn_off.setMinimumSize(QtCore.QSize(60, 33))
+        self.btn_off.setMaximumSize(QtCore.QSize(60, 33))
+        self.btn_off.setCursor(QtGui.QCursor(QtCore.Qt.PointingHandCursor))
+        self.btn_off.setStyleSheet("QPushButton{\n"
+"    padding: 1px 15px 1px 15px;\n"
+"    color: rgba(255, 255, 255, 0.8);\n"
+"     font: 500 9.5pt \"Video Med\";\n"
+"    border-radius: 4px;\n"
+"    color: rgba(255, 255, 255, 0.45);\n"
+"    border: 1px solid rgba(0, 0, 0, 0.4);\n"
+"    background-color: rgba(0, 0, 0, 0.2);\n"
+"\n"
+"    border-left: 0px;\n"
+"    border-top-left-radius: 0;\n"
+"    border-bottom-left-radius: 0;\n"
+"    border-top-right-radius: 4px;\n"
+"    border-bottom-right-radius: 4px;\n"
+"\n"
+"}\n"
+"QPushButton:hover {\n"
+"    background-color: rgba(0, 0, 0, 0.4);\n"
+"}\n"
+"\n"
+"QPushButton:checked{\n"
+"    border: 1px solid rgba(235, 77, 75,0.8);\n"
+"    background-color: rgba(255, 121, 121,0.5);\n"
+"    border-left: 0px;\n"
+"    color: rgba(255, 255, 255, 0.65);\n"
+"    font: 63 10.5pt \"Video SemBd\";\n"
+"\n"
+"}")
+        self.btn_off.setCheckable(True)
+        self.btn_off.setChecked(False)
+        self.btn_off.setObjectName("btn_off")
+        self.horizontalLayout_5.addWidget(self.btn_off)
+        self.horizontalLayout.addWidget(self.toggle)
+        self.integer = QtWidgets.QFrame(self.widgetcontainer)
+        self.integer.setStyleSheet("QPushButton {\n"
+"    font: 600 11.5pt \"Video SemBd\";\n"
 "    padding-left: 5px;\n"
 "    padding-right: 5px;\n"
-"    border-radius: 5px;\n"
 "    color: rgba(255, 255, 255, 0.45); \n"
 "    border: 1px solid rgba(0,0,0,0.4);\n"
-"    background-color: rgba(0,0,0,0.2);\n"
+"   background-color: rgba(0,0,0,0.2);\n"
+"}\n"
+"QPushButton:hover{\n"
+"    background-color: rgba(0,0,0,0.4);\n"
+"}\n"
+"\n"
+"QPushButton:pressed {\n"
+"    background-color: rgba(0, 0, 0, 0.5);\n"
+"}")
+        self.integer.setFrameShape(QtWidgets.QFrame.NoFrame)
+        self.integer.setFrameShadow(QtWidgets.QFrame.Raised)
+        self.integer.setObjectName("integer")
+        self.horizontalLayout_3 = QtWidgets.QHBoxLayout(self.integer)
+        self.horizontalLayout_3.setContentsMargins(0, 0, 0, 0)
+        self.horizontalLayout_3.setSpacing(0)
+        self.horizontalLayout_3.setObjectName("horizontalLayout_3")
+        self.minus = QtWidgets.QPushButton(self.integer)
+        self.minus.setMinimumSize(QtCore.QSize(40, 0))
+        self.minus.setMaximumSize(QtCore.QSize(40, 33))
+        self.minus.setCursor(QtGui.QCursor(QtCore.Qt.PointingHandCursor))
+        self.minus.setStyleSheet("border-top-left-radius: 4px;\n"
+"border-bottom-left-radius: 4px;\n"
+"border-top-right-radius: 0;\n"
+"border-bottom-right-radius: 0;")
+        self.minus.setObjectName("minus")
+        self.horizontalLayout_3.addWidget(self.minus)
+        self.spinBox = QtWidgets.QSpinBox(self.integer)
+        self.spinBox.setMinimumSize(QtCore.QSize(43, 33))
+        self.spinBox.setMaximumSize(QtCore.QSize(43, 33))
+        self.spinBox.setStyleSheet("QSpinBox{\n"
+"    font: 600 10.5pt \"Video SemBd\";\n"
+"    padding-left: 5px;\n"
+"    padding-right: 5px;\n"
+"    color: rgba(255, 255, 255, 0.45); \n"
+"    border: 1px solid rgba(0,0,0,0.4);\n"
+"    border-left: 0px;\n"
+"    border-right:0px; \n"
+"   background-color: rgba(0,0,0,0.2);\n"
 "}\n"
 "QSpinBox:hover{\n"
 "    background-color: rgba(0,0,0,0.4);\n"
-"}")
-        self.spinBox.setButtonSymbols(QtWidgets.QAbstractSpinBox.UpDownArrows)
+"}\n"
+"QSpinBox::up-button, QSpinBox::down-button {\n"
+"    width: 0;\n"
+"    border: none;\n"
+"    background: none;\n"
+"}\n"
+"")
+        self.spinBox.setWrapping(False)
+        self.spinBox.setAlignment(QtCore.Qt.AlignCenter)
+        self.spinBox.setReadOnly(False)
+        self.spinBox.setButtonSymbols(QtWidgets.QAbstractSpinBox.NoButtons)
         self.spinBox.setAccelerated(True)
-        self.spinBox.setProperty("showGroupSeparator", False)
+        self.spinBox.setCorrectionMode(QtWidgets.QAbstractSpinBox.CorrectToPreviousValue)
+        self.spinBox.setProperty("showGroupSeparator", True)
         self.spinBox.setSuffix("")
         self.spinBox.setMaximum(100000)
         self.spinBox.setObjectName("spinBox")
-        self.horizontalLayout.addWidget(self.spinBox)
-        self.horizontalLayout_2.addWidget(self.frame_2)
+        self.horizontalLayout_3.addWidget(self.spinBox)
+        self.plus = QtWidgets.QPushButton(self.integer)
+        self.plus.setMinimumSize(QtCore.QSize(40, 0))
+        self.plus.setMaximumSize(QtCore.QSize(40, 33))
+        self.plus.setCursor(QtGui.QCursor(QtCore.Qt.PointingHandCursor))
+        self.plus.setStyleSheet("border-top-left-radius: 0;\n"
+"border-bottom-left-radius: 0;\n"
+"border-top-right-radius: 4px;\n"
+"border-bottom-right-radius: 4px;")
+        self.plus.setObjectName("plus")
+        self.horizontalLayout_3.addWidget(self.plus)
+        self.horizontalLayout.addWidget(self.integer)
+        self.horizontalLayout_2.addWidget(self.widgetcontainer)
         self.verticalLayout_2.addWidget(self.Config_1)
 
         self.retranslateUi(SettingsForm)
+        self.plus.clicked.connect(self.spinBox.stepUp) # type: ignore
+        self.btn_on.clicked.connect(self.btn_off.toggle) # type: ignore
+        self.btn_off.clicked.connect(self.btn_on.toggle) # type: ignore
+        self.minus.clicked['bool'].connect(self.spinBox.stepDown) # type: ignore
         QtCore.QMetaObject.connectSlotsByName(SettingsForm)
 
     def retranslateUi(self, SettingsForm):
@@ -215,4 +387,9 @@ class Ui_SettingsForm(object):
         SettingsForm.setWindowTitle(_translate("SettingsForm", "Form"))
         self.label_config_name.setText(_translate("SettingsForm", "NAME"))
         self.description_label.setText(_translate("SettingsForm", "Description"))
-        self.checkeable.setText(_translate("SettingsForm", "DISABLED"))
+        self.misc.setText(_translate("SettingsForm", "OPEN"))
+        self.btn_on.setText(_translate("SettingsForm", "ON"))
+        self.btn_off.setText(_translate("SettingsForm", "OFF"))
+        self.minus.setText(_translate("SettingsForm", "-"))
+        self.plus.setText(_translate("SettingsForm", "+"))
+from ..generated_files import src_rc

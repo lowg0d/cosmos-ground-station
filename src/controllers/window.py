@@ -68,8 +68,16 @@ class WindowController:
     def toggle_fullscreen(self):
         if self.parent.isFullScreen():
             self.parent.showNormal()
+            
+            self.parent.titleBar.show()
+            self.parent.ui.topbarseparator.setMaximumHeight(34)
+            self.parent.ui.topbarseparator.setMinimumHeight(34)
+
         else:
             self.parent.showFullScreen()
+            self.parent.titleBar.hide()
+            self.parent.ui.topbarseparator.setMaximumHeight(15)
+            self.parent.ui.topbarseparator.setMinimumHeight(15)
 
     # Dropdown
     def setup_dropdown_animation(self):
@@ -77,7 +85,7 @@ class WindowController:
         self.animation_dropdown_on = QPropertyAnimation(
             self.ui.frame_connectionDropDown, b"maximumHeight"
         )
-        self.animation_dropdown_on.setDuration(135)
+        self.animation_dropdown_on.setDuration(155)
         self.animation_dropdown_on.setStartValue(0)
         self.animation_dropdown_on.setEndValue(70)
         self.animation_dropdown_on.setEasingCurve(QEasingCurve.OutQuad)
@@ -86,7 +94,7 @@ class WindowController:
         self.animation_dropdown_off = QPropertyAnimation(
             self.ui.frame_connectionDropDown, b"maximumHeight"
         )
-        self.animation_dropdown_off.setDuration(135)
+        self.animation_dropdown_off.setDuration(155)
         self.animation_dropdown_off.setStartValue(70)
         self.animation_dropdown_off.setEndValue(0)
         self.animation_dropdown_off.setEasingCurve(QEasingCurve.OutQuad)
@@ -110,9 +118,9 @@ class WindowController:
 
             self.ui.frame_dsahboardGraph.show()
 
-            self.parent.setMinimumWidth(1000)
+            self.parent.setMinimumWidth(1150)
             self.parent.setMaximumWidth(16777215)
-            self.parent.resize(QSize(1000, self.parent.height()))
+            self.parent.resize(QSize(1150, self.parent.height()))
 
             self.ui.btn_smallModeTogle.setChecked(False)
 
@@ -121,11 +129,11 @@ class WindowController:
 
             self.ui.frame_dsahboardGraph.hide()
 
-            self.parent.setMinimumWidth(262)
-            self.parent.setMaximumWidth(262)
-            self.parent.resize(QSize(262, self.parent.height()))
+            self.parent.setMinimumWidth(267)
+            self.parent.setMaximumWidth(267)
+            self.parent.resize(QSize(267, self.parent.height()))
             self.ui.btn_smallModeTogle.setChecked(True)
-
+            
         self.small_mode_toggled = not self.small_mode_toggled
 
     # Set Looks

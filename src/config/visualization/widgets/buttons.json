@@ -1,0 +1,26 @@
+{
+  "BUTTONS": {
+    "TARS": [
+      {
+        "name": "SET LAUNCHPAD",
+        "payload": 1,
+        "priority": 1
+      },
+      {
+        "name": "SET GO LAUNCH",
+        "payload": 2,
+        "priority": 1
+      },
+      {
+        "name": "SET IDLE",
+        "payload": 0,
+        "priority": 0
+      },
+      {
+        "name": "ABORT",
+        "payload": 3,
+        "priority": 3
+      }
+    ]
+  }
+}

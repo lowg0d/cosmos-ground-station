@@ -2,17 +2,20 @@
 <ui version="4.0">
  <class>MainWindow</class>
  <widget class="QMainWindow" name="MainWindow">
+  <property name="windowModality">
+   <enum>Qt::ApplicationModal</enum>
+  </property>
   <property name="geometry">
    <rect>
     <x>0</x>
     <y>0</y>
-    <width>1000</width>
-    <height>551</height>
+    <width>1150</width>
+    <height>650</height>
    </rect>
   </property>
   <property name="minimumSize">
    <size>
-    <width>1000</width>
+    <width>1050</width>
     <height>550</height>
    </size>
   </property>
@@ -75,9 +78,9 @@ QToolTip {
   background-color: #1b1a28;
 }
 #frame_topSideBarButtons QPushButton:disabled {
-  border: 1px solid #292a30;
+  border: 1px solid #1e1f22;
   color: #292b29;
-  background-color: #0f1015;
+  background-color: #17191d;
 }
 
 #frame_mainControls QPushButton,
@@ -102,17 +105,13 @@ QToolTip {
 #frame_connectionDropDown QPushButton:checked {
   color: #ffffff;
   border: 1px solid #6357a4;
-}
-#frame_connectionDropDown QPushButton:checked {
-  color: #ffffff;
-  border: 1px solid #6357a4;
   background-color: #1b1a28;
 }
 
 #frame_connectionDropDown QPushButton:disabled {
-  border: 1px solid #292a30;
+  border: 1px solid #1e1f22;
   color: #292b29;
-  background-color: #12141a;
+  background-color: #17191d;
 }
 
 /* preferences page */
@@ -155,9 +154,6 @@ QToolTip {
 #frame_StateAndCountdownContainer QPushButton:hover {
   background-color: #37383d;
 }
-#frame_StateAndCountdownContainer QPushButton:pressed {
-  background-color: #4d4e52;
-}
 
 /*  TLM CONTAINERS */
 #frame_mainTlmLabels QFrame {
@@ -173,16 +169,23 @@ QToolTip {
   font: 600 9.5pt &quot;Video SemBd&quot;;
 }
 
+
 #frame_mainTlmLabels QLabel {
   font: 600 9.5pt &quot;Video SemBd&quot;;
-}
-
-#frame_secondaryAndButtonContainer QLabel {
-  font: 600 9.5pt &quot;Video SemBd&quot;;
+	border: none;
+	background-color: none;
 }
 
 #frame_BigTlmLabels QLabel {
-  font: 600 10.5pt &quot;Video SemBd&quot;;
+  font: 600 11.5pt &quot;Video SemBd&quot;;
+	border: none;
+	background-color: none;
+}
+
+#frame_secondaryAndButtonContainer QLabel {
+  font: 600 9pt &quot;Video SemBd&quot;;
+	border: none;
+	background-color: none;
 }
 
 /** DROP COMBO BOX **/
@@ -202,13 +205,21 @@ QToolTip {
   border: 0px;
 }
 
+
+#frame_connectionDropDown QComboBox::down-arrow {
+	image: url(:/icons/icons/down_arrow.png);
+	width: 8px;
+	height: 8px;
+	margin-right: 10px;
+}
+
 #frame_connectionDropDown QComboBox QAbstractItem {
   padding: 4px 8px;
   border-radius: 4px;
   selection-background-color: none;
   border: none;
 }
-#frame_connectionDropDown QComboBox QAbstractItem:item {
+#frame_connectionDropDown QComboBox QAbstractItem::item {
   padding: 4px 8px;
   border-radius: 4px;
 }
@@ -309,6 +320,16 @@ QScrollBar::sub-page:vertical {
   background: none;
 }
 
+#label_longVersion {
+  border-radius: 4px;
+  font: 600 9.5pt &quot;Video SemBd&quot;;
+	color: #808183;
+
+}
+#frame_preferencesContainer QLabel {
+	font: 63 11pt &quot;Video SemBd&quot;;
+}
+
 /* SEPARATOR LINES */
 #line,
 #line_1,
@@ -319,7 +340,8 @@ QScrollBar::sub-page:vertical {
 #line_6,
 #line_7,
 #line_8,
-#line_9 {
+#line_9,
+#line_10 {
   border: 0;
   background-color: #45484e;
 }
@@ -334,7 +356,7 @@ QScrollBar::sub-page:vertical {
      <number>4</number>
     </property>
     <property name="topMargin">
-     <number>32</number>
+     <number>0</number>
     </property>
     <property name="rightMargin">
      <number>4</number>
@@ -342,6 +364,28 @@ QScrollBar::sub-page:vertical {
     <property name="bottomMargin">
      <number>0</number>
     </property>
+    <item>
+     <widget class="QFrame" name="topbarseparator">
+      <property name="minimumSize">
+       <size>
+        <width>0</width>
+        <height>34</height>
+       </size>
+      </property>
+      <property name="maximumSize">
+       <size>
+        <width>16777215</width>
+        <height>34</height>
+       </size>
+      </property>
+      <property name="frameShape">
+       <enum>QFrame::NoFrame</enum>
+      </property>
+      <property name="frameShadow">
+       <enum>QFrame::Raised</enum>
+      </property>
+     </widget>
+    </item>
     <item>
      <widget class="QFrame" name="centralFrame">
       <property name="frameShape">
@@ -536,7 +580,7 @@ QScrollBar::sub-page:vertical {
                <number>0</number>
               </property>
               <property name="bottomMargin">
-               <number>0</number>
+               <number>4</number>
               </property>
               <item>
                <widget class="QPushButton" name="btn_goBackHome">
@@ -559,6 +603,38 @@ QScrollBar::sub-page:vertical {
                  <string>GO BACK</string>
                 </property>
                </widget>
+              </item>
+              <item>
+               <widget class="Line" name="line_8">
+                <property name="minimumSize">
+                 <size>
+                  <width>0</width>
+                  <height>1</height>
+                 </size>
+                </property>
+                <property name="maximumSize">
+                 <size>
+                  <width>16777215</width>
+                  <height>1</height>
+                 </size>
+                </property>
+                <property name="orientation">
+                 <enum>Qt::Horizontal</enum>
+                </property>
+               </widget>
+              </item>
+              <item>
+               <spacer name="verticalSpacer_4">
+                <property name="orientation">
+                 <enum>Qt::Vertical</enum>
+                </property>
+                <property name="sizeHint" stdset="0">
+                 <size>
+                  <width>20</width>
+                  <height>438</height>
+                 </size>
+                </property>
+               </spacer>
               </item>
               <item>
                <widget class="Line" name="line_6">
@@ -603,6 +679,9 @@ QScrollBar::sub-page:vertical {
               </item>
               <item>
                <widget class="QPushButton" name="btn_openDashboardEditor">
+                <property name="enabled">
+                 <bool>false</bool>
+                </property>
                 <property name="minimumSize">
                  <size>
                   <width>0</width>
@@ -623,19 +702,6 @@ QScrollBar::sub-page:vertical {
                 </property>
                </widget>
               </item>
-              <item>
-               <spacer name="verticalSpacer_4">
-                <property name="orientation">
-                 <enum>Qt::Vertical</enum>
-                </property>
-                <property name="sizeHint" stdset="0">
-                 <size>
-                  <width>20</width>
-                  <height>438</height>
-                 </size>
-                </property>
-               </spacer>
-              </item>
              </layout>
             </widget>
            </item>
@@ -649,13 +715,13 @@ QScrollBar::sub-page:vertical {
              </property>
              <layout class="QVBoxLayout" name="verticalLayout_17">
               <property name="spacing">
-               <number>8</number>
+               <number>4</number>
               </property>
               <property name="leftMargin">
-               <number>85</number>
+               <number>65</number>
               </property>
               <property name="topMargin">
-               <number>4</number>
+               <number>0</number>
               </property>
               <property name="rightMargin">
                <number>85</number>
@@ -664,21 +730,144 @@ QScrollBar::sub-page:vertical {
                <number>4</number>
               </property>
               <item>
-               <layout class="QVBoxLayout" name="layout_preferences">
-                <item>
-                 <spacer name="verticalSpacer_5">
-                  <property name="orientation">
-                   <enum>Qt::Vertical</enum>
+               <widget class="QLabel" name="label_longVersion">
+                <property name="minimumSize">
+                 <size>
+                  <width>0</width>
+                  <height>32</height>
+                 </size>
+                </property>
+                <property name="maximumSize">
+                 <size>
+                  <width>16777215</width>
+                  <height>32</height>
+                 </size>
+                </property>
+                <property name="text">
+                 <string>VERSION: COSMOS-v1.0.0-ALPHA</string>
+                </property>
+                <property name="alignment">
+                 <set>Qt::AlignLeading|Qt::AlignLeft|Qt::AlignVCenter</set>
+                </property>
+               </widget>
+              </item>
+              <item>
+               <widget class="Line" name="line_7">
+                <property name="minimumSize">
+                 <size>
+                  <width>0</width>
+                  <height>1</height>
+                 </size>
+                </property>
+                <property name="maximumSize">
+                 <size>
+                  <width>116888</width>
+                  <height>1</height>
+                 </size>
+                </property>
+                <property name="orientation">
+                 <enum>Qt::Horizontal</enum>
+                </property>
+               </widget>
+              </item>
+              <item>
+               <widget class="QScrollArea" name="scrollArea_SettingContainer">
+                <property name="frameShape">
+                 <enum>QFrame::NoFrame</enum>
+                </property>
+                <property name="lineWidth">
+                 <number>0</number>
+                </property>
+                <property name="horizontalScrollBarPolicy">
+                 <enum>Qt::ScrollBarAlwaysOff</enum>
+                </property>
+                <property name="sizeAdjustPolicy">
+                 <enum>QAbstractScrollArea::AdjustIgnored</enum>
+                </property>
+                <property name="widgetResizable">
+                 <bool>true</bool>
+                </property>
+                <property name="alignment">
+                 <set>Qt::AlignHCenter|Qt::AlignTop</set>
+                </property>
+                <widget class="QWidget" name="scrollAreaWidgetContents_settings">
+                 <property name="geometry">
+                  <rect>
+                   <x>0</x>
+                   <y>0</y>
+                   <width>730</width>
+                   <height>554</height>
+                  </rect>
+                 </property>
+                 <layout class="QVBoxLayout" name="verticalLayout_21">
+                  <property name="spacing">
+                   <number>0</number>
                   </property>
-                  <property name="sizeHint" stdset="0">
-                   <size>
-                    <width>20</width>
-                    <height>40</height>
-                   </size>
+                  <property name="leftMargin">
+                   <number>0</number>
                   </property>
-                 </spacer>
-                </item>
-               </layout>
+                  <property name="topMargin">
+                   <number>0</number>
+                  </property>
+                  <property name="rightMargin">
+                   <number>0</number>
+                  </property>
+                  <property name="bottomMargin">
+                   <number>0</number>
+                  </property>
+                  <item>
+                   <widget class="QFrame" name="frame_preferencesLAyoutContainer">
+                    <property name="frameShape">
+                     <enum>QFrame::NoFrame</enum>
+                    </property>
+                    <property name="frameShadow">
+                     <enum>QFrame::Raised</enum>
+                    </property>
+                    <layout class="QVBoxLayout" name="verticalLayout_22">
+                     <property name="spacing">
+                      <number>0</number>
+                     </property>
+                     <property name="leftMargin">
+                      <number>0</number>
+                     </property>
+                     <property name="topMargin">
+                      <number>0</number>
+                     </property>
+                     <property name="rightMargin">
+                      <number>0</number>
+                     </property>
+                     <property name="bottomMargin">
+                      <number>0</number>
+                     </property>
+                     <item>
+                      <layout class="QVBoxLayout" name="layout_preferences">
+                       <property name="spacing">
+                        <number>7</number>
+                       </property>
+                       <property name="sizeConstraint">
+                        <enum>QLayout::SetDefaultConstraint</enum>
+                       </property>
+                       <item>
+                        <spacer name="verticalSpacer_5">
+                         <property name="orientation">
+                          <enum>Qt::Vertical</enum>
+                         </property>
+                         <property name="sizeHint" stdset="0">
+                          <size>
+                           <width>20</width>
+                           <height>40</height>
+                          </size>
+                         </property>
+                        </spacer>
+                       </item>
+                      </layout>
+                     </item>
+                    </layout>
+                   </widget>
+                  </item>
+                 </layout>
+                </widget>
+               </widget>
               </item>
              </layout>
             </widget>
@@ -706,7 +895,7 @@ QScrollBar::sub-page:vertical {
             <widget class="QFrame" name="frame_LeftSideBar">
              <property name="minimumSize">
               <size>
-               <width>250</width>
+               <width>255</width>
                <height>0</height>
               </size>
              </property>
@@ -950,7 +1139,7 @@ QScrollBar::sub-page:vertical {
                   </widget>
                  </item>
                  <item>
-                  <widget class="QPushButton" name="btn_countdown">
+                  <widget class="QLabel" name="label_countdown">
                    <property name="minimumSize">
                     <size>
                      <width>0</width>
@@ -963,11 +1152,11 @@ QScrollBar::sub-page:vertical {
                      <height>27</height>
                     </size>
                    </property>
-                   <property name="cursor">
-                    <cursorShape>PointingHandCursor</cursorShape>
-                   </property>
                    <property name="text">
                     <string>T- 00:00:00.0</string>
+                   </property>
+                   <property name="alignment">
+                    <set>Qt::AlignCenter</set>
                    </property>
                   </widget>
                  </item>
@@ -1047,7 +1236,7 @@ QScrollBar::sub-page:vertical {
                     <item>
                      <layout class="QGridLayout" name="layout_BigTlmLabels">
                       <property name="spacing">
-                       <number>4</number>
+                       <number>0</number>
                       </property>
                      </layout>
                     </item>
@@ -1081,7 +1270,7 @@ QScrollBar::sub-page:vertical {
                     <item>
                      <layout class="QGridLayout" name="layout_PrimaryTlmLabel">
                       <property name="spacing">
-                       <number>4</number>
+                       <number>0</number>
                       </property>
                      </layout>
                     </item>
@@ -1129,8 +1318,8 @@ QScrollBar::sub-page:vertical {
                   <rect>
                    <x>0</x>
                    <y>0</y>
-                   <width>246</width>
-                   <height>188</height>
+                   <width>251</width>
+                   <height>285</height>
                   </rect>
                  </property>
                  <layout class="QVBoxLayout" name="verticalLayout_7">
@@ -1200,7 +1389,7 @@ QScrollBar::sub-page:vertical {
                         <item>
                          <layout class="QGridLayout" name="layout_SecondaryTlmLabelContainer">
                           <property name="spacing">
-                           <number>4</number>
+                           <number>0</number>
                           </property>
                          </layout>
                         </item>
@@ -1884,13 +2073,13 @@ p, li { white-space: pre-wrap; }
                          <widget class="QPushButton" name="btn_clearTerminal">
                           <property name="minimumSize">
                            <size>
-                            <width>30</width>
+                            <width>40</width>
                             <height>27</height>
                            </size>
                           </property>
                           <property name="maximumSize">
                            <size>
-                            <width>30</width>
+                            <width>47</width>
                             <height>27</height>
                            </size>
                           </property>
@@ -1928,38 +2117,6 @@ p, li { white-space: pre-wrap; }
                           </property>
                           <property name="placeholderText">
                            <string>Type here a message to send to the serial port</string>
-                          </property>
-                         </widget>
-                        </item>
-                        <item>
-                         <widget class="QPushButton" name="btn_terminalSend">
-                          <property name="minimumSize">
-                           <size>
-                            <width>30</width>
-                            <height>27</height>
-                           </size>
-                          </property>
-                          <property name="maximumSize">
-                           <size>
-                            <width>30</width>
-                            <height>27</height>
-                           </size>
-                          </property>
-                          <property name="cursor">
-                           <cursorShape>PointingHandCursor</cursorShape>
-                          </property>
-                          <property name="text">
-                           <string/>
-                          </property>
-                          <property name="icon">
-                           <iconset resource="../resources/src.qrc">
-                            <normaloff>:/icons/icons/send.png</normaloff>:/icons/icons/send.png</iconset>
-                          </property>
-                          <property name="iconSize">
-                           <size>
-                            <width>12</width>
-                            <height>12</height>
-                           </size>
                           </property>
                          </widget>
                         </item>
