@@ -137,7 +137,6 @@ class PreferenceWidget(QWidget):
             list_of_options = []
             
             data = self.parent.preferences.get("DASHBOARDS", 2)
-            print(data)
             for option in data:
                 list_of_options.append(option)
                     

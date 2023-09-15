@@ -75,4 +75,4 @@ class SerialModel:
             return rcv_data
 
         except UnicodeDecodeError:
-            print(f"[-] Packet Corrupted, can't parse data.")
+            return UnicodeDecodeError

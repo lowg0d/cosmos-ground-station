@@ -16,12 +16,30 @@
 #
 #############################################################
 
+######################### Xnxe9 <3? #########################
+#
+#   .o88b.  .d88b.  .d8888. .88b  d88.  .d88b.  .d8888.
+#  d8P  Y8 .8P  Y8. 88'  YP 88'YbdP`88 .8P  Y8. 88'  YP
+#  8P      88    88 `8bo.   88  88  88 88    88 `8bo.
+#  8b      88    88   `Y8b. 88  88  88 88    88   `Y8b.
+#  Y8b  d8 `8b  d8' db   8D 88  88  88 `8b  d8' db   8D
+#   `Y88P'  `Y88P'  `8888Y' YP  YP  YP  `Y88P'  `8888Y'
+#
+# ★ StarLab RPL - COSMOS GROUND STATION ★
+# Communications and Observation Station for Mission Operations and Surveillance
+#
+# By Martin Ortiz
+# Version 1.0.0
+# Date 06.08.2023
+#
+#############################################################
+
 import numpy as np
 import pyqtgraph as pg
 from PyQt5.QtGui import QColor
 
-pen_width = 1.6
-
+pen_width = 2.2
+LINSPACE = 11
 
 class MonoAxePlotWidget(pg.PlotItem):
     def __init__(
@@ -30,21 +48,24 @@ class MonoAxePlotWidget(pg.PlotItem):
         title=None,
         labels={"bottom": "Time (s)"},
         name="plot_widget",
-        color: str = "#00BA42",
+        color: str = "00BA42",
         enableMenu=False,
-        linspace_x=90,
-        **kargs
+        linspace_x=LINSPACE,
+        **kargs,
     ):
         super().__init__(
             parent=parent, labels=labels, title=title, enableMenu=enableMenu, **kargs
         )
 
-        self.name = name
-        
+        if color == None:
+            color = "e84118"
+
+        color = f"#{color}"
+
         x_vals = np.linspace(0.0, (linspace_x - 1) / linspace_x, linspace_x)
         self.graph_plot = self.plot(
             x=x_vals,
-            name=self.name,
+            name=name,
             pen=pg.mkPen(color, width=pen_width),
             antialias=True,
             connect="finite",
@@ -100,13 +121,13 @@ class DualAxePlotWidget(pg.PlotItem):
         parent=None,
         labels={"bottom": "T(s)"},
         title=None,
-        color_x: str = "#00d2d3",
-        color_y: str = "#ff9ff3",
+        color_x: str = "00d2d3",
+        color_y: str = "ff9ff3",
         name_x="X",
         name_y="Y",
         enableMenu=False,
-        linspace_x=90,
-        **kargs
+        linspace_x=LINSPACE,
+        **kargs,
     ):
         super().__init__(
             parent=parent, labels=labels, title=title, enableMenu=enableMenu, **kargs
@@ -116,9 +137,12 @@ class DualAxePlotWidget(pg.PlotItem):
         self.name_y = name_y
 
         if color_x == None:
-            color_x = "#00d2d3"
+            color_x = "e84118"
         if color_y == None:
-            color_y = "#ff9ff3"
+            color_y = "4cd137"
+
+        color_x = f"#{color_x}"
+        color_y = f"#{color_y}"
 
         x_vals_x = np.linspace(0.0, (linspace_x - 1) / linspace_x, linspace_x)
         x_vals_y = np.linspace(0.0, (linspace_x - 1) / linspace_x, linspace_x)
@@ -212,15 +236,15 @@ class TripleAxePlotWidget(pg.PlotItem):
         parent=None,
         labels={"bottom": "T(s)"},
         title=None,
-        color_x: str = "#e84118",
-        color_y: str = "#4cd137",
-        color_z: str = "#00a8ff",
+        color_x: str = "e84118",
+        color_y: str = "4cd137",
+        color_z: str = "00a8ff",
         name_x="X",
         name_y="Y",
         name_z="Z",
         enableMenu=False,
-        linspace_x=90,
-        **kargs
+        linspace_x=LINSPACE,
+        **kargs,
     ):
         super().__init__(
             parent=parent, labels=labels, title=title, enableMenu=enableMenu, **kargs
@@ -231,11 +255,15 @@ class TripleAxePlotWidget(pg.PlotItem):
         self.name_z = name_z
 
         if color_x == None:
-            color_x = "#e84118"
+            color_x = "e84118"
         if color_y == None:
-            color_y = "#4cd137"
+            color_y = "4cd137"
         if color_z == None:
-            color_z = "#00a8ff"
+            color_z = "00a8ff"
+
+        color_x = f"#{color_x}"
+        color_y = f"#{color_y}"
+        color_z = f"#{color_z}"
 
         x_vals_x = np.linspace(0.0, (linspace_x - 1) / linspace_x, linspace_x)
         x_vals_y = np.linspace(0.0, (linspace_x - 1) / linspace_x, linspace_x)
@@ -345,13 +373,18 @@ class GpsPlotWidget(pg.PlotItem):
         parent=None,
         labels={"bottom": "Longitude", "left": "Latitude"},
         title=None,
-        color: str = "#00BA42",
+        color: str = "00BA42",
         enableMenu=False,
-        **kargs
+        **kargs,
     ):
         super().__init__(
             parent=parent, labels=labels, title=title, enableMenu=enableMenu, **kargs
         )
+
+        if color == None:
+            color = "e84118"
+
+        color = f"#{color}"
 
         fill_color = QColor(color)
         fill_color.setAlpha(80)
@@ -388,22 +421,26 @@ class GpsPlotWidget(pg.PlotItem):
         self.graph_data["x"].append(longitude)
         self.graph_data["y"].append(latitude)
 
-        if len(self.graph_data["x"]) > 20:
+        if len(self.graph_data["x"]) > 40:
             self.graph_data["x"].pop(0)
             self.graph_data["y"].pop(0)
 
         self.lastet_data = {"x": [longitude], "y": [latitude]}
         self.graph_plot.setData(self.graph_data["x"], self.graph_data["y"])
         self.scatter_plot.setData(
-            self.lastet_data["x"], self.lastet_data["y"], symbol="o", connect="finite", size=10
+            self.lastet_data["x"],
+            self.lastet_data["y"],
+            symbol="o",
+            connect="finite",
+            size=8,
         )
 
         x_range = (
-            min(self.graph_data["x"]) - 0.0090,
-            max(self.graph_data["x"]) + 0.0090,
+            min(self.graph_data["x"]) - 0.0190,
+            max(self.graph_data["x"]) + 0.0190,
         )
         y_range = (
-            min(self.graph_data["y"]) - 0.0090,
-            max(self.graph_data["y"]) + 0.0090,
+            min(self.graph_data["y"]) - 0.0190,
+            max(self.graph_data["y"]) + 0.0190,
         )
-        self.setRange(xRange=x_range, yRange=y_range)
+        self.setRange(xRange=x_range, yRange=y_range, padding=0.03)

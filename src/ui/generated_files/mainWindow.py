@@ -181,13 +181,13 @@ class Ui_MainWindow(object):
 "\n"
 "\n"
 "#frame_mainTlmLabels QLabel {\n"
-"  font: 600 9.5pt \"Video SemBd\";\n"
+"  font: 600 9pt \"Video SemBd\";\n"
 "    border: none;\n"
 "    background-color: none;\n"
 "}\n"
 "\n"
 "#frame_BigTlmLabels QLabel {\n"
-"  font: 600 11.5pt \"Video SemBd\";\n"
+"  font: 600 11pt \"Video SemBd\";\n"
 "    border: none;\n"
 "    background-color: none;\n"
 "}\n"
@@ -491,7 +491,7 @@ class Ui_MainWindow(object):
         self.scrollArea_SettingContainer.setAlignment(QtCore.Qt.AlignHCenter|QtCore.Qt.AlignTop)
         self.scrollArea_SettingContainer.setObjectName("scrollArea_SettingContainer")
         self.scrollAreaWidgetContents_settings = QtWidgets.QWidget()
-        self.scrollAreaWidgetContents_settings.setGeometry(QtCore.QRect(0, 0, 730, 554))
+        self.scrollAreaWidgetContents_settings.setGeometry(QtCore.QRect(0, 0, 100, 30))
         self.scrollAreaWidgetContents_settings.setObjectName("scrollAreaWidgetContents_settings")
         self.verticalLayout_21 = QtWidgets.QVBoxLayout(self.scrollAreaWidgetContents_settings)
         self.verticalLayout_21.setContentsMargins(0, 0, 0, 0)
@@ -854,7 +854,7 @@ class Ui_MainWindow(object):
         self.verticalLayout_19.setSpacing(0)
         self.verticalLayout_19.setObjectName("verticalLayout_19")
         self.layout_graphContainer = QtWidgets.QGridLayout()
-        self.layout_graphContainer.setSpacing(4)
+        self.layout_graphContainer.setSpacing(0)
         self.layout_graphContainer.setObjectName("layout_graphContainer")
         self.verticalLayout_19.addLayout(self.layout_graphContainer)
         self.layout_Graphs.addWidget(self.frame_graphContainer)

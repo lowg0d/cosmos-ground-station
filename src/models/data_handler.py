@@ -76,12 +76,16 @@ class DataHandlerModel(QObject):
             while self.parent.serial_model.is_connected:
                 if self.parent.serial_model.ser.isOpen():
                     try:
-                        data = self.get_serial_data()
+                        data = str(self.get_serial_data())
 
                     except serial.serialutil.SerialException:
                         self.parent.serial_model.ser.close()
 
-                    self.process_data(data)
+                    if data != UnicodeDecodeError:
+                        self.process_data(data)
+
+                    else:
+                        print(f"[-] Packet Corrupted, can't parse data.")
 
                 else:
                     break
@@ -97,10 +101,12 @@ class DataHandlerModel(QObject):
 
             if len(rcv_data) > 2:
                 if rcv_data.startswith(self.parent.packet_header):
-                    data_formated = rcv_data.replace(f"{self.parent.packet_header}", "")
+                    formated = rcv_data.replace(f"{self.parent.packet_header}", "")
+                    value_chain = str(formated).strip().split(f"{self.parent.packet_split_char}")
 
                     # emit signals
-                    self.parent.write_to_terminal.emit(data_formated)
+                    self.parent.update_value_chain.emit(value_chain)
+                    self.parent.write_to_terminal.emit(rcv_data)
 
                 else:
                     print("[+] Packet With Unknow Header: " + rcv_data)

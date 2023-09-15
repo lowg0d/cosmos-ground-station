@@ -33,7 +33,7 @@
         "name": "Update Interval",
         "description": "Time between graph and label updates <b>(in ms)</b>",
         "preference_type": "int",
-        "value": 500
+        "value": 50
       },
       "data_stale_detect_time": {
         "name": "Stale Data Detection Time",
@@ -69,6 +69,12 @@
         "preference_type": "edit_string",
         "value": "@TARS_TLM:"
       },
+      "state_value_index": {
+        "name": "State Value Index",
+        "description": "Index of the state value in the packet string.",
+        "preference_type": "int",
+        "value": 0
+      },
       "split_char": {
         "name": "Packet Split Char",
         "description": "Chararcter that is used to separate values. Example: '123;321'",
@@ -84,9 +90,9 @@
     }
   },
   "HIDDEN": {
-    "last_port": "COM4",
-    "last_bauds": "115200",
+    "last_port": "COM3",
+    "last_bauds": "9600",
     "auto_reConnect": true,
-    "small_mode": false
+    "small_mode": true
   }
 }

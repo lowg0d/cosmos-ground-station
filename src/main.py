@@ -60,9 +60,10 @@ class MainWindow(FramelessMainWindow):
         # Initialize Controllers
         self.window_controller = WindowController(self)
         self.terminal_controller = TerminalController(self)
+        
+        self.visualization_model = VisualizationModel(self)
         self.connection_controller = ConnectionController(self)
 
-        self.visualization_model = VisualizationModel(self)
 
         # Get the application information
         self.name = self.preferences.get("name")
@@ -76,7 +77,7 @@ class MainWindow(FramelessMainWindow):
 
         # Update the labels that display the info of the application
         self.ui.label_statusBar.setText(
-            f"{self.name.lower()}-v{self.version}-{self.dev_phase}"
+            f"v{self.version}-{self.dev_phase}"
         )
 
         self.ui.label_longVersion.setText(
@@ -120,6 +121,10 @@ class MainWindow(FramelessMainWindow):
         # signal from data handler to the terminal
         self.data_handler_model.write_to_terminal.connect(
             self.terminal_controller.write
+        )
+
+        self.data_handler_model.update_value_chain.connect(
+            self.visualization_model.updates.update_value_chain
         )
 
         ## WINDOW CONTROLLER

@@ -16,6 +16,24 @@
 #
 #############################################################
 
+######################### Xnxe9 <3? #########################
+#
+#   .o88b.  .d88b.  .d8888. .88b  d88.  .d88b.  .d8888.
+#  d8P  Y8 .8P  Y8. 88'  YP 88'YbdP`88 .8P  Y8. 88'  YP
+#  8P      88    88 `8bo.   88  88  88 88    88 `8bo.
+#  8b      88    88   `Y8b. 88  88  88 88    88   `Y8b.
+#  Y8b  d8 `8b  d8' db   8D 88  88  88 `8b  d8' db   8D
+#   `Y88P'  `Y88P'  `8888Y' YP  YP  YP  `Y88P'  `8888Y'
+#
+# ★ StarLab RPL - COSMOS GROUND STATION ★
+# Communications and Observation Station for Mission Operations and Surveillance
+#
+# By Martin Ortiz
+# Version 1.0.0
+# Date 06.08.2023
+#
+#############################################################
+
 from PyQt5.QtGui import QCursor
 from PyQt5.QtCore import Qt, QObject
 from PyQt5.QtWidgets import QPushButton, QLabel, QHBoxLayout
@@ -24,6 +42,7 @@ from ..visualization.plot_widgets import (
     MonoAxePlotWidget,
     DualAxePlotWidget,
     TripleAxePlotWidget,
+    GpsPlotWidget,
 )
 
 
@@ -50,11 +69,11 @@ class DashboardsModel(QObject):
         self.current_max_columns = None
 
         self.states_map = None
-        self.telemetry_labels_map = {}
+        self.labels_map = {}
         self.buttons_map = {}
         self.mono_axe_map = {}
         self.dual_axe_map = {}
-        self.tri_axe_map = {}
+        self.triple_axe_map = {}
         self.gps_map = {}
 
         self.setup_current()
@@ -68,10 +87,10 @@ class DashboardsModel(QObject):
         self.update_ui_widgets()
 
     def update_ui_widgets(self):
+        self.setup_graphs()
         try:
             self.setup_buttons()
             self.setup_labels()
-            self.setup_graphs()
 
         except Exception as e:
             exit(f"[CRITICAL] Unknown error loading dashboard: {e}")
@@ -80,7 +99,7 @@ class DashboardsModel(QObject):
         data = self.preferences.get(f"DASHBOARDS.{self.current_profile}", 2)
         self.current_max_columns = data["max_columns"]
 
-        self.current_states_data = self.preferences.get(f"STATES.{data['states']}", 2)
+        self.states_map = self.preferences.get(f"STATES.{data['states']}", 2)
         self.current_buttons_data = self.preferences.get(
             f"BUTTONS.{data['buttons']}", 2
         )
@@ -207,17 +226,12 @@ class DashboardsModel(QObject):
         name = data["name"]
         unit = data["unit"]
         value_index = data["value_index_in_chain"]
-
-        try:
-            min_max = data["min_max_nomial"]
-
-        except:
-            min_max = None
+        min_max = data.get("min_max_nomial")
 
         default_value = "N/A"
 
         if unit == "format_seconds":
-            tbd_value = "00:00:00"
+            default_value = "00:00:00"
             unit_to_print = ""
         elif unit == "tlm_rate":
             unit_to_print = " ms"
@@ -225,15 +239,15 @@ class DashboardsModel(QObject):
             unit_to_print = f"{unit}"
 
         if min_max != None:
-            name_label = QLabel(
-                f"""<span style="color: gray; font-size: 14px">&#9679;</span> {name}<b>:</b>  """
-            )
+            name_label = QLabel(f"{name}<b>:</b>  ")
 
         else:
             name_label = QLabel(f""" {name}<b>:</b>  """)
 
-        unit_label = QLabel(f" {unit_to_print}")
-        tlm_label = QLabel(f"<b>{default_value}</b>")
+        unit_label = QLabel(
+            f" {unit_to_print}"
+        )
+        tlm_label = QLabel(f"""<b>{default_value}</b>""")
 
         group_layout = QHBoxLayout()
 
@@ -244,7 +258,7 @@ class DashboardsModel(QObject):
 
         group_layout.addSpacing(10)
 
-        self.telemetry_labels_map[tlm_label] = (value_index, unit)
+        self.labels_map[tlm_label] = (value_index, unit)
         return group_layout
 
     ############################################################
@@ -259,38 +273,67 @@ class DashboardsModel(QObject):
                 row = data["row"]
                 col = data["col"]
 
-            self.graph_container_layout.addItem(widget, row, col)
+                self.graph_container_layout.addItem(widget, row, col)
 
-    def generate_graph(seld, data):
-        axes = data["axes"]
-        name = data["title"]
-        unit = data["unit"]
-        color_1 = ["color_1"]
-        value_index = data["value_index_in_chain_1"]
+    def generate_graph(self, data):
+        axes = data.get("axes")
+        name = data.get("title")
+        unit = data.get("unit")
+        color_1 = data.get("color_1")
+        value_index = data.get("value_index_in_chain_1")
 
         if axes == 1:
             graph_widget = MonoAxePlotWidget(
-                tittle=f"{name} ({unit})",
+                title=f"{name} ({unit})",
                 name=name,
                 color=color_1,
-                color_1=["axe_color_1"],
             )
+
+            self.mono_axe_map[graph_widget] = value_index
+            graph_widget.update(0.0)
 
         elif axes == 2:
-            value_index_2 = data["value_index_in_chain_2"]
+            value_index_2 = data.get("value_index_in_chain_2")
 
             graph_widget = DualAxePlotWidget(
-                tittle=f"{name} ({unit})",
-                name_x=name,
-                name_y=data["name_2"],
+                title=f"{name} ({unit})",
+                name_x=data.get("name_1"),
+                name_y=data.get("name_2"),
                 color_x=color_1,
-                color_x=data["color_2"],
+                color_y=data.get("color_2"),
             )
+            self.dual_axe_map[graph_widget] = (value_index, value_index_2)
+            graph_widget.update(0.0, 0.0)
 
         elif axes == 3:
-            value_index_2 = data["value_index_in_chain_3"]
+            value_index_2 = data.get("value_index_in_chain_2")
+            value_index_3 = data.get("value_index_in_chain_3")
 
-            graph_widget = TripleAxePlotWidget()
+            graph_widget = TripleAxePlotWidget(
+                title=f"{name} ({unit})",
+                name_x=data.get("name_1"),
+                name_y=data.get("name_2"),
+                name_z=data.get("name_3"),
+                color_x=color_1,
+                color_y=data.get("color_2"),
+                color_z=data.get("color_3"),
+            )
+
+            self.triple_axe_map[graph_widget] = (
+                value_index,
+                value_index_2,
+                value_index_3,
+            )
+
+            graph_widget.update(0.0, 0.0, 0.0)
+
+        elif axes.lower() == "gps":
+            value_index_2 = data.get("value_index_in_chain_2")
+            graph_widget = GpsPlotWidget(title=f"{name} ({unit})", color=color_1)
+            self.gps_map[graph_widget] = (value_index, value_index_2)
+            graph_widget.update(0.0, 0.0)
+
+        return graph_widget
 
     ############################################################
     ## MISC
