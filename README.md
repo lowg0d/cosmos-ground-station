@@ -1,4 +1,2 @@
-![](https://i.imgur.com/q9xgL0e.png)
+![](https://imgur.com/c72034df-a6d8-452f-b5f7-0eb6a12a2d83)
 # COSMOS: Ground Station
-
-![](https://i.imgur.com/AilU62R.png)
