@@ -26,7 +26,13 @@ from PyQt5.QtWidgets import QShortcut, QLabel
 from PyQt5.QtGui import QIcon, QKeySequence
 from qframelesswindow import FramelessMainWindow
 
-from src.models import PreferenceModel, RecordingModel, SerialModel, DataHandlerModel, VisualizationModel
+from src.models import (
+    PreferenceModel,
+    RecordingModel,
+    SerialModel,
+    DataHandlerModel,
+    VisualizationModel,
+)
 from src.controllers import WindowController, ConnectionController, TerminalController
 
 from src.ui import Ui_MainWindow, CustomTitleBar, PreferenceWidget
@@ -60,10 +66,9 @@ class MainWindow(FramelessMainWindow):
         # Initialize Controllers
         self.window_controller = WindowController(self)
         self.terminal_controller = TerminalController(self)
-        
+
         self.visualization_model = VisualizationModel(self)
         self.connection_controller = ConnectionController(self)
-
 
         # Get the application information
         self.name = self.preferences.get("name")
@@ -76,13 +81,12 @@ class MainWindow(FramelessMainWindow):
         self.setWindowTitle(self.name.upper())
 
         # Update the labels that display the info of the application
-        self.ui.label_statusBar.setText(
-            f"v{self.version}-{self.dev_phase}"
-        )
+        self.ui.label_statusBar.setText(f"v{self.version}-{self.dev_phase}")
 
         self.ui.label_longVersion.setText(
-            f"VERSION: {self.version}-{self.dev_phase} // BY: {self.author}"
+            f'VERSION: {self.version}-{self.dev_phase} // BY: {self.author} // <a href="https://github.com/lowg0d/cosmos-ground-station">Find Help or report a Bug -> </a>'
         )
+        self.ui.label_longVersion.setOpenExternalLinks(True)
 
         self.setup_signals()
         self.generate_ui_preferences_widgets()
@@ -92,12 +96,12 @@ class MainWindow(FramelessMainWindow):
 
         self.titleBar.raise_()
         self.show()
-        
+
         self.showMaximized()
-        
+
         # TEMPORAL (
         self.ui.splitter.setSizes([6000, 100])
-        #self.ui.splitter.widget(0).hide()
+        # self.ui.splitter.widget(0).hide()
         # )
 
     def generate_ui_preferences_widgets(self):
@@ -182,7 +186,7 @@ class MainWindow(FramelessMainWindow):
         self.update()
         self.destroy()
         self.close()
-        
+
         self.__init__()
 
     def on_bauds_changed(self):

@@ -18,7 +18,7 @@
 
 from PyQt5.QtGui import QCursor
 from PyQt5.QtCore import Qt, QObject
-from PyQt5.QtWidgets import QPushButton, QLabel, QHBoxLayout
+from PyQt5.QtWidgets import QPushButton, QLabel, QHBoxLayout, QGridLayout
 
 from ..visualization.plot_widgets import (
     MonoAxePlotWidget,
@@ -62,11 +62,34 @@ class DashboardsModel(QObject):
 
     def setup_current(self):
         self.current_profile = self.preferences.get_preference(
-            "profiles.visualization_dashboard"
+            "dashboard.visualization_dashboard"
         )
 
         self.update_profile_data()
         self.update_ui_widgets()
+
+    def destroy_current(self):
+        self.destroy_widgets_from_layout(self.button_container)
+        self.destroy_widgets_from_layout(self.big_label_container)
+        self.destroy_widgets_from_layout(self.primary_label_container)
+        self.destroy_widgets_from_layout(self.secondary_label_container)
+        self.graph_container_layout.clear()
+        
+        self.current_profile = None
+        self.current_buttons_data = None
+        self.current_states_data = None
+        self.current_labels_data = None
+        self.current_graphs_data = None
+        self.current_max_columns = None
+
+        self.states_map = None
+        self.labels_map = {}
+        self.buttons_map = {}
+        self.mono_axe_map = {}
+        self.dual_axe_map = {}
+        self.triple_axe_map = {}
+        self.gps_map = {}
+        
 
     def update_ui_widgets(self):
         self.setup_graphs()
@@ -76,6 +99,10 @@ class DashboardsModel(QObject):
 
         except Exception as e:
             exit(f"[CRITICAL] Unknown error loading dashboard: {e}")
+
+    def switch_dashboard(self):
+        self.destroy_current()
+        self.setup_current() 
 
     def update_profile_data(self):
         data = self.preferences.get(f"DASHBOARDS.{self.current_profile}", 2)
@@ -334,3 +361,25 @@ class DashboardsModel(QObject):
 
         # return the calculated number of rows.
         return num_rows
+
+    def destroy_widgets_from_layout(self, layout):
+        if isinstance(layout, QGridLayout):
+            # Clear the layout's columns and rows
+            for i in reversed(range(layout.columnCount())):
+                layout.setColumnMinimumWidth(i, 0)
+                layout.setColumnStretch(i, 0)
+
+            for i in reversed(range(layout.rowCount())):
+                layout.setRowMinimumHeight(i, 0)
+                layout.setRowStretch(i, 0)
+
+        while layout.count():
+            item = layout.takeAt(0)
+            widget = item.widget()
+
+            if widget is not None:
+                widget.deleteLater()
+            else:
+                sub_layout = item.layout()
+                if sub_layout is not None:
+                    self.destroy_widgets_from_layout(sub_layout)

@@ -70,10 +70,14 @@ class VisualizationModel(QObject):
         pg.setConfigOptions(
             background=(14, 16, 20, 0),
             foreground=(195, 195, 195),
-            segmentedLineMode="on",
+            segmentedLineMode="off",
             exitCleanup=True,
-            antialias=True,
-            useOpenGL=False,
+            antialias=self.parent.preferences.get_preference(
+            "advanced.graphs_antialias"
+            ),
+            useOpenGL=self.parent.preferences.get_preference(
+            "advanced.opengl_enabled"
+            ),
             useCupy=True,
             useNumba=True,
         )

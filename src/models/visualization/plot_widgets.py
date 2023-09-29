@@ -81,9 +81,10 @@ class MonoAxePlotWidget(pg.PlotItem):
         self.ptr1 = 0.0
 
         self.hideButtons()
-
+        self.addLegend()
+        
         self.showGrid(x=True, y=True)
-
+    
         self.getAxis("bottom").setPen(pg.mkPen("#a5a5a5"))
         self.getAxis("left").setPen(pg.mkPen("#a5a5a5"))
         self.getAxis("left").setStyle(tickTextOffset=-40)

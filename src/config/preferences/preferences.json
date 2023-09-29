@@ -1,68 +1,48 @@
 {
   "PREFERENCES": {
-    "advanced": {
-      "opengl_enabled": {
-        "name": "OpenGL Rendering",
-        "description": "Optimizes Graph Rendering via GPU acceleration",
-        "preference_type": "toggle",
-        "value": false
-      },
-      "graphs_antialias": {
-        "name": "Graph Antialias",
-        "description": "Improves graph line looks, but may cause performance problems, depending on the machine",
-        "preference_type": "toggle",
-        "value": false
-      },
-      "numba_enabled": {
-        "name": "Graph Numba Rendering",
-        "description": "Optimizes Graph Rendering via GPU acceleration",
-        "preference_type": "toggle",
-        "value": false
-      }
-    },
-    "profiles": {
+    "dashboard": {
       "visualization_dashboard": {
         "name": "Visualization Dashboard",
-        "description": "Current visualization DASHBOARD, a customizable set of buttons, labels, graphs, and states.",
+        "description": "Change the current visualization dashboard.",
         "preference_type": "select_dashboard",
         "value": "TARS"
       },
       "toggle_state": {
-        "name": "Toggle State Label",
-        "description": "Toggle the label that shows the state.",
+        "name": "Show State Label",
+        "description": "Toggle to display the state label.",
         "preference_type": "toggle_widget",
         "value": true,
-        "widget": "state_label"
+        "widget": "label_state"
       },
       "toggle_countdown": {
-        "name": "Toggle Countdown Label",
-        "description": "Toggle the label that shows the state.",
+        "name": "Show Countdown Label",
+        "description": "Toggle to display the countdown label.",
         "preference_type": "toggle_widget",
-        "value": false,
-        "widget": "countdown_label"
+        "value": true,
+        "widget": "label_countdown"
       },
       "profile_file_open": {
-        "name": "Profile File",
-        "description": "Configure the profiles here.",
+        "name": "Dashboard Editor File",
+        "description": "Configure and create dashboards here.",
         "preference_type": "open_file",
-        "value": "app/config/profiles/profiles.json"
+        "value": "./src/config/visualization/dashboards.json"
       }
     },
     "data": {
       "update_interval": {
-        "name": "Update Interval",
-        "description": "Time between graph and label updates <b>(in ms)</b>",
+        "name": "Update Interval (ms)",
+        "description": "Frequency at which the graph and label updates occur.",
         "preference_type": "int",
         "value": 10
       },
       "data_stale_detect_time": {
-        "name": "Stale Data Detection Time",
-        "description": "Time without data before enabling data stale mode <b>(in sec)</b>",
+        "name": "Stale Data Detection Time (sec)",
+        "description": "Time without receiving new data before activating data stale mode indicator.",
         "preference_type": "int",
         "value": 5
       },
       "data_filter": {
-        "name": "Data Filter",
+        "name": "Data Filtration",
         "description": "Toggle the data filtration.",
         "preference_type": "toggle",
         "value": true
@@ -72,12 +52,10 @@
         "description": "Ranges used for data filtering (format: 'value': ['min', 'max']).",
         "preference_type": "open_file",
         "value": "app/config/data/filter_ranges.json"
-      }
-    },
-    "recordings": {
-      "path": {
+      },
+      "recordings_path": {
         "name": "Recording Save Folder",
-        "description": "The folder where recordings are saved.",
+        "description": "Folder where recordings are saved.",
         "preference_type": "open_folder",
         "value": "./recordings"
       }
@@ -85,27 +63,47 @@
     "packet": {
       "signature_header": {
         "name": "Packet Signature Header",
-        "description": "Header to identify valid data packets. Empty to disable.",
+        "description": "Header to identify valid data packets. Leave empty to disable.",
         "preference_type": "edit_string",
         "value": "@TARS_TLM:"
       },
       "state_value_index": {
         "name": "State Value Index",
-        "description": "Index of the state value in the packet string.",
+        "description": "Position of the state value within the data packet string.",
         "preference_type": "int",
         "value": 0
       },
       "split_char": {
-        "name": "Packet Split Char",
-        "description": "Chararcter that is used to separate values. Example: '123;321'",
+        "name": "Packet Split Character",
+        "description": "Character used to separate values. Example: '123;321'.",
         "preference_type": "edit_string",
         "value": ";"
+      }
+    },
+    "advanced": {
+      "opengl_enabled": {
+        "name": "OpenGL Rendering",
+        "description": "Optimize Graph Rendering via GPU acceleration.",
+        "preference_type": "toggle",
+        "value": false
       },
-      "message_header": {
-        "name": "Message Signature Header",
-        "description": "Header for MESSAGE packets, put after signature header. Empty to disable.",
-        "preference_type": "edit_string",
-        "value": "@TARS_MSG:"
+      "graphs_antialias": {
+        "name": "Graph Antialiasing",
+        "description": "Enable smooth edges on lines at the cost of reduced performance.",
+        "preference_type": "toggle",
+        "value": true
+      },
+      "graph_data_points": {
+        "name": "Data Point Amount",
+        "description": "Number of data points displayed in each graph. Large numbers may cause lag.",
+        "preference_type": "int",
+        "value": 5
+      },
+      "gps_graph_data_points": {
+        "name": "GPS Data Point Amount",
+        "description": "The amount of datapoints that showed in the gps graphs, the less the clerarer.",
+        "preference_type": "int",
+        "value": 5
       }
     }
   },

@@ -29,7 +29,7 @@ class RecordingModel:
         self.parent = parent
 
         self.recording_save_path = self.parent.preferences.get_preference(
-            "recordings.path"
+            "data.recordings_path"
         )
         self.blackbox_file_path = (
             f"{self.recording_save_path}/last_conn/last_connection.txt"
