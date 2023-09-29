@@ -44,12 +44,15 @@ class VisualizationModel(QObject):
         self.updates.widget_update_timer.start()
     
     def change_to_disconnected(self):
-        self.set_state("N/A", "45484e")
+        self.updates.widget_update_timer.stop()
+        
         self.updates.previus_state = None
         self.updates.current_state = None
         self.updates.value_chain = np.asarray(["default"])
         
-        self.updates.widget_update_timer.stop()
+        self.set_state("N/A", "45484e")
+        self.updates.clear_labels()
+        self.updates.clear_graphs()
 
     def set_state(self, name, color):
         # Set the background color, border, and text color of the state label
@@ -62,15 +65,6 @@ class VisualizationModel(QObject):
 
         # Set the text of the state label
         self.ui.label_state.setText(name)
-        
-    def clear_all_information(self):
-        pass
-        
-    def clear_graphs(self):
-        pass
-    
-    def clear_labels(self):
-        pass
         
     def setup_pyqtgraph(self):
         pg.setConfigOptions(

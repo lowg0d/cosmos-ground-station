@@ -21,7 +21,7 @@ This module defines the `MainWindow` class, which serves as the central componen
 Encapsulates various UI components and controllers for the gui.
 """
 
-from PyQt5.QtCore import Qt
+from PyQt5.QtCore import Qt, QSize
 from PyQt5.QtWidgets import QShortcut, QLabel
 from PyQt5.QtGui import QIcon, QKeySequence
 from qframelesswindow import FramelessMainWindow
@@ -93,7 +93,12 @@ class MainWindow(FramelessMainWindow):
         self.titleBar.raise_()
         self.show()
         
-        #self.showMaximized()
+        self.showMaximized()
+        
+        # TEMPORAL (
+        self.ui.splitter.setSizes([6000, 100])
+        #self.ui.splitter.widget(0).hide()
+        # )
 
     def generate_ui_preferences_widgets(self):
         preferences_data = self.preferences.get("PREFERENCES", 1)

@@ -106,7 +106,7 @@ class MonoAxePlotWidget(pg.PlotItem):
 
     def clear(self):
         self.ptr1 = 0.0
-        self.graph_plot.yData = np.zeros_like(self.graph_plot.yData)
+        self.graph_plot.yData[:] = 0.0
         self.curve.clear()
         self.update(0.0)
 
@@ -195,8 +195,8 @@ class DualAxePlotWidget(pg.PlotItem):
 
     def clear(self):
         self.ptr1 = 0.0
-        self.graph_plot_1.yData = np.zeros_like(self.graph_plot_1.yData)
-        self.graph_plot_2.yData = np.zeros_like(self.graph_plot_2.yData)
+        self.graph_plot_1.yData[:] = 0.0
+        self.graph_plot_2.yData[:] = 0.0
         self.curve.clear()
         self.update(0.0, 0.0)
 
@@ -306,9 +306,9 @@ class TripleAxePlotWidget(pg.PlotItem):
 
     def clear(self):
         self.ptr1 = 0.0
-        self.graph_plot_1.yData = np.zeros_like(self.graph_plot_1.yData)
-        self.graph_plot_2.yData = np.zeros_like(self.graph_plot_2.yData)
-        self.graph_plot_3.yData = np.zeros_like(self.graph_plot_2.yData)
+        self.graph_plot_1.yData[:] = 0.0
+        self.graph_plot_2.yData[:] = 0.0
+        self.graph_plot_3.yData[:] = 0.0
         self.curve.clear()
         self.update(0.0, 0.0, 0.0)
 
@@ -336,9 +336,7 @@ class GpsPlotWidget(pg.PlotItem):
         self.lastet_data = {"x": [], "y": []}
 
         self.graph_plot = self.plot(
-            x=np.zeros(DATA_POINTS),
-            y=np.zeros(DATA_POINTS),
-            pen=pg.mkPen(smooth_color, width=3),
+            pen=pg.mkPen(smooth_color, width=PEN_WIDTH),
             antialias=False,
             connect="finite",
             symbol=None,
@@ -366,7 +364,7 @@ class GpsPlotWidget(pg.PlotItem):
         self.graph_data["x"].append(longitude)
         self.graph_data["y"].append(latitude)
 
-        if len(self.graph_data["x"]) > 80:
+        if len(self.graph_data["x"]) > 40:
             self.graph_data["x"].pop(0)
             self.graph_data["y"].pop(0)
 
@@ -389,3 +387,9 @@ class GpsPlotWidget(pg.PlotItem):
             max(self.graph_data["y"]) + 0.0090,
         )
         self.setRange(xRange=x_range, yRange=y_range, padding=1.53)
+
+    def clear(self):
+        self.graph_data = {"x": [], "y": []}
+        self.lastet_data = {"x": [], "y": []}
+        self.ptr1 = 0.0
+        self.update(0.0, 0.0)
