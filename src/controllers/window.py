@@ -72,10 +72,14 @@ class WindowController:
             self.parent.titleBar.show()
             self.parent.ui.topbarseparator.setMaximumHeight(34)
             self.parent.ui.topbarseparator.setMinimumHeight(34)
+            
+            self.parent.ui.btn_smallModeTogle.show()
 
         else:
             self.parent.showFullScreen()
             self.parent.titleBar.hide()
+            self.parent.ui.btn_smallModeTogle.hide()
+            
             self.parent.ui.topbarseparator.setMaximumHeight(15)
             self.parent.ui.topbarseparator.setMinimumHeight(15)
 
@@ -129,9 +133,9 @@ class WindowController:
 
             self.ui.frame_dsahboardGraph.hide()
 
-            self.parent.setMinimumWidth(267)
-            self.parent.setMaximumWidth(267)
-            self.parent.resize(QSize(267, self.parent.height()))
+            self.parent.setMinimumWidth(272)
+            self.parent.setMaximumWidth(272)
+            self.parent.resize(QSize(272, self.parent.height()))
             self.ui.btn_smallModeTogle.setChecked(True)
             
         self.small_mode_toggled = not self.small_mode_toggled

@@ -23,7 +23,7 @@ import numpy as np
 import pyqtgraph as pg
 
 from ..visualization.dashboards import DashboardsModel
-from ..visualization.information_updater import UpdateModel
+from .information_updater import InformationUpdateModel
 
 
 class VisualizationModel(QObject):
@@ -38,7 +38,7 @@ class VisualizationModel(QObject):
         self.setup_pyqtgraph()
         
         self.dashboards = DashboardsModel(self)
-        self.updates = UpdateModel(self)
+        self.updates = InformationUpdateModel(self)
 
     def change_to_connected(self):
         self.updates.widget_update_timer.start()
@@ -63,11 +63,20 @@ class VisualizationModel(QObject):
         # Set the text of the state label
         self.ui.label_state.setText(name)
         
+    def clear_all_information(self):
+        pass
+        
+    def clear_graphs(self):
+        pass
+    
+    def clear_labels(self):
+        pass
+        
     def setup_pyqtgraph(self):
         pg.setConfigOptions(
             background=(14, 16, 20, 0),
             foreground=(195, 195, 195),
-            segmentedLineMode="off",
+            segmentedLineMode="on",
             exitCleanup=True,
             antialias=True,
             useOpenGL=False,

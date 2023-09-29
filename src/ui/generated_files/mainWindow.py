@@ -170,7 +170,7 @@ class Ui_MainWindow(object):
 "  border-radius: 4px;\n"
 "  border: 1px solid #45484e;\n"
 "  background-color: #212227;\n"
-"  font: 600 9.5pt \"Video SemBd\";\n"
+"  font: 600 9pt \"Video SemBd\";\n"
 "}\n"
 "#frame_secondaryAndButtonContainer QFrame {\n"
 "  border-radius: 4px;\n"
@@ -187,7 +187,7 @@ class Ui_MainWindow(object):
 "}\n"
 "\n"
 "#frame_BigTlmLabels QLabel {\n"
-"  font: 600 11pt \"Video SemBd\";\n"
+"  font: 600 10pt \"Video SemBd\";\n"
 "    border: none;\n"
 "    background-color: none;\n"
 "}\n"
@@ -524,8 +524,8 @@ class Ui_MainWindow(object):
         self.horizontalLayout_2.setSpacing(4)
         self.horizontalLayout_2.setObjectName("horizontalLayout_2")
         self.frame_LeftSideBar = QtWidgets.QFrame(self.page_centralDashboard)
-        self.frame_LeftSideBar.setMinimumSize(QtCore.QSize(255, 0))
-        self.frame_LeftSideBar.setMaximumSize(QtCore.QSize(250, 16777215))
+        self.frame_LeftSideBar.setMinimumSize(QtCore.QSize(260, 0))
+        self.frame_LeftSideBar.setMaximumSize(QtCore.QSize(260, 16777215))
         self.frame_LeftSideBar.setFrameShape(QtWidgets.QFrame.NoFrame)
         self.frame_LeftSideBar.setFrameShadow(QtWidgets.QFrame.Raised)
         self.frame_LeftSideBar.setLineWidth(1)
@@ -663,7 +663,7 @@ class Ui_MainWindow(object):
         self.scrollArea_SideBar.setWidgetResizable(True)
         self.scrollArea_SideBar.setObjectName("scrollArea_SideBar")
         self.scrollAreaWidgetContents = QtWidgets.QWidget()
-        self.scrollAreaWidgetContents.setGeometry(QtCore.QRect(0, 0, 251, 285))
+        self.scrollAreaWidgetContents.setGeometry(QtCore.QRect(0, 0, 256, 285))
         self.scrollAreaWidgetContents.setObjectName("scrollAreaWidgetContents")
         self.verticalLayout_7 = QtWidgets.QVBoxLayout(self.scrollAreaWidgetContents)
         self.verticalLayout_7.setContentsMargins(0, 0, 0, 0)
@@ -954,7 +954,7 @@ class Ui_MainWindow(object):
         self.btn_openDashboardEditor.setText(_translate("MainWindow", "OPEN DASHBOARD EDITOR"))
         self.label_longVersion.setText(_translate("MainWindow", "VERSION: COSMOS-v1.0.0-ALPHA"))
         self.btn_missionDisplay.setText(_translate("MainWindow", "NO MISSION ACTIVE"))
-        self.btn_toggleRecordings.setText(_translate("MainWindow", "  TOGGLE RECS"))
+        self.btn_toggleRecordings.setText(_translate("MainWindow", " RECORDINGS"))
         self.btn_toggleCloudBackup.setText(_translate("MainWindow", "  CLOUD BACKUP"))
         self.label_state.setText(_translate("MainWindow", "N/A"))
         self.label_countdown.setText(_translate("MainWindow", "T- 00:00:00.0"))

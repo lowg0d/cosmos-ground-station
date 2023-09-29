@@ -173,11 +173,11 @@ class ConnectionController(QObject):
                     self.reconnection_port = self.current_selected_port
 
                 self.data_handler_model.start_thread()
+                self.parent.visualization_model.change_to_connected()
 
             else:
                 self.handle_connection_error(message)
             
-            self.parent.visualization_model.change_to_connected()
 
     def handle_connection_error(self, message=None):
         """
@@ -202,13 +202,11 @@ class ConnectionController(QObject):
         Sends data to the connected serial port. If custom_data is provided,
         sends that data. Otherwise, sends the data from the UI's input field.
         """
-        if custom_data:
+        if custom_data is not None:
             data = str(custom_data)
         else:
             data = self.parent.ui.terminal_input.text()
             self.parent.ui.terminal_input.setText("")  # Clear the input field
-
-        print(len(data))
         
         if self.serial_model.is_connected:
             if len(data) > 0:

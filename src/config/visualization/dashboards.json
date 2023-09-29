@@ -2,16 +2,29 @@
   "DASHBOARDS": {
     "TARS": {
       "max_columns": 2,
+      "graph_pen_width": 2,
+      "graph_data_points": 200,
+      "gps_graph_data_points": 20,
       "states": "TARS",
       "buttons": "TARS",
       "labels": "TARS",
-      "graphs": "TARS"
+      "graphs": "GPS"
+    },
+    "EXAMPLE": {
+      "max_columns": 2,
+      "graph_pen_width": 2,
+      "graph_data_points": 200,
+      "gps_graph_data_points": 20,
+      "states": "EXAMPLE",
+      "buttons": "EXAMPLE",
+      "labels": "EXAMPLE",
+      "graphs": "EXAMPLE"
     }
   },
   "STATES": {
     "TARS": {
       "-1": ["TARS BOOTUP", "596275"],
-      "0": ["IDLE", "16a085"],
+      "0": ["👿 IDLE", "16a085"],
       "1": ["GO FOR LAUNCH", "27ae60"],
       "2": ["POWERED ASCENT", "474787"],
       "3": ["BURNOUT", "ff793f"],
@@ -20,12 +33,16 @@
       "6": ["LANDED", "30336b"],
       "7": ["!! ABORT !!", "b33939"],
       "10": ["!! ERROR !!", "b33939"]
+    },
+    "EXAMPLE": {
+      "0": ["EXAMPLE", "16a085"],
+      "1": ["EXAMPLE 1", "27ae60"]
     }
   },
   "BUTTONS": {
     "TARS": [
       {
-        "name": "SET GO LAUNCH",
+        "name": "🚀 SET GO LAUNCH",
         "payload": 2,
         "color": "27ae60"
       },
@@ -43,6 +60,28 @@
         "name": "ABORT",
         "payload": 3,
         "color": "b33939"
+      }
+    ],
+    "EXAMPLE": [
+      {
+        "name": "BUTTON",
+        "payload": 0,
+        "color": "16a085"
+      },
+      {
+        "name": "BUTTON 2",
+        "payload": 33,
+        "color": "27ae60"
+      },
+      {
+        "name": "BUTTON 3",
+        "payload": "example",
+        "color": "b33939"
+      },
+      {
+        "name": "BUTTON 4",
+        "payload": "23",
+        "color": "9d4edd"
       }
     ]
   },
@@ -121,9 +160,109 @@
           "unit": "hPa"
         }
       ]
+    },
+    "EXAMPLE": {
+      "big": [
+        {
+          "name": "EXMPl",
+          "unit": "m",
+          "value_index_in_chain": 1
+        },
+        {
+          "name": "EXMPl",
+          "value_index_in_chain": 2,
+          "unit": "m/s"
+        }
+      ],
+      "primary": [
+        {
+          "name": "State",
+          "value_index_in_chain": 0,
+          "unit": ""
+        },
+        {
+          "name": "VOT",
+          "value_index_in_chain": 3,
+          "unit": "format_seconds"
+        },
+        {
+          "name": "EXAMPLE",
+          "value_index_in_chain": 4,
+          "unit": "v",
+          "min_max_nomial": [0, 10]
+        },
+        {
+          "name": "TLM Rate",
+          "value_index_in_chain": "",
+          "unit": "tlm_rate",
+          "min_max_nomial": [0, 10]
+        }
+      ],
+      "secondary": [
+        {
+          "name": "EXAMPLE",
+          "value_index_in_chain": 5,
+          "unit": "\u00baC"
+        },
+        {
+          "name": "EXAMPLE",
+          "value_index_in_chain": 8,
+          "unit": "\u00ba/s"
+        }
+      ]
     }
   },
   "GRAPHS": {
+    "GPS": [
+      {
+        "title": "🛞 1",
+        "unit": "m",
+        "axes": 1,
+        "value_index_in_chain_1": 1,
+        "color_1": "ff3838",
+        "col": 0,
+        "row": 0
+      },
+      {
+        "title": "📦",
+        "unit": "m",
+        "axes": "gps",
+        "value_index_in_chain_1": 1,
+        "value_index_in_chain_2": 2,
+        "color_1": "ffc048",
+        "col": 1,
+        "row": 0
+      },
+      {
+        "title": "2",
+        "unit": "km/h",
+        "axes": 2,
+        "value_index_in_chain_1": 1,
+        "value_index_in_chain_2": 2,
+        "color_1": "18dcff",
+        "color_2": "fff200",
+        "name_1": "Gx",
+        "name_2": "Gy",
+        "col": 0,
+        "row": 1
+      },
+      {
+        "title": "3",
+        "unit": "What The Fuck Is A Kilomteter",
+        "axes": 3,
+        "value_index_in_chain_1": 1,
+        "value_index_in_chain_2": 2,
+        "value_index_in_chain_3": 3,
+        "color_1": "7d5fff",
+        "color_2": "32ff7e",
+        "color_3": "ffaf40",
+        "name_1": "Gx",
+        "name_2": "Gy",
+        "name_3": "Gy",
+        "col": 1,
+        "row": 1
+      }
+    ],
     "TARS": [
       {
         "title": "Altitude",
@@ -150,6 +289,58 @@
         "name_1": "Yaw",
         "name_2": "Pitch",
         "name_3": "Roll",
+        "value_index_in_chain_1": 7,
+        "value_index_in_chain_2": 8,
+        "value_index_in_chain_3": 9,
+        "row": 1,
+        "col": 0
+      },
+      {
+        "title": "GPS",
+        "unit": "m",
+        "axes": "gps",
+        "1_x_axis_name": "Latitude",
+        "2_x_axis_name": "Longitude",
+        "value_index_in_chain_1": 1,
+        "value_index_in_chain_2": 2,
+        "color_1": "2ecc71",
+        "row": 1,
+        "col": 1
+      }
+    ],
+    "EXAMPLE": [
+      {
+        "title": "One Axes",
+        "unit": "m",
+        "axes": 1,
+        "color_1": "AE2012",
+        "value_index_in_chain_1": 1,
+        "row": 0,
+        "col": 0
+      },
+      {
+        "title": "Two Axes",
+        "unit": "m/s",
+        "axes": 2,
+        "color_1": "0A9396",
+        "color_2": "EE9B00",
+        "name_1": "example1",
+        "name_2": "example2",
+        "value_index_in_chain_1": 2,
+        "value_index_in_chain_2": 3,
+        "row": 0,
+        "col": 1
+      },
+      {
+        "title": "Three Axes",
+        "unit": "\u00ba",
+        "axes": 3,
+        "name_1": "Yaw",
+        "name_2": "Pitch",
+        "name_3": "Roll",
+        "color_1": "0A9396",
+        "color_2": "E9D8A6",
+        "color_3": "AE2012",
         "value_index_in_chain_1": 8,
         "value_index_in_chain_2": 7,
         "value_index_in_chain_3": 9,
@@ -164,7 +355,7 @@
         "2_x_axis_name": "Longitude",
         "value_index_in_chain_1": 1,
         "value_index_in_chain_2": 2,
-        "color_1": "2ecc71",
+        "color_1": "6a994e",
         "row": 1,
         "col": 1
       }

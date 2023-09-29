@@ -22,7 +22,7 @@ import time
 import numpy as np
 
 
-class UpdateModel(QObject):
+class InformationUpdateModel(QObject):
     def __init__(self, parent):
         super().__init__()
         self.parent = parent
@@ -68,22 +68,22 @@ class UpdateModel(QObject):
     def update_all_widgets(self):
         start_time = time.time()
 
-        self.update_graphs()
         try:
+            self.update_graphs()
             self.update_labels()
             self.update_state()
 
-        except IndexError as e:
+        except IndexError:
             if self.value_chain == np.asarray(["default"]):
                 self.parent.set_state("WAITING FOR DATA...", "f7f1e3")
 
             else:
                 print(
-                    f"[-] Error updating All Values: value is to high fo the list - {e}"
+                    f"[-] Error updating All Values: value is to high fo the list - "
                 )
 
-        except Exception as e:
-            print(f"[-] Error Updating All Widgets: {e}")
+        except Exception:
+            print(f"[-] Error Updating All Widgets: ")
 
         plotting_time = (time.time() - start_time) * 1000
         print(plotting_time)

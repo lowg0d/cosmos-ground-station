@@ -38,8 +38,12 @@ import numpy as np
 import pyqtgraph as pg
 from PyQt5.QtGui import QColor
 
-pen_width = 2.2
-LINSPACE = 11
+PEN_WIDTH = 2
+ANTIALIAS = False
+DATA_POINTS = 200
+GPS_DATA_POINTS = 20
+X_VALS = np.linspace(0.0, (DATA_POINTS - 1) / DATA_POINTS, DATA_POINTS)
+
 
 class MonoAxePlotWidget(pg.PlotItem):
     def __init__(
@@ -50,70 +54,62 @@ class MonoAxePlotWidget(pg.PlotItem):
         name="plot_widget",
         color: str = "00BA42",
         enableMenu=False,
-        linspace_x=LINSPACE,
-        **kargs,
+        **kwargs,
     ):
         super().__init__(
-            parent=parent, labels=labels, title=title, enableMenu=enableMenu, **kargs
+            parent=parent, labels=labels, title=title, enableMenu=enableMenu, **kwargs
         )
 
-        if color == None:
-            color = "e84118"
+        color = f"#{color}" if color else "#e84118"
 
-        color = f"#{color}"
-
-        x_vals = np.linspace(0.0, (linspace_x - 1) / linspace_x, linspace_x)
         self.graph_plot = self.plot(
-            x=x_vals,
+            x=X_VALS,
+            y=np.zeros(DATA_POINTS),
             name=name,
-            pen=pg.mkPen(color, width=pen_width),
-            antialias=True,
+            pen=pg.mkPen(color, width=PEN_WIDTH),
+            antialias=ANTIALIAS,
             connect="finite",
             skipFiniteCheck=True,
         )
-
         self.graph_plot.pxMode = False
-
         self.graph_plot.setDownsampling(auto=True)
-        self.graph_data = np.zeros(linspace_x)
 
         self.curve = pg.PlotCurveItem()
         self.curve.pxMode = False
         self.addItem(self.curve)
 
         self.ptr1 = 0.0
-        self.window_size = 10
-        self.weights = np.ones(self.window_size) / self.window_size
+
+        self.hideButtons()
 
         self.showGrid(x=True, y=True)
 
-        # Set custom label style
         self.getAxis("bottom").setPen(pg.mkPen("#a5a5a5"))
         self.getAxis("left").setPen(pg.mkPen("#a5a5a5"))
         self.getAxis("left").setStyle(tickTextOffset=-40)
 
         self.getViewBox().disableAutoRange(axis="x")
         self.getViewBox().setMouseEnabled(x=False, y=False)
-        self.hideButtons()
 
     def update(self, value):
         value = float(value)
 
-        self.graph_data[:-1] = self.graph_data[1:]
-        self.graph_data[-1] = value
+        y_data = self.graph_plot.yData
+        y_data[:-1] = y_data[1:]
+        y_data[-1] = value
 
-        x_vals = np.linspace(self.ptr1, self.ptr1 + 0.1, len(self.graph_data))
         self.ptr1 += 0.1
+        x_vals = np.linspace(self.ptr1 - 0.1, self.ptr1, len(X_VALS))
 
-        self.graph_plot.setData(x=x_vals, y=self.graph_data)
-        self.setXRange(self.ptr1 - 0.1, self.ptr1, padding=0.01)
+        self.setXRange(self.ptr1 - 0.1, self.ptr1, padding=0.02)
+        self.graph_plot.setData(x=x_vals, y=y_data)
 
     def clear(self):
         self.ptr1 = 0.0
-        self.graph_data = np.zeros_like(self.graph_data)
-        self.graph_plot.clear()
+        self.graph_plot.yData = np.zeros_like(self.graph_plot.yData)
         self.curve.clear()
         self.update(0.0)
+
 
 class DualAxePlotWidget(pg.PlotItem):
     def __init__(
@@ -121,74 +117,54 @@ class DualAxePlotWidget(pg.PlotItem):
         parent=None,
         labels={"bottom": "T(s)"},
         title=None,
-        color_x: str = "00d2d3",
-        color_y: str = "ff9ff3",
-        name_x="X",
-        name_y="Y",
+        color_1: str = "00d2d3",
+        color_2: str = "ff9ff3",
+        name_1="X",
+        name_2="Y",
         enableMenu=False,
-        linspace_x=LINSPACE,
         **kargs,
     ):
         super().__init__(
             parent=parent, labels=labels, title=title, enableMenu=enableMenu, **kargs
         )
 
-        self.name_x = name_x
-        self.name_y = name_y
+        color_1 = f"#{color_1}" if color_1 else "#e84118"
+        color_2 = f"#{color_2}" if color_2 else "#4cd137"
 
-        if color_x == None:
-            color_x = "e84118"
-        if color_y == None:
-            color_y = "4cd137"
-
-        color_x = f"#{color_x}"
-        color_y = f"#{color_y}"
-
-        x_vals_x = np.linspace(0.0, (linspace_x - 1) / linspace_x, linspace_x)
-        x_vals_y = np.linspace(0.0, (linspace_x - 1) / linspace_x, linspace_x)
-
-        fill_color_x = QColor(color_x)
-        fill_color_x.setAlpha(20)
-
-        fill_color_y = QColor(color_y)
-        fill_color_y.setAlpha(20)
-
-        self.addLegend()
-
-        self.graph_plot_x = self.plot(
-            x=x_vals_x,
-            name=name_x,
-            pen=pg.mkPen(color_x, width=pen_width),
-            antialias=True,
+        self.graph_plot_1 = self.plot(
+            x=X_VALS,
+            y=np.zeros(DATA_POINTS),
+            name=name_1,
+            pen=pg.mkPen(color_1, width=PEN_WIDTH),
+            antialias=ANTIALIAS,
             connect="finite",
             skipFiniteCheck=True,
         )
 
-        self.graph_plot_y = self.plot(
-            x=x_vals_y,
-            name=name_y,
-            pen=pg.mkPen(color_y, width=pen_width),
-            antialias=True,
+        self.graph_plot_2 = self.plot(
+            x=X_VALS,
+            y=np.zeros(DATA_POINTS),
+            name=name_2,
+            pen=pg.mkPen(color_2, width=PEN_WIDTH),
+            antialias=ANTIALIAS,
             connect="finite",
             skipFiniteCheck=True,
         )
 
-        self.graph_plot_x.pxMode = False
-        self.graph_plot_y.pxMode = False
+        self.graph_plot_1.pxMode = False
+        self.graph_plot_2.pxMode = False
 
-        self.graph_plot_x.setDownsampling(auto=True)
-        self.graph_plot_y.setDownsampling(auto=True)
-
-        self.graph_data_x = np.zeros(linspace_x)
-        self.graph_data_y = np.zeros(linspace_x)
+        self.graph_plot_1.setDownsampling(auto=True)
+        self.graph_plot_2.setDownsampling(auto=True)
 
         self.curve = pg.PlotCurveItem()
         self.curve.pxMode = False
         self.addItem(self.curve)
 
         self.ptr1 = 0.0
-        self.window_size = 5
-        self.weights = np.ones(self.window_size) / self.window_size
+
+        self.addLegend()
+        self.hideButtons()
 
         self.showGrid(x=True, y=True)
         self.getAxis("bottom").setPen(pg.mkPen("#a5a5a5"))
@@ -196,39 +172,34 @@ class DualAxePlotWidget(pg.PlotItem):
         self.getAxis("left").setStyle(tickTextOffset=-40)
 
         self.getViewBox().disableAutoRange(axis="x")
-        self.hideButtons()
         self.getViewBox().setMouseEnabled(x=False, y=False)
 
-    def update(self, value_x, value_y):
-        value_x = float(value_x)
-        value_y = float(value_y)
+    def update(self, value_1, value_2):
+        value_1 = float(value_1)
+        value_2 = float(value_2)
 
-        self.graph_data_x[:-1] = self.graph_data_x[1:]
-        self.graph_data_x[-1] = value_x
+        y_data_1 = self.graph_plot_1.yData
+        y_data_1[:-1] = y_data_1[1:]
+        y_data_1[-1] = value_1
 
-        self.graph_data_y[:-1] = self.graph_data_y[1:]
-        self.graph_data_y[-1] = value_y
-
-        x_vals_x = np.linspace(self.ptr1, self.ptr1 + 0.1, len(self.graph_data_x))
-        x_vals_y = np.linspace(self.ptr1, self.ptr1 + 0.1, len(self.graph_data_y))
+        y_data_2 = self.graph_plot_2.yData
+        y_data_2[:-1] = y_data_2[1:]
+        y_data_2[-1] = value_2
 
         self.ptr1 += 0.1
+        x_vals = np.linspace(self.ptr1 - 0.1, self.ptr1, len(X_VALS))
 
-        self.setXRange(self.ptr1 - 0.1, self.ptr1, padding=0.01)
-        self.graph_plot_x.setData(x=x_vals_x, y=self.graph_data_x)
-        self.graph_plot_y.setData(x=x_vals_y, y=self.graph_data_y)
+        self.setXRange(self.ptr1 - 0.1, self.ptr1, padding=0.02)
+        self.graph_plot_1.setData(x=x_vals, y=y_data_1)
+        self.graph_plot_2.setData(x=x_vals, y=y_data_2)
 
     def clear(self):
         self.ptr1 = 0.0
-        self.graph_data_x = np.zeros_like(self.graph_data_x)
-        self.graph_data_y = np.zeros_like(self.graph_data_y)
-
-        self.graph_plot_x.clear()
-        self.graph_plot_y.clear()
-
+        self.graph_plot_1.yData = np.zeros_like(self.graph_plot_1.yData)
+        self.graph_plot_2.yData = np.zeros_like(self.graph_plot_2.yData)
         self.curve.clear()
-
         self.update(0.0, 0.0)
+
 
 class TripleAxePlotWidget(pg.PlotItem):
     def __init__(
@@ -236,87 +207,69 @@ class TripleAxePlotWidget(pg.PlotItem):
         parent=None,
         labels={"bottom": "T(s)"},
         title=None,
-        color_x: str = "e84118",
-        color_y: str = "4cd137",
-        color_z: str = "00a8ff",
-        name_x="X",
-        name_y="Y",
-        name_z="Z",
+        color_1: str = "e84118",
+        color_2: str = "4cd137",
+        color_3: str = "00a8ff",
+        name_1="X",
+        name_2="Y",
+        name_3="Z",
         enableMenu=False,
-        linspace_x=LINSPACE,
         **kargs,
     ):
         super().__init__(
             parent=parent, labels=labels, title=title, enableMenu=enableMenu, **kargs
         )
 
-        self.name_x = name_x
-        self.name_y = name_y
-        self.name_z = name_z
+        color_1 = f"#{color_1}" if color_1 else "#e84118"
+        color_2 = f"#{color_2}" if color_2 else "#4cd137"
+        color_3 = f"#{color_3}" if color_3 else "#00a8ff"
 
-        if color_x == None:
-            color_x = "e84118"
-        if color_y == None:
-            color_y = "4cd137"
-        if color_z == None:
-            color_z = "00a8ff"
-
-        color_x = f"#{color_x}"
-        color_y = f"#{color_y}"
-        color_z = f"#{color_z}"
-
-        x_vals_x = np.linspace(0.0, (linspace_x - 1) / linspace_x, linspace_x)
-        x_vals_y = np.linspace(0.0, (linspace_x - 1) / linspace_x, linspace_x)
-        x_vals_z = np.linspace(0.0, (linspace_x - 1) / linspace_x, linspace_x)
-
-        self.addLegend()
-
-        self.graph_plot_x = self.plot(
-            x=x_vals_x,
-            name=name_x,
-            pen=pg.mkPen(color_x, width=pen_width),
-            antialias=True,
+        self.graph_plot_1 = self.plot(
+            x=X_VALS,
+            y=np.zeros(DATA_POINTS),
+            name=name_1,
+            pen=pg.mkPen(color_1, width=PEN_WIDTH),
+            antialias=ANTIALIAS,
             connect="finite",
             skipFiniteCheck=True,
         )
 
-        self.graph_plot_y = self.plot(
-            x=x_vals_y,
-            name=name_y,
-            pen=pg.mkPen(color_y, width=pen_width),
-            antialias=True,
+        self.graph_plot_2 = self.plot(
+            x=X_VALS,
+            y=np.zeros(DATA_POINTS),
+            name=name_2,
+            pen=pg.mkPen(color_2, width=PEN_WIDTH),
+            antialias=ANTIALIAS,
             connect="finite",
             skipFiniteCheck=True,
         )
 
-        self.graph_plot_z = self.plot(
-            x=x_vals_z,
-            name=name_z,
-            pen=pg.mkPen(color_z, width=2),
-            antialias=True,
+        self.graph_plot_3 = self.plot(
+            x=X_VALS,
+            y=np.zeros(DATA_POINTS),
+            name=name_3,
+            pen=pg.mkPen(color_3, width=PEN_WIDTH),
+            antialias=ANTIALIAS,
             connect="finite",
             skipFiniteCheck=True,
         )
 
-        self.graph_plot_x.pxMode = False
-        self.graph_plot_y.pxMode = False
-        self.graph_plot_z.pxMode = False
+        self.graph_plot_1.pxMode = False
+        self.graph_plot_2.pxMode = False
+        self.graph_plot_3.pxMode = False
 
-        self.graph_plot_x.setDownsampling(auto=True)
-        self.graph_plot_y.setDownsampling(auto=True)
-        self.graph_plot_z.setDownsampling(auto=True)
-
-        self.graph_data_x = np.zeros(linspace_x)
-        self.graph_data_y = np.zeros(linspace_x)
-        self.graph_data_z = np.zeros(linspace_x)
+        self.graph_plot_1.setDownsampling(auto=True)
+        self.graph_plot_2.setDownsampling(auto=True)
+        self.graph_plot_3.setDownsampling(auto=True)
 
         self.curve = pg.PlotCurveItem()
         self.curve.pxMode = False
         self.addItem(self.curve)
 
         self.ptr1 = 0.0
-        self.window_size = 5
-        self.weights = np.ones(self.window_size) / self.window_size
+
+        self.addLegend()
+        self.hideButtons()
 
         self.showGrid(x=True, y=True)
         self.getAxis("bottom").setPen(pg.mkPen("#a5a5a5"))
@@ -324,56 +277,49 @@ class TripleAxePlotWidget(pg.PlotItem):
         self.getAxis("left").setStyle(tickTextOffset=-40)
 
         self.getViewBox().disableAutoRange(axis="x")
-        self.hideButtons()
         self.getViewBox().setMouseEnabled(x=False, y=False)
 
-    def update(self, value_x, value_y, value_z):
-        value_x = float(value_x)
-        value_y = float(value_y)
-        value_z = float(value_z)
+    def update(self, value_1, value_2, value_3):
+        value_1 = float(value_1)
+        value_2 = float(value_2)
+        value_3 = float(value_3)
 
-        self.graph_data_x[:-1] = self.graph_data_x[1:]
-        self.graph_data_x[-1] = value_x
+        y_data_1 = self.graph_plot_1.yData
+        y_data_1[:-1] = y_data_1[1:]
+        y_data_1[-1] = value_1
 
-        self.graph_data_y[:-1] = self.graph_data_y[1:]
-        self.graph_data_y[-1] = value_y
+        y_data_2 = self.graph_plot_2.yData
+        y_data_2[:-1] = y_data_2[1:]
+        y_data_2[-1] = value_2
 
-        self.graph_data_z[:-1] = self.graph_data_z[1:]
-        self.graph_data_z[-1] = value_z
-
-        x_vals_x = np.linspace(self.ptr1, self.ptr1 + 0.1, len(self.graph_data_x))
-        x_vals_y = np.linspace(self.ptr1, self.ptr1 + 0.1, len(self.graph_data_y))
-        x_vals_z = np.linspace(self.ptr1, self.ptr1 + 0.1, len(self.graph_data_z))
+        y_data_3 = self.graph_plot_3.yData
+        y_data_3[:-1] = y_data_3[1:]
+        y_data_3[-1] = value_3
 
         self.ptr1 += 0.1
+        x_vals = np.linspace(self.ptr1 - 0.1, self.ptr1, len(X_VALS))
 
-        self.setXRange(self.ptr1 - 0.1, self.ptr1, padding=0.01)
-        self.graph_plot_x.setData(x=x_vals_x, y=self.graph_data_x)
-        self.graph_plot_y.setData(x=x_vals_y, y=self.graph_data_y)
-        self.graph_plot_z.setData(x=x_vals_z, y=self.graph_data_z)
+        self.setXRange(self.ptr1 - 0.1, self.ptr1, padding=0.02)
+        self.graph_plot_1.setData(x=x_vals, y=y_data_1)
+        self.graph_plot_2.setData(x=x_vals, y=y_data_2)
+        self.graph_plot_3.setData(x=x_vals, y=y_data_3)
 
     def clear(self):
         self.ptr1 = 0.0
-        self.graph_data_x = np.zeros_like(self.graph_data_x)
-        self.graph_data_y = np.zeros_like(self.graph_data_y)
-        self.graph_data_z = np.zeros_like(self.graph_data_z)
-
-        self.graph_plot_x.clear()
-        self.graph_plot_y.clear()
-        self.graph_plot_z.clear()
-
+        self.graph_plot_1.yData = np.zeros_like(self.graph_plot_1.yData)
+        self.graph_plot_2.yData = np.zeros_like(self.graph_plot_2.yData)
+        self.graph_plot_3.yData = np.zeros_like(self.graph_plot_2.yData)
         self.curve.clear()
-
         self.update(0.0, 0.0, 0.0)
 
-# ================================================================= #
+
 class GpsPlotWidget(pg.PlotItem):
     def __init__(
         self,
         parent=None,
         labels={"bottom": "Longitude", "left": "Latitude"},
         title=None,
-        color: str = "00BA42",
+        color: str = "ffc048",
         enableMenu=False,
         **kargs,
     ):
@@ -381,20 +327,19 @@ class GpsPlotWidget(pg.PlotItem):
             parent=parent, labels=labels, title=title, enableMenu=enableMenu, **kargs
         )
 
-        if color == None:
-            color = "e84118"
+        color = f"#{color}" if color else "#ffc048"
 
-        color = f"#{color}"
-
-        fill_color = QColor(color)
-        fill_color.setAlpha(80)
+        smooth_color = QColor(color)
+        smooth_color.setAlpha(90)
 
         self.graph_data = {"x": [], "y": []}
         self.lastet_data = {"x": [], "y": []}
 
         self.graph_plot = self.plot(
-            pen=pg.mkPen(fill_color, width=2),
-            antialias=True,
+            x=np.zeros(DATA_POINTS),
+            y=np.zeros(DATA_POINTS),
+            pen=pg.mkPen(smooth_color, width=3),
+            antialias=False,
             connect="finite",
             symbol=None,
         )
@@ -421,7 +366,7 @@ class GpsPlotWidget(pg.PlotItem):
         self.graph_data["x"].append(longitude)
         self.graph_data["y"].append(latitude)
 
-        if len(self.graph_data["x"]) > 40:
+        if len(self.graph_data["x"]) > 80:
             self.graph_data["x"].pop(0)
             self.graph_data["y"].pop(0)
 
@@ -436,11 +381,11 @@ class GpsPlotWidget(pg.PlotItem):
         )
 
         x_range = (
-            min(self.graph_data["x"]) - 0.0190,
-            max(self.graph_data["x"]) + 0.0190,
+            min(self.graph_data["x"]) - 0.0090,
+            max(self.graph_data["x"]) + 0.0090,
         )
         y_range = (
-            min(self.graph_data["y"]) - 0.0190,
-            max(self.graph_data["y"]) + 0.0190,
+            min(self.graph_data["y"]) - 0.0090,
+            max(self.graph_data["y"]) + 0.0090,
         )
-        self.setRange(xRange=x_range, yRange=y_range, padding=0.03)
+        self.setRange(xRange=x_range, yRange=y_range, padding=1.53)

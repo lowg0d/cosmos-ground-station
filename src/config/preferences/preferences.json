@@ -1,5 +1,25 @@
 {
   "PREFERENCES": {
+    "advanced": {
+      "opengl_enabled": {
+        "name": "OpenGL Rendering",
+        "description": "Optimizes Graph Rendering via GPU acceleration",
+        "preference_type": "toggle",
+        "value": false
+      },
+      "graphs_antialias": {
+        "name": "Graph Antialias",
+        "description": "Improves graph line looks, but may cause performance problems, depending on the machine",
+        "preference_type": "toggle",
+        "value": false
+      },
+      "numba_enabled": {
+        "name": "Graph Numba Rendering",
+        "description": "Optimizes Graph Rendering via GPU acceleration",
+        "preference_type": "toggle",
+        "value": false
+      }
+    },
     "profiles": {
       "visualization_dashboard": {
         "name": "Visualization Dashboard",
@@ -33,7 +53,7 @@
         "name": "Update Interval",
         "description": "Time between graph and label updates <b>(in ms)</b>",
         "preference_type": "int",
-        "value": 50
+        "value": 10
       },
       "data_stale_detect_time": {
         "name": "Stale Data Detection Time",
@@ -90,9 +110,9 @@
     }
   },
   "HIDDEN": {
-    "last_port": "COM3",
+    "last_port": "COM10",
     "last_bauds": "9600",
     "auto_reConnect": true,
-    "small_mode": true
+    "small_mode": false
   }
 }
