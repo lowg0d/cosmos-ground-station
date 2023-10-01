@@ -30,7 +30,7 @@ class DataHandlerModel(QObject):
 
         self.parent = parent
         self.serial_model = parent.serial_model
-        self.recording_model = parent.recording_model
+        self.recording_model = parent.recording_controller.recordings_model
 
         self.packet_header = str(
             self.parent.preferences.get_preference("packet.signature_header")
@@ -97,7 +97,7 @@ class DataHandlerModel(QObject):
             return data
 
         def process_data(self, rcv_data):
-            now = datetime.now()
+            now = datetime.now().strftime("%d.%m.%Y;%H.%M.%S.%f")
 
             if len(rcv_data) > 2:
                 if rcv_data.startswith(self.parent.packet_header):
@@ -106,7 +106,10 @@ class DataHandlerModel(QObject):
 
                     # emit signals
                     self.parent.update_value_chain.emit(value_chain)
-                    self.parent.write_to_terminal.emit(rcv_data)
+                    self.parent.write_to_terminal.emit(str(value_chain))
+
+                    if self.parent.parent.recording_controller.recordings_enabled:
+                        self.parent.recording_model.write_to_log_file(now, value_chain)
 
                 else:
                     print("[+] Packet With Unknow Header: " + rcv_data)

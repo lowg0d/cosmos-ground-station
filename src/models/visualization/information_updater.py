@@ -91,18 +91,18 @@ class InformationUpdateModel(QObject):
             self.update_labels()
             self.update_state()
 
-        except IndexError:
+        except IndexError as e:
             if self.value_chain == np.asarray(["default"]):
                 self.parent.set_state("WAITING FOR DATA...", "f7f1e3")
 
             else:
-                print(f"[-] Error updating All Values: value is to high fo the list - ")
+                print(f"[-] Error updating All Values: value is to high fo the list - {e}")
 
-        except Exception:
-            print(f"[-] Error Updating All Widgets: ")
+        except Exception as e:
+            print(f"[-] Error Updating All Widgets: {e}")
 
         plotting_time = (time.time() - start_time) * 1000
-        print(plotting_time)
+        #print(plotting_time)
 
     ############################################################
     ## GRAPHS

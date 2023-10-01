@@ -17,47 +17,65 @@
 #############################################################
 
 import os
+import datetime
 import csv
 
 
 class RecordingModel:
-    """
-    This Mmodule managers recordings
-    """
-
     def __init__(self, parent):
         self.parent = parent
-
         self.recording_save_path = self.parent.preferences.get_preference(
             "data.recordings_path"
         )
-        self.blackbox_file_path = (
-            f"{self.recording_save_path}/last_conn/last_connection.txt"
+        self.blackbox_file_path = os.path.join(
+            self.recording_save_path, "last_connection.txt"
         )
-        self.current_recording_file_path = f"{self.recording_save_path}/default.csv"
-
+        self.current_recording_file_path = os.path.join(
+            self.recording_save_path, "default.csv"
+        )
         self.reset_blackbox()
+        self.check_paths_existence()
 
-        self.check_paths_existance()
-
-    def check_paths_existance(self):
+    def check_paths_existence(self):
         os.makedirs(self.recording_save_path, exist_ok=True)
 
     def reset_blackbox(self):
-        with open(self.blackbox_file_path, "w", encoding="utf-8") as f:
-            f.close()
+        open(self.blackbox_file_path, "w", encoding="utf-8").close()
 
     def write_to_blackbox(self, packet_time, data):
-        """
-        This functions gets called whenever a packet is received from the serial,
-        it writes all the data, and the time it occured in a backup file that is created
-        every time a connection is established.
-        """
+        save_string = f"{packet_time}/{data}"
         try:
             with open(self.blackbox_file_path, "a", encoding="utf-8") as blackbox_file:
-                blackbox_file.write(f"{data}, {packet_time}")
-
+                blackbox_file.write(save_string)
         except Exception as exc:
-            self.parent.window_controller.show_error_dialog(
-                "Exception Writing Backup File", exc
+            raise Exception("Exception Writing Backup File", exc)
+
+    def reset_log_file(self, current_mission):
+        date = datetime.datetime.now().strftime("%d.%m.%Y")
+        id_ = 0
+        file_id = f"{date}-{id_}"
+        path = os.path.join(self.recording_save_path, current_mission, f"{file_id}.csv")
+
+        os.makedirs(
+            os.path.join(self.recording_save_path, current_mission), exist_ok=True
+        )
+
+        while os.path.exists(path):
+            id_ += 1
+            file_id = f"{date}-{id_}"
+            path = os.path.join(
+                self.recording_save_path, current_mission, f"{file_id}.csv"
             )
+
+        self.current_recording_file_path = path
+
+    def write_to_log_file(self, now, data):
+        data.append(now)
+        try:
+            with open(
+                self.current_recording_file_path, "a", newline="", encoding="utf-8"
+            ) as recording_file:
+                writer = csv.writer(recording_file, delimiter=",")
+                writer.writerow(data)
+        except Exception as e:
+            raise Exception(f"Error writing to recording file: {e}")

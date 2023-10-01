@@ -33,7 +33,7 @@ from src.models import (
     DataHandlerModel,
     VisualizationModel,
 )
-from src.controllers import WindowController, ConnectionController, TerminalController
+from src.controllers import WindowController, ConnectionController, TerminalController, RecordingController
 
 from src.ui import Ui_MainWindow, CustomTitleBar, PreferenceWidget
 
@@ -60,7 +60,7 @@ class MainWindow(FramelessMainWindow):
         # Initialize models
         self.preferences = PreferenceModel()
         self.serial_model = SerialModel(self)
-        self.recording_model = RecordingModel(self)
+        self.recording_controller = RecordingController(self)
         self.data_handler_model = DataHandlerModel(self)
 
         # Initialize Controllers
@@ -154,14 +154,12 @@ class MainWindow(FramelessMainWindow):
         )
 
         # RECORDING CONTROLLER
-        """
         self.ui.btn_toggleRecordings.clicked.connect(
             self.recording_controller.toggle_recordings
         )
         self.ui.btn_toggleCloudBackup.clicked.connect(
             self.recording_controller.toggle_cloud_backup
         )
-        """
 
         # TERMINAL CONTROLLER
         self.ui.btn_clearTerminal.clicked.connect(self.terminal_controller.clear)

@@ -164,7 +164,7 @@ class PreferenceWidget(QWidget):
 
     def update_text_config(self):
         # Update the string value in the configuration
-        value = self.ui.lineEdit.text()
+        value = self.ui.string.text()
         self.parent.preferences.update_preference(self.config_name, str(value))
 
     def update_toggle_button(self):

@@ -70,7 +70,7 @@ class VisualizationModel(QObject):
         pg.setConfigOptions(
             background=(14, 16, 20, 0),
             foreground=(195, 195, 195),
-            segmentedLineMode="off",
+            segmentedLineMode="on",
             exitCleanup=True,
             antialias=self.parent.preferences.get_preference(
             "advanced.graphs_antialias"

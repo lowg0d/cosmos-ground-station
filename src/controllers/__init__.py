@@ -19,3 +19,4 @@
 from .window import WindowController
 from .connection import ConnectionController
 from .terminal import TerminalController
+from .recordings import RecordingController

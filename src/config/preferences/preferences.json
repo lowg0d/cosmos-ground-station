@@ -36,7 +36,7 @@
         "value": 10
       },
       "data_stale_detect_time": {
-        "name": "Stale Data Detection Time (sec)",
+        "name": "Data Stale Detection Time (sec)",
         "description": "Time without receiving new data before activating data stale mode indicator.",
         "preference_type": "int",
         "value": 5
@@ -51,7 +51,7 @@
         "name": "Data Filter Ranges",
         "description": "Ranges used for data filtering (format: 'value': ['min', 'max']).",
         "preference_type": "open_file",
-        "value": "app/config/data/filter_ranges.json"
+        "value": "./src/config/visualization/filter_ranges.json"
       },
       "recordings_path": {
         "name": "Recording Save Folder",
@@ -97,19 +97,19 @@
         "name": "Data Point Amount",
         "description": "Number of data points displayed in each graph. Large numbers may cause lag.",
         "preference_type": "int",
-        "value": 5
+        "value": 250
       },
       "gps_graph_data_points": {
         "name": "GPS Data Point Amount",
         "description": "The amount of datapoints that showed in the gps graphs, the less the clerarer.",
         "preference_type": "int",
-        "value": 5
+        "value": 25
       }
     }
   },
   "HIDDEN": {
     "last_port": "COM10",
-    "last_bauds": "9600",
+    "last_bauds": "115200",
     "auto_reConnect": true,
     "small_mode": false
   }

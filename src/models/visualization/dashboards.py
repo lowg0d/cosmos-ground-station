@@ -304,10 +304,10 @@ class DashboardsModel(QObject):
 
             graph_widget = DualAxePlotWidget(
                 title=f"{name} ({unit})",
-                name_x=data.get("name_1"),
-                name_y=data.get("name_2"),
-                color_x=color_1,
-                color_y=data.get("color_2"),
+                name_1=data.get("name_1"),
+                name_2=data.get("name_2"),
+                color_1=color_1,
+                color_2=data.get("color_2"),
             )
             self.dual_axe_map[graph_widget] = (value_index, value_index_2)
             graph_widget.update(0.0, 0.0)
@@ -318,12 +318,12 @@ class DashboardsModel(QObject):
 
             graph_widget = TripleAxePlotWidget(
                 title=f"{name} ({unit})",
-                name_x=data.get("name_1"),
-                name_y=data.get("name_2"),
-                name_z=data.get("name_3"),
-                color_x=color_1,
-                color_y=data.get("color_2"),
-                color_z=data.get("color_3"),
+                name_1=data.get("name_1"),
+                name_2=data.get("name_2"),
+                name_3=data.get("name_3"),
+                color_1=color_1,
+                color_2=data.get("color_2"),
+                color_3=data.get("color_3"),
             )
 
             self.triple_axe_map[graph_widget] = (

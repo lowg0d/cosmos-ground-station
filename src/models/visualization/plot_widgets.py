@@ -61,6 +61,7 @@ class MonoAxePlotWidget(pg.PlotItem):
         )
 
         color = f"#{color}" if color else "#e84118"
+        # self.addLine(y=4000, pen='y')
 
         self.graph_plot = self.plot(
             x=X_VALS,
@@ -81,13 +82,12 @@ class MonoAxePlotWidget(pg.PlotItem):
         self.ptr1 = 0.0
 
         self.hideButtons()
-        self.addLegend()
-        
+
         self.showGrid(x=True, y=True)
-    
+
         self.getAxis("bottom").setPen(pg.mkPen("#a5a5a5"))
         self.getAxis("left").setPen(pg.mkPen("#a5a5a5"))
-        self.getAxis("left").setStyle(tickTextOffset=-40)
+        self.getAxis("left").setStyle(tickTextOffset=-35)
 
         self.getViewBox().disableAutoRange(axis="x")
         self.getViewBox().setMouseEnabled(x=False, y=False)
@@ -132,6 +132,8 @@ class DualAxePlotWidget(pg.PlotItem):
         color_1 = f"#{color_1}" if color_1 else "#e84118"
         color_2 = f"#{color_2}" if color_2 else "#4cd137"
 
+        self.addLegend()
+
         self.graph_plot_1 = self.plot(
             x=X_VALS,
             y=np.zeros(DATA_POINTS),
@@ -164,13 +166,12 @@ class DualAxePlotWidget(pg.PlotItem):
 
         self.ptr1 = 0.0
 
-        self.addLegend()
         self.hideButtons()
 
         self.showGrid(x=True, y=True)
         self.getAxis("bottom").setPen(pg.mkPen("#a5a5a5"))
         self.getAxis("left").setPen(pg.mkPen("#a5a5a5"))
-        self.getAxis("left").setStyle(tickTextOffset=-40)
+        self.getAxis("left").setStyle(tickTextOffset=-35)
 
         self.getViewBox().disableAutoRange(axis="x")
         self.getViewBox().setMouseEnabled(x=False, y=False)
@@ -225,6 +226,8 @@ class TripleAxePlotWidget(pg.PlotItem):
         color_2 = f"#{color_2}" if color_2 else "#4cd137"
         color_3 = f"#{color_3}" if color_3 else "#00a8ff"
 
+        self.addLegend()
+
         self.graph_plot_1 = self.plot(
             x=X_VALS,
             y=np.zeros(DATA_POINTS),
@@ -269,13 +272,12 @@ class TripleAxePlotWidget(pg.PlotItem):
 
         self.ptr1 = 0.0
 
-        self.addLegend()
         self.hideButtons()
 
         self.showGrid(x=True, y=True)
         self.getAxis("bottom").setPen(pg.mkPen("#a5a5a5"))
         self.getAxis("left").setPen(pg.mkPen("#a5a5a5"))
-        self.getAxis("left").setStyle(tickTextOffset=-40)
+        self.getAxis("left").setStyle(tickTextOffset=-35)
 
         self.getViewBox().disableAutoRange(axis="x")
         self.getViewBox().setMouseEnabled(x=False, y=False)
@@ -315,6 +317,84 @@ class TripleAxePlotWidget(pg.PlotItem):
 
 
 class GpsPlotWidget(pg.PlotItem):
+    def __init__(
+        self,
+        parent=None,
+        labels={"bottom": "Longitude", "left": "Latitude"},
+        title=None,
+        color: str = "ffc048",
+        enableMenu=False,
+        **kargs,
+    ):
+        super().__init__(
+            parent=parent, labels=labels, title=title, enableMenu=enableMenu, **kargs
+        )
+
+        color = f"#{color}" if color else "#ffc048"
+
+        smooth_color = QColor(color)
+        smooth_color.setAlpha(90)
+
+        self.graph_data = {"x": [], "y": []}
+        self.lastet_data = {"x": [], "y": []}
+
+        self.graph_plot = self.plot(
+            pen=pg.mkPen(smooth_color, width=2),
+            antialias=False,
+            connect="finite",
+            symbol=None,
+        )
+
+        self.graph_plot.setDownsampling(auto=True)
+        self.graph_plot.pxMode = False
+
+        self.scatter_plot = pg.ScatterPlotItem(
+            symbol="o", size=6, brush=pg.mkBrush(color)
+        )
+        self.addItem(self.scatter_plot)
+
+        self.showGrid(x=True, y=True)
+        self.getAxis("bottom").setPen(pg.mkPen("#777"))
+        self.getAxis("left").setPen(pg.mkPen("#777"))
+
+        self.hideButtons()
+        self.getViewBox().setMouseEnabled(x=False, y=False)
+
+    def update(self, value_1, value_2):
+        value_1 = float(value_1)
+        value_2 = float(value_2)
+
+        self.graph_data["x"].append(value_1)
+        self.graph_data["y"].append(value_2)
+
+        if len(self.graph_data["x"]) > 70:
+            self.graph_data["x"].pop(0)
+            self.graph_data["y"].pop(0)
+
+        self.lastet_data = {"x": [value_1], "y": [value_2]}
+        self.graph_plot.setData(self.graph_data["x"], self.graph_data["y"])
+        self.scatter_plot.setData(
+            self.lastet_data["x"], self.lastet_data["y"], symbol="o", connect="finite"
+        )
+
+        x_range = (
+            min(self.graph_data["x"]) - 0.0001,
+            max(self.graph_data["x"]) + 0.0001,
+        )
+        y_range = (
+            min(self.graph_data["y"]) - 0.0001,
+            max(self.graph_data["y"]) + 0.0001,
+        )
+        self.setRange(xRange=x_range, yRange=y_range, padding=1.5)
+
+    def clear(self):
+        self.graph_data = {"x": [], "y": []}
+        self.lastet_data = {"x": [], "y": []}
+        self.ptr1 = 0.0
+        self.update(0.0, 0.0)
+
+
+class GpsPlotWidget1(pg.PlotItem):
     def __init__(
         self,
         parent=None,
