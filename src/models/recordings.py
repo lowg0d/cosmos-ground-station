@@ -1,4 +1,4 @@
-######################### Xnxe9 <3? #########################
+#############################################################
 #
 #   .o88b.  .d88b.  .d8888. .88b  d88.  .d88b.  .d8888.
 #  d8P  Y8 .8P  Y8. 88'  YP 88'YbdP`88 .8P  Y8. 88'  YP
@@ -15,11 +15,11 @@
 # Date 06.08.2023
 #
 #############################################################
-
 import os
 import datetime
 import csv
-
+"""
+FIX IT"""
 
 class RecordingModel:
     def __init__(self, parent):
@@ -40,7 +40,9 @@ class RecordingModel:
         os.makedirs(self.recording_save_path, exist_ok=True)
 
     def reset_blackbox(self):
-        open(self.blackbox_file_path, "w", encoding="utf-8").close()
+        if os.path.exists(self.blackbox_file_path):
+            open(self.blackbox_file_path, "w", encoding="utf-8").close()
+
 
     def write_to_blackbox(self, packet_time, data):
         save_string = f"{packet_time}/{data}"

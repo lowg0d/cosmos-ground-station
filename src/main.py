@@ -1,4 +1,4 @@
-######################### Xnxe9 <3? #########################
+#############################################################
 #
 #   .o88b.  .d88b.  .d8888. .88b  d88.  .d88b.  .d8888.
 #  d8P  Y8 .8P  Y8. 88'  YP 88'YbdP`88 .8P  Y8. 88'  YP
@@ -15,7 +15,6 @@
 # Date 06.08.2023
 #
 #############################################################
-
 """
 This module defines the `MainWindow` class, which serves as the central component of the Cosmos.
 Encapsulates various UI components and controllers for the gui.

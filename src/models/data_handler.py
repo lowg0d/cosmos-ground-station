@@ -1,4 +1,4 @@
-######################### Xnxe9 <3? #########################
+#############################################################
 #
 #   .o88b.  .d88b.  .d8888. .88b  d88.  .d88b.  .d8888.
 #  d8P  Y8 .8P  Y8. 88'  YP 88'YbdP`88 .8P  Y8. 88'  YP
@@ -15,7 +15,6 @@
 # Date 06.08.2023
 #
 #############################################################
-
 import serial
 from datetime import datetime
 from PyQt5.QtCore import QObject, QThread, pyqtSignal
@@ -97,7 +96,7 @@ class DataHandlerModel(QObject):
             return data
 
         def process_data(self, rcv_data):
-            now = datetime.now().strftime("%d.%m.%Y;%H.%M.%S.%f")
+            now = datetime.now().strftime("%d.%m.%Y,%H.%M.%S.%f")
 
             if len(rcv_data) > 2:
                 if rcv_data.startswith(self.parent.packet_header):
