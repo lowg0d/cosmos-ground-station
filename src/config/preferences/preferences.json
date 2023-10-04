@@ -39,7 +39,7 @@
         "name": "Data Stale Detection Time (sec)",
         "description": "Time without receiving new data before activating data stale mode indicator.",
         "preference_type": "int",
-        "value": 1
+        "value": 3
       },
       "data_filter": {
         "name": "Data Filtration",

@@ -105,3 +105,29 @@ class PreferenceModel:
         current[keys[-1]] = new_value
         with open(path, "w", encoding="utf-8") as file:
             json.dump(path_data, file, indent=2)
+
+    def get_json_from_file(self, data_key):
+        path = self.paths[self.preference_path]
+        path_data = self.load_file(path)
+        keys = ("PREFERENCES." + data_key + ".value").split(".")
+
+        for key in keys:
+            if key not in path_data:
+                exit(f"[{data_key} ({key})] is not a valid key")
+
+            path_data = path_data[key]
+
+        try:
+            with open(path_data, "r") as f:
+                txt = f.read()
+                json_txt = json.loads(txt)
+                return json_txt
+
+        except FileNotFoundError:
+            exit(f"[{path_data})] file does not exits")
+
+        except json.JSONDecodeError:
+            exit(f"[{path_data})] is not a valid file for json conversion")
+
+        except Exception as e:
+            exit(f"[Unknown Error] {e}")

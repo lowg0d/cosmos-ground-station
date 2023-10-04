@@ -33,6 +33,9 @@ class InformationUpdateModel(QObject):
             "data.data_stale_detect_time"
         )
         self.data_filter_enabled = self.preferences.get_preference("data.data_filter")
+        self.filter_ranges = self.preferences.get_json_from_file(
+            "data.data_filter_ranges"
+        )
         self.state_index = self.preferences.get_preference("packet.state_value_index")
 
         self.data_stale_enabled = True
@@ -60,14 +63,12 @@ class InformationUpdateModel(QObject):
         self.last_update_time = now
 
         self.value_chain = np.asarray(new_values)
-        """
         # filter the data is filter is enabled
-        if self.filter_enabled == True:
+        if self.preferences.get_preference("data.data_filter"):
             try:
-                self.data_filter()
+                self.handle_data_filtration()
             except:
                 return
-        """
 
     def update_all_widgets(self):
         start_time = time.time()
@@ -92,6 +93,9 @@ class InformationUpdateModel(QObject):
         plotting_time = round(((time.time() - start_time) * 1000), 2)
         # print(f"PLOT TIME: {plotting_time}ms")
 
+    ############################################################
+    ## HANDLERS
+    ############################################################
     def handle_data_stale(self):
         current_time = QDateTime.currentDateTime()
         elapsed = self.last_update_time.msecsTo(current_time)
@@ -99,13 +103,13 @@ class InformationUpdateModel(QObject):
         if (elapsed / 1000) > self.data_stale_detect_time:
             if not self.data_stale_enabled:
                 self.data_stale_enabled = True
-                self.widget_update_timer.setInterval((self.update_interval * 2))
+                self.widget_update_timer.setInterval((self.update_interval * 4))
                 self.data_stale_timer.setInterval(50)
-                print(f"[{current_time}]: DATA STALE MODE ENABLED !!")
+                print(f"[{current_time.toLocalTime()}]: DATA STALE MODE ENABLED !!")
                 self.parent.parent.terminal_controller.terminal_clearer.stop()
 
             seconds = elapsed / 1000
-            self.parent.set_state(f"DATA STALE [{seconds:.2f}s]", "f7f1e3")
+            self.parent.set_state(f"DATA STALE [{seconds:.1f}s]", "f7f1e3")
 
         else:
             if self.data_stale_enabled:
@@ -115,6 +119,31 @@ class InformationUpdateModel(QObject):
                 self.widget_update_timer.setInterval(self.update_interval)
                 self.data_stale_timer.setInterval(1000)
                 self.parent.parent.terminal_controller.terminal_clearer.start()
+
+    def handle_data_filtration(self):
+        filtered_values = []
+        for i, old_value in enumerate(self.value_chain):
+            old_value = float(old_value)
+            if str(i) in self.filter_ranges:
+                min_val, max_val = self.filter_ranges[str(i)]
+                if old_value < min_val:
+                    new_value = min_val
+
+                elif old_value > max_val:
+                    new_value = max_val
+
+                else:
+                    new_value = old_value
+
+                filtered_values.append(new_value)
+
+            else:
+                filtered_values.append(old_value)
+                print(
+                    f"[WARNING] (INDEX: {i}) Data Filtration is activated but you are not providing values to filter."
+                )
+
+        self.value_chain = np.asarray(filtered_values)
 
     ############################################################
     ## GRAPHS
@@ -186,7 +215,7 @@ class InformationUpdateModel(QObject):
     ## STATES
     ############################################################
     def update_state(self):
-        current_state = self.value_chain[self.state_index]
+        current_state = int(self.value_chain[self.state_index])
 
         if current_state != self.previous_state:
             self.previous_state = current_state
