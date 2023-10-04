@@ -91,11 +91,11 @@
         {
           "name": "ALT",
           "unit": "m",
-          "value_index_in_chain": 1
+          "value_index_in_chain": 7
         },
         {
-          "name": "VEL",
-          "value_index_in_chain": 2,
+          "name": "VERT",
+          "value_index_in_chain": 14,
           "unit": "m/s"
         }
       ],
@@ -107,12 +107,12 @@
         },
         {
           "name": "VOT",
-          "value_index_in_chain": 3,
+          "value_index_in_chain": 1,
           "unit": "format_seconds"
         },
         {
           "name": "Voltage",
-          "value_index_in_chain": 4,
+          "value_index_in_chain": 0,
           "unit": "v",
           "min_max_nomial": [0, 10]
         },
@@ -126,22 +126,22 @@
       "secondary": [
         {
           "name": "Temp",
-          "value_index_in_chain": 5,
+          "value_index_in_chain": 8,
           "unit": "\u00baC"
         },
         {
           "name": "Yaw",
-          "value_index_in_chain": 8,
+          "value_index_in_chain": 9,
           "unit": "\u00ba/s"
         },
         {
           "name": "Pitch",
-          "value_index_in_chain": 7,
+          "value_index_in_chain": 10,
           "unit": "\u00ba/s"
         },
         {
           "name": "Roll",
-          "value_index_in_chain": 9,
+          "value_index_in_chain": 11,
           "unit": "\u00ba/s"
         },
         {
@@ -151,12 +151,12 @@
         },
         {
           "name": "Vel",
-          "value_index_in_chain": 2,
+          "value_index_in_chain": 4,
           "unit": "m/s"
         },
         {
           "name": "Ap",
-          "value_index_in_chain": 6,
+          "value_index_in_chain": 5,
           "unit": "hPa"
         }
       ]
@@ -215,44 +215,44 @@
   "GRAPHS": {
     "GPS": [
       {
-        "title": "🛞 1",
+        "title": "ALTITUDE",
         "unit": "m",
         "axes": 1,
-        "value_index_in_chain_1": 1,
+        "value_index_in_chain_1": 6,
         "color_1": "ff3838",
         "col": 0,
         "row": 0
       },
       {
-        "title": "📦",
+        "title": "GPS",
         "unit": "m",
         "axes": "gps",
-        "value_index_in_chain_1": 4,
-        "value_index_in_chain_2": 5,
+        "value_index_in_chain_1": 2,
+        "value_index_in_chain_2": 3,
         "color_1": "ffc048",
         "col": 1,
         "row": 0
       },
       {
-        "title": "2",
-        "unit": "km/h",
+        "title": "Speed",
+        "unit": "m/s",
         "axes": 2,
-        "value_index_in_chain_1": 1,
-        "value_index_in_chain_2": 2,
+        "value_index_in_chain_1": 14,
+        "value_index_in_chain_2": 15,
         "color_1": "18dcff",
         "color_2": "a29bfe",
-        "name_1": "Gx",
-        "name_2": "Gy",
+        "name_1": "Vertical",
+        "name_2": "Horizontal",
         "col": 0,
         "row": 1
       },
       {
-        "title": "3",
-        "unit": "What The Fuck Is A Kilomteter",
+        "title": "Gyros",
+        "unit": "º/s",
         "axes": 3,
-        "value_index_in_chain_1": 1,
-        "value_index_in_chain_2": 2,
-        "value_index_in_chain_3": 3,
+        "value_index_in_chain_1": 10,
+        "value_index_in_chain_2": 11,
+        "value_index_in_chain_3": 12,
         "color_1": "7d5fff",
         "color_2": "32ff7e",
         "color_3": "ffaf40",

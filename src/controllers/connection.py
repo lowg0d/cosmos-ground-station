@@ -22,6 +22,7 @@ It handles port detection, connection establishment, data sending, and error han
 """
 
 from PyQt5.QtCore import QObject, QTimer
+
 from src.models.serial import SerialModel
 
 
@@ -142,7 +143,6 @@ class ConnectionController(QObject):
             self.data_handler_model.stop_thread()
 
             self.serial_model.close_serial()
-            
 
             self.parent.window_controller.set_default_look()  # Reset UI
             self.parent.terminal_controller.write(
@@ -176,7 +176,6 @@ class ConnectionController(QObject):
 
             else:
                 self.handle_connection_error(message)
-            
 
     def handle_connection_error(self, message=None):
         """
@@ -206,7 +205,7 @@ class ConnectionController(QObject):
         else:
             data = self.parent.ui.terminal_input.text()
             self.parent.ui.terminal_input.setText("")  # Clear the input field
-        
+
         if self.serial_model.is_connected:
             if len(data) > 0:
                 self.serial_model.send_data(data)  # Send data through the serial port

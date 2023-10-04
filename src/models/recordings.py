@@ -15,11 +15,13 @@
 # Date 06.08.2023
 #
 #############################################################
-import os
-import datetime
 import csv
+import datetime
+import os
+
 """
 FIX IT"""
+
 
 class RecordingModel:
     def __init__(self, parent):
@@ -41,8 +43,8 @@ class RecordingModel:
 
     def reset_blackbox(self):
         if os.path.exists(self.blackbox_file_path):
-            open(self.blackbox_file_path, "w", encoding="utf-8").close()
-
+            with open(self.blackbox_file_path, "w", encoding="utf-8") as f:
+                f.close()
 
     def write_to_blackbox(self, packet_time, data):
         save_string = f"{packet_time}/{data}"

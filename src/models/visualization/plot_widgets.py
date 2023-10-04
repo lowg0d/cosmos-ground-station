@@ -20,9 +20,9 @@ import pyqtgraph as pg
 from PyQt5.QtGui import QColor
 
 PEN_WIDTH = 2
-ANTIALIAS = False
-DATA_POINTS = 200
-GPS_DATA_POINTS = 20
+ANTIALIAS = True
+DATA_POINTS = 300
+GPS_DATA_POINTS = 60
 X_VALS = np.linspace(0.0, (DATA_POINTS - 1) / DATA_POINTS, DATA_POINTS)
 
 
@@ -34,7 +34,7 @@ class MonoAxePlotWidget(pg.PlotItem):
         labels={"bottom": "Time (s)"},
         name="plot_widget",
         color: str = "00BA42",
-        enableMenu=False,
+        enableMenu=True,
         **kwargs,
     ):
         super().__init__(
@@ -57,6 +57,7 @@ class MonoAxePlotWidget(pg.PlotItem):
         self.graph_plot.setDownsampling(auto=True)
 
         self.curve = pg.PlotCurveItem()
+
         self.curve.pxMode = False
         self.addItem(self.curve)
 
@@ -103,7 +104,7 @@ class DualAxePlotWidget(pg.PlotItem):
         color_2: str = "ff9ff3",
         name_1="X",
         name_2="Y",
-        enableMenu=False,
+        enableMenu=True,
         **kargs,
     ):
         super().__init__(
@@ -196,7 +197,7 @@ class TripleAxePlotWidget(pg.PlotItem):
         name_1="X",
         name_2="Y",
         name_3="Z",
-        enableMenu=False,
+        enableMenu=True,
         **kargs,
     ):
         super().__init__(
@@ -304,7 +305,7 @@ class GpsPlotWidget(pg.PlotItem):
         labels={"bottom": "Longitude", "left": "Latitude"},
         title=None,
         color: str = "ffc048",
-        enableMenu=False,
+        enableMenu=True,
         **kargs,
     ):
         super().__init__(
@@ -314,14 +315,14 @@ class GpsPlotWidget(pg.PlotItem):
         color = f"#{color}" if color else "#ffc048"
 
         smooth_color = QColor(color)
-        smooth_color.setAlpha(90)
+        # smooth_color.setAlpha(90)
 
         self.graph_data = {"x": [], "y": []}
         self.lastet_data = {"x": [], "y": []}
 
         self.graph_plot = self.plot(
             pen=pg.mkPen(smooth_color, width=2),
-            antialias=False,
+            antialias=ANTIALIAS,
             connect="finite",
             symbol=None,
         )
@@ -348,7 +349,7 @@ class GpsPlotWidget(pg.PlotItem):
         self.graph_data["x"].append(value_1)
         self.graph_data["y"].append(value_2)
 
-        if len(self.graph_data["x"]) > 70:
+        if len(self.graph_data["x"]) > GPS_DATA_POINTS:
             self.graph_data["x"].pop(0)
             self.graph_data["y"].pop(0)
 

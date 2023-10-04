@@ -18,7 +18,7 @@
         "name": "Show Countdown Label",
         "description": "Toggle to display the countdown label.",
         "preference_type": "toggle_widget",
-        "value": true,
+        "value": false,
         "widget": "label_countdown"
       },
       "profile_file_open": {
@@ -39,7 +39,7 @@
         "name": "Data Stale Detection Time (sec)",
         "description": "Time without receiving new data before activating data stale mode indicator.",
         "preference_type": "int",
-        "value": 5
+        "value": 1
       },
       "data_filter": {
         "name": "Data Filtration",
@@ -91,7 +91,7 @@
         "name": "Graph Antialiasing",
         "description": "Enable smooth edges on lines at the cost of reduced performance.",
         "preference_type": "toggle",
-        "value": true
+        "value": false
       },
       "graph_data_points": {
         "name": "Data Point Amount",

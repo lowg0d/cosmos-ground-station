@@ -15,11 +15,10 @@
 # Date 06.08.2023
 #
 #############################################################
-from PyQt5.QtGui import QPainter
-from PyQt5.QtCore import QObject
-
 import numpy as np
 import pyqtgraph as pg
+from PyQt5.QtCore import QObject
+from PyQt5.QtGui import QPainter
 
 from ..visualization.dashboards import DashboardsModel
 from .information_updater import InformationUpdateModel
@@ -35,20 +34,24 @@ class VisualizationModel(QObject):
 
         self.graph_layout = None
         self.setup_pyqtgraph()
-        
+
         self.dashboards = DashboardsModel(self)
         self.updates = InformationUpdateModel(self)
 
     def change_to_connected(self):
         self.updates.widget_update_timer.start()
-    
+        self.updates.data_stale_timer.start()
+        self.parent.terminal_controller.terminal_clearer.start()
+
     def change_to_disconnected(self):
         self.updates.widget_update_timer.stop()
-        
+        self.updates.data_stale_timer.stop()
+        self.parent.terminal_controller.terminal_clearer.stop()
+
         self.updates.previus_state = None
         self.updates.current_state = None
         self.updates.value_chain = np.asarray(["default"])
-        
+
         self.set_state("N/A", "45484e")
         self.updates.clear_labels()
         self.updates.clear_graphs()
@@ -64,7 +67,7 @@ class VisualizationModel(QObject):
 
         # Set the text of the state label
         self.ui.label_state.setText(name)
-        
+
     def setup_pyqtgraph(self):
         pg.setConfigOptions(
             background=(14, 16, 20, 0),
@@ -72,11 +75,9 @@ class VisualizationModel(QObject):
             segmentedLineMode="on",
             exitCleanup=True,
             antialias=self.parent.preferences.get_preference(
-            "advanced.graphs_antialias"
+                "advanced.graphs_antialias"
             ),
-            useOpenGL=self.parent.preferences.get_preference(
-            "advanced.opengl_enabled"
-            ),
+            useOpenGL=self.parent.preferences.get_preference("advanced.opengl_enabled"),
             useCupy=True,
             useNumba=True,
         )
@@ -85,8 +86,10 @@ class VisualizationModel(QObject):
         main_layout.setAntialiasing(True)
         main_layout.setRenderHints(QPainter.Antialiasing)
 
-        self.graph_layout = main_layout.addLayout(colspan=1, rowspan=1, border=(0, 0, 0, 0))
-        self.graph_layout.setContentsMargins(2, 2, 2, 2)
-        self.graph_layout.setSpacing(4)
+        self.graph_layout = main_layout.addLayout(
+            colspan=1, rowspan=1, border=(0, 0, 0, 0)
+        )
+        self.graph_layout.setContentsMargins(0, 0, 0, 0)
+        self.graph_layout.setSpacing(0)
 
         self.parent.ui.layout_graphContainer.addWidget(main_layout)

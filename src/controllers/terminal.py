@@ -21,7 +21,7 @@ functionality. The TerminalController handles writing messages, clearing the ter
 and mantaining the line count under the maximum to ensure optimal performance.
 """
 
-from PyQt5.QtCore import QTimer, QTime
+from PyQt5.QtCore import QTime, QTimer
 
 
 class TerminalController:
@@ -38,8 +38,9 @@ class TerminalController:
 
         self.max_lines = 500
         self.terminal_clearer = QTimer()
+        self.terminal_clearer.setInterval(60000)
         self.terminal_clearer.timeout.connect(self.check_line_count)
-        self.terminal_clearer.start(30000)
+        # self.terminal_clearer.start(60000)
 
     def write(self, data, custom_prefix=None):
         time_stamp = QTime.currentTime().toString("hh:mm:ss.zzz")

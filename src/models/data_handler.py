@@ -15,8 +15,9 @@
 # Date 06.08.2023
 #
 #############################################################
-import serial
 from datetime import datetime
+
+import serial
 from PyQt5.QtCore import QObject, QThread, pyqtSignal
 
 
@@ -96,12 +97,14 @@ class DataHandlerModel(QObject):
             return data
 
         def process_data(self, rcv_data):
-            now = datetime.now().strftime("%d.%m.%Y,%H.%M.%S.%f")
+            now = datetime.now().strftime("%d.%m.%Y;%H.%M.%S.%f")
 
             if len(rcv_data) > 2:
                 if rcv_data.startswith(self.parent.packet_header):
                     formated = rcv_data.replace(f"{self.parent.packet_header}", "")
-                    value_chain = str(formated).strip().split(f"{self.parent.packet_split_char}")
+                    value_chain = (
+                        str(formated).strip().split(f"{self.parent.packet_split_char}")
+                    )
 
                     # emit signals
                     self.parent.update_value_chain.emit(value_chain)
@@ -111,7 +114,13 @@ class DataHandlerModel(QObject):
                         self.parent.recording_model.write_to_log_file(now, value_chain)
 
                 else:
-                    print("[+] Packet With Unknow Header: " + rcv_data)
+                    if rcv_data != UnicodeDecodeError:
+                        print("[+] Packet With Unknown Header: " + rcv_data)
+
+                    else:
+                        print(
+                            "[-] Decode Error ocurred, packet corrupted, normal to appear at the start of comms"
+                        )
 
             # write everything to backup file
             self.parent.recording_model.write_to_blackbox(now, rcv_data)

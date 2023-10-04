@@ -15,7 +15,7 @@
 # Date 06.08.2023
 #
 #############################################################
-from .window import WindowController
 from .connection import ConnectionController
-from .terminal import TerminalController
 from .recordings import RecordingController
+from .terminal import TerminalController
+from .window import WindowController

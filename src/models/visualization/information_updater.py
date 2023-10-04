@@ -15,11 +15,10 @@
 # Date 06.08.2023
 #
 #############################################################
-
-from PyQt5.QtCore import QObject, QDateTime, QTimer
-
 import time
+
 import numpy as np
+from PyQt5.QtCore import QDateTime, QObject, QTimer
 
 
 class InformationUpdateModel(QObject):
@@ -36,8 +35,9 @@ class InformationUpdateModel(QObject):
         self.data_filter_enabled = self.preferences.get_preference("data.data_filter")
         self.state_index = self.preferences.get_preference("packet.state_value_index")
 
-        self.previus_state = None
-        self.previus_value_chain = np.asarray([])
+        self.data_stale_enabled = True
+        self.previous_state = None
+        self.previous_value_chain = np.asarray([])
         self.value_chain = np.asarray(["default"])
 
         self.last_update_time = QDateTime.currentDateTime()
@@ -46,6 +46,10 @@ class InformationUpdateModel(QObject):
         self.widget_update_timer = QTimer()
         self.widget_update_timer.setInterval(self.update_interval)
         self.widget_update_timer.timeout.connect(self.update_all_widgets)
+
+        self.data_stale_timer = QTimer()
+        self.data_stale_timer.setInterval(1000)
+        self.data_stale_timer.timeout.connect(self.handle_data_stale)
 
     def update_value_chain(self, new_values):
         # update the value chain with the new values, and record the time for calculating the tlm rate
@@ -78,13 +82,39 @@ class InformationUpdateModel(QObject):
                 self.parent.set_state("WAITING FOR DATA...", "f7f1e3")
 
             else:
-                print(f"[-] Error updating All Values: value is to high fo the list - {e}")
+                print(
+                    f"[-] Error updating All Values: value is to high fo the list - {e}"
+                )
 
         except Exception as e:
             print(f"[-] Error Updating All Widgets: {e}")
 
-        plotting_time = (time.time() - start_time) * 1000
-        #print(plotting_time)
+        plotting_time = round(((time.time() - start_time) * 1000), 2)
+        # print(f"PLOT TIME: {plotting_time}ms")
+
+    def handle_data_stale(self):
+        current_time = QDateTime.currentDateTime()
+        elapsed = self.last_update_time.msecsTo(current_time)
+
+        if (elapsed / 1000) > self.data_stale_detect_time:
+            if not self.data_stale_enabled:
+                self.data_stale_enabled = True
+                self.widget_update_timer.setInterval((self.update_interval * 2))
+                self.data_stale_timer.setInterval(50)
+                print(f"[{current_time}]: DATA STALE MODE ENABLED !!")
+                self.parent.parent.terminal_controller.terminal_clearer.stop()
+
+            seconds = elapsed / 1000
+            self.parent.set_state(f"DATA STALE [{seconds:.2f}s]", "f7f1e3")
+
+        else:
+            if self.data_stale_enabled:
+                self.data_stale_enabled = False
+                self.previous_state = None
+
+                self.widget_update_timer.setInterval(self.update_interval)
+                self.data_stale_timer.setInterval(1000)
+                self.parent.parent.terminal_controller.terminal_clearer.start()
 
     ############################################################
     ## GRAPHS
@@ -158,8 +188,8 @@ class InformationUpdateModel(QObject):
     def update_state(self):
         current_state = self.value_chain[self.state_index]
 
-        if current_state != self.previus_state:
-            self.previus_state = current_state
+        if current_state != self.previous_state:
+            self.previous_state = current_state
 
             try:
                 state_data = self.dashboards.states_map.get(f"{current_state}")
@@ -204,7 +234,6 @@ class InformationUpdateModel(QObject):
         hours, remainder = divmod(time_in_seconds, 3600)
         minutes, seconds = divmod(remainder, 60)
         return f"{hours:02.0f}:{minutes:02.0f}:{seconds:02.0f}"
-
 
     def clear_labels(self):
         for label, (value_index, unit) in self.dashboards.labels_map.items():

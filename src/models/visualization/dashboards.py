@@ -15,15 +15,15 @@
 # Date 06.08.2023
 #
 #############################################################
+from PyQt5.QtCore import QObject, Qt
 from PyQt5.QtGui import QCursor
-from PyQt5.QtCore import Qt, QObject
-from PyQt5.QtWidgets import QPushButton, QLabel, QHBoxLayout, QGridLayout
+from PyQt5.QtWidgets import QGridLayout, QHBoxLayout, QLabel, QPushButton
 
 from ..visualization.plot_widgets import (
-    MonoAxePlotWidget,
     DualAxePlotWidget,
-    TripleAxePlotWidget,
     GpsPlotWidget,
+    MonoAxePlotWidget,
+    TripleAxePlotWidget,
 )
 
 
@@ -73,7 +73,7 @@ class DashboardsModel(QObject):
         self.destroy_widgets_from_layout(self.primary_label_container)
         self.destroy_widgets_from_layout(self.secondary_label_container)
         self.graph_container_layout.clear()
-        
+
         self.current_profile = None
         self.current_buttons_data = None
         self.current_states_data = None
@@ -88,7 +88,6 @@ class DashboardsModel(QObject):
         self.dual_axe_map = {}
         self.triple_axe_map = {}
         self.gps_map = {}
-        
 
     def update_ui_widgets(self):
         self.setup_graphs()
@@ -101,7 +100,7 @@ class DashboardsModel(QObject):
 
     def switch_dashboard(self):
         self.destroy_current()
-        self.setup_current() 
+        self.setup_current()
 
     def update_profile_data(self):
         data = self.preferences.get(f"DASHBOARDS.{self.current_profile}", 2)

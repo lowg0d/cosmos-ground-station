@@ -24,7 +24,7 @@ class RecordingController:
 
         # TEMPORAL (
 
-        self.mission = "DEBUG"
+        self.mission = "NO_MISSION"
         self.logged_in = True
 
         # )
@@ -39,7 +39,6 @@ class RecordingController:
 
         if self.recordings_enabled:
             self.recordings_model.reset_log_file(self.mission)
-            
 
         if self.logged_in:
             self.parent.ui.btn_toggleCloudBackup.setEnabled(self.recordings_enabled)
