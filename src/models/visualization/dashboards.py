@@ -50,12 +50,17 @@ class DashboardsModel(QObject):
         self.current_max_columns = None
 
         self.states_map = None
+        self.filter_ranges_map = None
         self.labels_map = {}
         self.buttons_map = {}
         self.mono_axe_map = {}
         self.dual_axe_map = {}
         self.triple_axe_map = {}
         self.gps_map = {}
+
+        self.pen_width = None
+        self.graph_data_points = None
+        self.gps_graph_data_points = None
 
         self.setup_current()
 
@@ -82,12 +87,17 @@ class DashboardsModel(QObject):
         self.current_max_columns = None
 
         self.states_map = None
+        self.filter_ranges_map = None
         self.labels_map = {}
         self.buttons_map = {}
         self.mono_axe_map = {}
         self.dual_axe_map = {}
         self.triple_axe_map = {}
         self.gps_map = {}
+
+        self.pen_width = None
+        self.graph_data_points = None
+        self.gps_graph_data_points = None
 
     def update_ui_widgets(self):
         self.setup_graphs()
@@ -105,8 +115,14 @@ class DashboardsModel(QObject):
     def update_profile_data(self):
         data = self.preferences.get(f"DASHBOARDS.{self.current_profile}", 2)
         self.current_max_columns = data["max_columns"]
+        self.pen_width = data["graph_pen_width"]
+        self.graph_data_points = data["graph_data_points"]
+        self.gps_graph_data_points = data["gps_graph_data_points"]
 
         self.states_map = self.preferences.get(f"STATES.{data['states']}", 2)
+        self.filter_ranges_map = self.preferences.get(
+            f"FILTER_RANGES.{data['filter_ranges']}", 2
+        )
         self.current_buttons_data = self.preferences.get(
             f"BUTTONS.{data['buttons']}", 2
         )
@@ -237,9 +253,16 @@ class DashboardsModel(QObject):
 
         default_value = "N/A"
 
+        if unit:
+            show_unit = True
+
+        else:
+            show_unit = False
+
         if unit == "format_seconds":
             default_value = "00:00:00"
             unit_to_print = ""
+            show_unit = False
         elif unit == "tlm_rate":
             unit_to_print = " ms"
         else:
@@ -259,7 +282,9 @@ class DashboardsModel(QObject):
         group_layout.addWidget(name_label, alignment=Qt.AlignLeft)
         group_layout.addStretch(1)
         group_layout.addWidget(tlm_label, alignment=Qt.AlignRight)
-        group_layout.addWidget(unit_label, alignment=Qt.AlignRight)
+
+        if show_unit:
+            group_layout.addWidget(unit_label, alignment=Qt.AlignRight)
 
         group_layout.addSpacing(10)
 
@@ -292,6 +317,8 @@ class DashboardsModel(QObject):
                 title=f"{name} ({unit})",
                 name=name,
                 color=color_1,
+                pen_width=self.pen_width,
+                datapoints=self.graph_data_points,
             )
 
             self.mono_axe_map[graph_widget] = value_index
@@ -306,6 +333,8 @@ class DashboardsModel(QObject):
                 name_2=data.get("name_2"),
                 color_1=color_1,
                 color_2=data.get("color_2"),
+                pen_width=self.pen_width,
+                datapoints=self.graph_data_points,
             )
             self.dual_axe_map[graph_widget] = (value_index, value_index_2)
             graph_widget.update(0.0, 0.0)
@@ -322,6 +351,8 @@ class DashboardsModel(QObject):
                 color_1=color_1,
                 color_2=data.get("color_2"),
                 color_3=data.get("color_3"),
+                pen_width=self.pen_width,
+                datapoints=self.graph_data_points,
             )
 
             self.triple_axe_map[graph_widget] = (
@@ -334,7 +365,11 @@ class DashboardsModel(QObject):
 
         elif axes.lower() == "gps":
             value_index_2 = data.get("value_index_in_chain_2")
-            graph_widget = GpsPlotWidget(title=f"{name} ({unit})", color=color_1)
+            graph_widget = GpsPlotWidget(
+                title=f"{name} ({unit})",
+                color=color_1,
+                datapoints=self.gps_graph_data_points,
+            )
             self.gps_map[graph_widget] = (value_index, value_index_2)
             graph_widget.update(0.0, 0.0)
 

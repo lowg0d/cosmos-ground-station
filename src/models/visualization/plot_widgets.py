@@ -17,13 +17,14 @@
 #############################################################
 import numpy as np
 import pyqtgraph as pg
-from PyQt5.QtGui import QColor
+from PyQt5.QtGui import QColor, QFont
 
 PEN_WIDTH = 2
 ANTIALIAS = True
 DATA_POINTS = 300
-GPS_DATA_POINTS = 60
+GPS_DATA_POINTS = 200
 X_VALS = np.linspace(0.0, (DATA_POINTS - 1) / DATA_POINTS, DATA_POINTS)
+FONT = QFont("Video Med", 11)
 
 
 class MonoAxePlotWidget(pg.PlotItem):
@@ -35,6 +36,9 @@ class MonoAxePlotWidget(pg.PlotItem):
         name="plot_widget",
         color: str = "00BA42",
         enableMenu=True,
+        pen_width=PEN_WIDTH,
+        datapoints=DATA_POINTS,
+        unit="",
         **kwargs,
     ):
         super().__init__(
@@ -42,13 +46,16 @@ class MonoAxePlotWidget(pg.PlotItem):
         )
 
         color = f"#{color}" if color else "#e84118"
+        datapoints = datapoints if datapoints else DATA_POINTS
+        pen_width = pen_width if pen_width else PEN_WIDTH
         # self.addLine(y=4000, pen='y')
 
+        self.x_vals = np.linspace(0.0, (datapoints - 1) / datapoints, datapoints)
         self.graph_plot = self.plot(
-            x=X_VALS,
-            y=np.zeros(DATA_POINTS),
+            x=self.x_vals,
+            y=np.zeros(datapoints),
             name=name,
-            pen=pg.mkPen(color, width=PEN_WIDTH),
+            pen=pg.mkPen(color, width=pen_width),
             antialias=ANTIALIAS,
             connect="finite",
             skipFiniteCheck=True,
@@ -61,7 +68,7 @@ class MonoAxePlotWidget(pg.PlotItem):
         self.curve.pxMode = False
         self.addItem(self.curve)
 
-        self.ptr1 = 0.0
+        self.y_vals = 0.0
 
         self.hideButtons()
 
@@ -70,6 +77,11 @@ class MonoAxePlotWidget(pg.PlotItem):
         self.getAxis("bottom").setPen(pg.mkPen("#a5a5a5"))
         self.getAxis("left").setPen(pg.mkPen("#a5a5a5"))
         self.getAxis("left").setStyle(tickTextOffset=-35)
+
+        # TEMPORAL (
+        self.getAxis("bottom").label.setFont(FONT)
+        self.getAxis("left").label.setFont(FONT)
+        # )
 
         self.getViewBox().disableAutoRange(axis="x")
         self.getViewBox().setMouseEnabled(x=False, y=False)
@@ -81,14 +93,14 @@ class MonoAxePlotWidget(pg.PlotItem):
         y_data[:-1] = y_data[1:]
         y_data[-1] = value
 
-        self.ptr1 += 0.1
-        x_vals = np.linspace(self.ptr1 - 0.1, self.ptr1, len(X_VALS))
+        self.y_vals += 0.1
+        x_vals = np.linspace(self.y_vals - 0.1, self.y_vals, len(self.x_vals))
 
-        self.setXRange(self.ptr1 - 0.1, self.ptr1, padding=0.02)
+        self.setXRange(self.y_vals - 0.1, self.y_vals, padding=0.02)
         self.graph_plot.setData(x=x_vals, y=y_data)
 
     def clear(self):
-        self.ptr1 = 0.0
+        self.y_vals = 0.0
         self.graph_plot.yData[:] = 0.0
         self.curve.clear()
         self.update(0.0)
@@ -105,6 +117,8 @@ class DualAxePlotWidget(pg.PlotItem):
         name_1="X",
         name_2="Y",
         enableMenu=True,
+        pen_width=PEN_WIDTH,
+        datapoints=DATA_POINTS,
         **kargs,
     ):
         super().__init__(
@@ -114,23 +128,27 @@ class DualAxePlotWidget(pg.PlotItem):
         color_1 = f"#{color_1}" if color_1 else "#e84118"
         color_2 = f"#{color_2}" if color_2 else "#4cd137"
 
+        datapoints = datapoints if datapoints else DATA_POINTS
+        pen_width = pen_width if pen_width else PEN_WIDTH
+
         self.addLegend()
 
+        self.x_vals = np.linspace(0.0, (datapoints - 1) / datapoints, datapoints)
         self.graph_plot_1 = self.plot(
-            x=X_VALS,
-            y=np.zeros(DATA_POINTS),
+            x=self.x_vals,
+            y=np.zeros(datapoints),
             name=name_1,
-            pen=pg.mkPen(color_1, width=PEN_WIDTH),
+            pen=pg.mkPen(color_1, width=pen_width),
             antialias=ANTIALIAS,
             connect="finite",
             skipFiniteCheck=True,
         )
 
         self.graph_plot_2 = self.plot(
-            x=X_VALS,
-            y=np.zeros(DATA_POINTS),
+            x=self.x_vals,
+            y=np.zeros(datapoints),
             name=name_2,
-            pen=pg.mkPen(color_2, width=PEN_WIDTH),
+            pen=pg.mkPen(color_2, width=pen_width),
             antialias=ANTIALIAS,
             connect="finite",
             skipFiniteCheck=True,
@@ -146,7 +164,7 @@ class DualAxePlotWidget(pg.PlotItem):
         self.curve.pxMode = False
         self.addItem(self.curve)
 
-        self.ptr1 = 0.0
+        self.y_vals = 0.0
 
         self.hideButtons()
 
@@ -170,15 +188,15 @@ class DualAxePlotWidget(pg.PlotItem):
         y_data_2[:-1] = y_data_2[1:]
         y_data_2[-1] = value_2
 
-        self.ptr1 += 0.1
-        x_vals = np.linspace(self.ptr1 - 0.1, self.ptr1, len(X_VALS))
+        self.y_vals += 0.1
+        x_vals = np.linspace(self.y_vals - 0.1, self.y_vals, len(self.x_vals))
 
-        self.setXRange(self.ptr1 - 0.1, self.ptr1, padding=0.02)
+        self.setXRange(self.y_vals - 0.1, self.y_vals, padding=0.02)
         self.graph_plot_1.setData(x=x_vals, y=y_data_1)
         self.graph_plot_2.setData(x=x_vals, y=y_data_2)
 
     def clear(self):
-        self.ptr1 = 0.0
+        self.y_vals = 0.0
         self.graph_plot_1.yData[:] = 0.0
         self.graph_plot_2.yData[:] = 0.0
         self.curve.clear()
@@ -198,6 +216,8 @@ class TripleAxePlotWidget(pg.PlotItem):
         name_2="Y",
         name_3="Z",
         enableMenu=True,
+        pen_width=PEN_WIDTH,
+        datapoints=DATA_POINTS,
         **kargs,
     ):
         super().__init__(
@@ -208,33 +228,37 @@ class TripleAxePlotWidget(pg.PlotItem):
         color_2 = f"#{color_2}" if color_2 else "#4cd137"
         color_3 = f"#{color_3}" if color_3 else "#00a8ff"
 
+        datapoints = datapoints if datapoints else DATA_POINTS
+        pen_width = pen_width if pen_width else PEN_WIDTH
+
         self.addLegend()
 
+        self.x_vals = np.linspace(0.0, (datapoints - 1) / datapoints, datapoints)
         self.graph_plot_1 = self.plot(
-            x=X_VALS,
-            y=np.zeros(DATA_POINTS),
+            x=self.x_vals,
+            y=np.zeros(datapoints),
             name=name_1,
-            pen=pg.mkPen(color_1, width=PEN_WIDTH),
+            pen=pg.mkPen(color_1, width=pen_width),
             antialias=ANTIALIAS,
             connect="finite",
             skipFiniteCheck=True,
         )
 
         self.graph_plot_2 = self.plot(
-            x=X_VALS,
-            y=np.zeros(DATA_POINTS),
+            x=self.x_vals,
+            y=np.zeros(datapoints),
             name=name_2,
-            pen=pg.mkPen(color_2, width=PEN_WIDTH),
+            pen=pg.mkPen(color_2, width=pen_width),
             antialias=ANTIALIAS,
             connect="finite",
             skipFiniteCheck=True,
         )
 
         self.graph_plot_3 = self.plot(
-            x=X_VALS,
-            y=np.zeros(DATA_POINTS),
+            x=self.x_vals,
+            y=np.zeros(datapoints),
             name=name_3,
-            pen=pg.mkPen(color_3, width=PEN_WIDTH),
+            pen=pg.mkPen(color_3, width=pen_width),
             antialias=ANTIALIAS,
             connect="finite",
             skipFiniteCheck=True,
@@ -252,7 +276,7 @@ class TripleAxePlotWidget(pg.PlotItem):
         self.curve.pxMode = False
         self.addItem(self.curve)
 
-        self.ptr1 = 0.0
+        self.y_vals = 0.0
 
         self.hideButtons()
 
@@ -281,16 +305,16 @@ class TripleAxePlotWidget(pg.PlotItem):
         y_data_3[:-1] = y_data_3[1:]
         y_data_3[-1] = value_3
 
-        self.ptr1 += 0.1
-        x_vals = np.linspace(self.ptr1 - 0.1, self.ptr1, len(X_VALS))
+        self.y_vals += 0.1
+        x_vals = np.linspace(self.y_vals - 0.1, self.y_vals, len(self.x_vals))
 
-        self.setXRange(self.ptr1 - 0.1, self.ptr1, padding=0.02)
+        self.setXRange(self.y_vals - 0.1, self.y_vals, padding=0.02)
         self.graph_plot_1.setData(x=x_vals, y=y_data_1)
         self.graph_plot_2.setData(x=x_vals, y=y_data_2)
         self.graph_plot_3.setData(x=x_vals, y=y_data_3)
 
     def clear(self):
-        self.ptr1 = 0.0
+        self.y_vals = 0.0
         self.graph_plot_1.yData[:] = 0.0
         self.graph_plot_2.yData[:] = 0.0
         self.graph_plot_3.yData[:] = 0.0
@@ -306,6 +330,8 @@ class GpsPlotWidget(pg.PlotItem):
         title=None,
         color: str = "ffc048",
         enableMenu=True,
+        pen_width=PEN_WIDTH,
+        datapoints=GPS_DATA_POINTS,
         **kargs,
     ):
         super().__init__(
@@ -313,7 +339,10 @@ class GpsPlotWidget(pg.PlotItem):
         )
 
         color = f"#{color}" if color else "#ffc048"
+        datapoints = datapoints if datapoints else GPS_DATA_POINTS
+        pen_width = pen_width if pen_width else PEN_WIDTH
 
+        self.datapoints = datapoints
         smooth_color = QColor(color)
         # smooth_color.setAlpha(90)
 
@@ -321,7 +350,7 @@ class GpsPlotWidget(pg.PlotItem):
         self.lastet_data = {"x": [], "y": []}
 
         self.graph_plot = self.plot(
-            pen=pg.mkPen(smooth_color, width=2),
+            pen=pg.mkPen(smooth_color, width=pen_width),
             antialias=ANTIALIAS,
             connect="finite",
             symbol=None,
@@ -349,7 +378,7 @@ class GpsPlotWidget(pg.PlotItem):
         self.graph_data["x"].append(value_1)
         self.graph_data["y"].append(value_2)
 
-        if len(self.graph_data["x"]) > GPS_DATA_POINTS:
+        if len(self.graph_data["x"]) > self.datapoints:
             self.graph_data["x"].pop(0)
             self.graph_data["y"].pop(0)
 
@@ -372,7 +401,7 @@ class GpsPlotWidget(pg.PlotItem):
     def clear(self):
         self.graph_data = {"x": [], "y": []}
         self.lastet_data = {"x": [], "y": []}
-        self.ptr1 = 0.0
+        self.y_vals = 0.0
         self.update(0.0, 0.0)
 
 
@@ -454,5 +483,5 @@ class GpsPlotWidget1(pg.PlotItem):
     def clear(self):
         self.graph_data = {"x": [], "y": []}
         self.lastet_data = {"x": [], "y": []}
-        self.ptr1 = 0.0
+        self.y_vals = 0.0
         self.update(0.0, 0.0)

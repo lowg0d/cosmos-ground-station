@@ -33,15 +33,13 @@ class InformationUpdateModel(QObject):
             "data.data_stale_detect_time"
         )
         self.data_filter_enabled = self.preferences.get_preference("data.data_filter")
-        self.filter_ranges = self.preferences.get_json_from_file(
-            "data.data_filter_ranges"
-        )
         self.state_index = self.preferences.get_preference("packet.state_value_index")
 
         self.data_stale_enabled = True
         self.previous_state = None
         self.previous_value_chain = np.asarray([])
         self.value_chain = np.asarray(["default"])
+        self.smoothed_values = []  # Initialize with an empty list for smoothed values
 
         self.last_update_time = QDateTime.currentDateTime()
         self.tlm_delta = 0
@@ -124,8 +122,8 @@ class InformationUpdateModel(QObject):
         filtered_values = []
         for i, old_value in enumerate(self.value_chain):
             old_value = float(old_value)
-            if str(i) in self.filter_ranges:
-                min_val, max_val = self.filter_ranges[str(i)]
+            if str(i) in self.dashboards.filter_ranges_map:
+                min_val, max_val = self.dashboards.filter_ranges_map[str(i)]
                 if old_value < min_val:
                     new_value = min_val
 
@@ -254,6 +252,9 @@ class InformationUpdateModel(QObject):
 
             else:
                 plot_value = float(self.value_chain[value_index])
+                plot_value = (
+                    int(plot_value) if plot_value.is_integer() else round(plot_value, 4)
+                )
 
             # set the label's text with the updated value_to_plot
             label.setText(f"<b>{plot_value}</b>")

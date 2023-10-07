@@ -31,7 +31,7 @@ from PyQt5 import QtCore, QtGui, QtWidgets
 class Ui_SettingsForm(object):
     def setupUi(self, SettingsForm):
         SettingsForm.setObjectName("SettingsForm")
-        SettingsForm.resize(1154, 70)
+        SettingsForm.resize(1198, 70)
         SettingsForm.setMinimumSize(QtCore.QSize(0, 70))
         SettingsForm.setMaximumSize(QtCore.QSize(16777215, 70))
         SettingsForm.setStyleSheet("  selection-color: #ffffff;\n"
@@ -69,7 +69,7 @@ class Ui_SettingsForm(object):
         self.Config_1.setFrameShadow(QtWidgets.QFrame.Raised)
         self.Config_1.setObjectName("Config_1")
         self.horizontalLayout_2 = QtWidgets.QHBoxLayout(self.Config_1)
-        self.horizontalLayout_2.setContentsMargins(25, -1, 25, -1)
+        self.horizontalLayout_2.setContentsMargins(25, 0, 25, 0)
         self.horizontalLayout_2.setSpacing(9)
         self.horizontalLayout_2.setObjectName("horizontalLayout_2")
         self.name_desc = QtWidgets.QFrame(self.Config_1)
@@ -89,10 +89,29 @@ class Ui_SettingsForm(object):
         self.more_name_desc.setFrameShadow(QtWidgets.QFrame.Raised)
         self.more_name_desc.setObjectName("more_name_desc")
         self.verticalLayout = QtWidgets.QVBoxLayout(self.more_name_desc)
-        self.verticalLayout.setContentsMargins(0, 0, 0, 0)
+        self.verticalLayout.setContentsMargins(0, 9, 0, 9)
         self.verticalLayout.setSpacing(0)
         self.verticalLayout.setObjectName("verticalLayout")
-        self.label_config_name = QtWidgets.QLabel(self.more_name_desc)
+        self.profile = QtWidgets.QLabel(self.more_name_desc)
+        self.profile.setMinimumSize(QtCore.QSize(65, 55))
+        self.profile.setMaximumSize(QtCore.QSize(65, 55))
+        self.profile.setStyleSheet("border-radius: 4px;\n"
+"color: rgba(255, 255, 255, 0.45);\n"
+"border: 1px solid rgba(200, 200, 200, 0.4);\n"
+"background-color: rgba(0, 0, 0, 0.2);")
+        self.profile.setAlignment(QtCore.Qt.AlignCenter)
+        self.profile.setObjectName("profile")
+        self.verticalLayout.addWidget(self.profile)
+        self.horizontalLayout_4.addWidget(self.more_name_desc)
+        self.frame = QtWidgets.QFrame(self.name_desc)
+        self.frame.setFrameShape(QtWidgets.QFrame.StyledPanel)
+        self.frame.setFrameShadow(QtWidgets.QFrame.Raised)
+        self.frame.setObjectName("frame")
+        self.verticalLayout_3 = QtWidgets.QVBoxLayout(self.frame)
+        self.verticalLayout_3.setContentsMargins(0, -1, 0, -1)
+        self.verticalLayout_3.setSpacing(4)
+        self.verticalLayout_3.setObjectName("verticalLayout_3")
+        self.label_config_name = QtWidgets.QLabel(self.frame)
         self.label_config_name.setStyleSheet("QLabel{\n"
 "    font: 600 15pt \"Video SemBd\";\n"
 "    color: rgba(255, 255, 255, 0.6);\n"
@@ -100,8 +119,8 @@ class Ui_SettingsForm(object):
 "    background: rgba(0,0,0,0);\n"
 "}")
         self.label_config_name.setObjectName("label_config_name")
-        self.verticalLayout.addWidget(self.label_config_name)
-        self.description_label = QtWidgets.QLabel(self.more_name_desc)
+        self.verticalLayout_3.addWidget(self.label_config_name)
+        self.description_label = QtWidgets.QLabel(self.frame)
         self.description_label.setMinimumSize(QtCore.QSize(400, 0))
         self.description_label.setMaximumSize(QtCore.QSize(16777215, 16777215))
         self.description_label.setStyleSheet("QLabel{\n"
@@ -113,8 +132,8 @@ class Ui_SettingsForm(object):
 "    background: rgba(0,0,0,0);\n"
 "}")
         self.description_label.setObjectName("description_label")
-        self.verticalLayout.addWidget(self.description_label)
-        self.horizontalLayout_4.addWidget(self.more_name_desc)
+        self.verticalLayout_3.addWidget(self.description_label)
+        self.horizontalLayout_4.addWidget(self.frame)
         self.horizontalLayout_2.addWidget(self.name_desc)
         spacerItem = QtWidgets.QSpacerItem(40, 20, QtWidgets.QSizePolicy.Expanding, QtWidgets.QSizePolicy.Minimum)
         self.horizontalLayout_2.addItem(spacerItem)
@@ -384,6 +403,7 @@ class Ui_SettingsForm(object):
     def retranslateUi(self, SettingsForm):
         _translate = QtCore.QCoreApplication.translate
         SettingsForm.setWindowTitle(_translate("SettingsForm", "Form"))
+        self.profile.setText(_translate("SettingsForm", "?"))
         self.label_config_name.setText(_translate("SettingsForm", "NAME"))
         self.description_label.setText(_translate("SettingsForm", "Description"))
         self.misc.setText(_translate("SettingsForm", "OPEN"))

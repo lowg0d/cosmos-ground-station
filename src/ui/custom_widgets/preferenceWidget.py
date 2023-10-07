@@ -18,6 +18,7 @@
 import os
 import subprocess
 
+from PyQt5.QtGui import QPixmap
 from PyQt5.QtWidgets import QWidget
 
 from ..generated_files.settings import Ui_SettingsForm
@@ -41,14 +42,19 @@ class PreferenceWidget(QWidget):
         self.ui.label_config_name.setText(name)
         self.ui.description_label.setText(description)
 
+        self.name = name
+        self.description = description
+
         # Hide all widgets initially
         self.ui.integer.hide()
         self.ui.toggle.hide()
         self.ui.options.hide()
         self.ui.string.hide()
         self.ui.misc.hide()
+        self.ui.profile.hide()
 
         self.widget = None
+        self.default_style = self.ui.misc.styleSheet()
 
         current_value = self.parent.preferences.get_preference(self.config_name)
 
@@ -89,13 +95,15 @@ class PreferenceWidget(QWidget):
             self.ui.misc.setText("Open File")
             self.ui.misc.clicked.connect(self.open_file_config)
 
-        elif data_type == "connect_to_drive":
+        elif data_type == "google_login":
             # File path setting type
+            self.parent.cloud_model.bind_preference(self)
             self.ui.misc.show()
-            self.ui.misc.setMinimumWidth(220)
-            self.ui.misc.setMaximumWidth(220)
-            self.ui.misc.setText("Link Google Account")
-            self.ui.misc.clicked.connect(self.save_credentials)
+            self.ui.misc.setEnabled(False)
+
+            self.ui.description_label.setText(f"Loading Google Account Data...")
+            self.ui.label_config_name.setText(f"Loading Data...")
+            self.ui.misc.setText("Loading...")
 
         elif data_type == "toggle_widget":
             self.ui.toggle.show()
@@ -206,8 +214,63 @@ class PreferenceWidget(QWidget):
             else:
                 self.widget.hide()
 
-    def save_credentials(self):
-        self.parent.cloud_manager.get_new_credentials()
+    ##################
+    def google_login(self):
+        self.parent.cloud_model.login()
 
-    def test(self):
-        self.parent.graph_manager.update_config_color()
+    def google_logout(self):
+        self.parent.cloud_model.logout()
+        self.ui.profile.hide()
+
+    def set_to_logged_in(self, is_logged_in):
+        if is_logged_in:
+            self.ui.misc.setMinimumWidth(140)
+            self.ui.misc.setMaximumWidth(140)
+            self.ui.misc.setText("LogOut")
+
+            try:
+                self.ui.misc.clicked.disconnect(self.google_login)
+            except:
+                pass
+            self.ui.misc.clicked.connect(self.google_logout)
+
+            self.ui.misc.setStyleSheet(
+                """
+    QPushButton{
+        border-radius: 4px;
+        border: 1px solid rgba(235, 77, 75,0.8);
+        background-color: rgba(255, 121, 121,0.5);
+        border-left: 0px;
+        color: rgba(255, 255, 255, 0.65);
+        font: 63 10.5pt "Video SemBd";
+
+    }"""
+            )
+
+        else:
+            self.ui.misc.setMinimumWidth(140)
+            self.ui.misc.setMaximumWidth(140)
+            self.ui.misc.setText("LogIn")
+
+            try:
+                self.ui.misc.clicked.disconnect(self.google_logout)
+            except:
+                pass
+
+            self.ui.misc.clicked.connect(self.google_login)
+
+            self.ui.label_config_name.setText(self.name)
+            self.ui.description_label.setText(self.description)
+            self.ui.description_label.setOpenExternalLinks(True)
+            self.ui.misc.setStyleSheet(self.default_style)
+
+        self.ui.misc.setEnabled(True)
+
+    def update_gmail(self, gmail):
+        self.ui.description_label.setText(f"Logged in google as '{gmail}'")
+        self.ui.label_config_name.setText(f"{gmail}")
+
+        self.ui.profile.show()
+        pixmap = QPixmap("./src/config/cloud/profile.jpg")
+        pixmap = pixmap.scaled(65, 65)
+        self.ui.profile.setPixmap(pixmap)

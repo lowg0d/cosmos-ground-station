@@ -1,5 +1,13 @@
 {
   "PREFERENCES": {
+    "Google Account": {
+      "link_google_account": {
+        "name": "Link Google Account",
+        "description": "LogIn with your google account to upload the recording cloud backup to.",
+        "preference_type": "google_login",
+        "value": "None"
+      }
+    },
     "dashboard": {
       "visualization_dashboard": {
         "name": "Visualization Dashboard",
@@ -47,12 +55,6 @@
         "preference_type": "toggle",
         "value": true
       },
-      "data_filter_ranges": {
-        "name": "Data Filter Ranges",
-        "description": "Ranges used for data filtering (format: 'value': ['min', 'max']).",
-        "preference_type": "open_file",
-        "value": "./src/config/visualization/filter_ranges.json"
-      },
       "recordings_path": {
         "name": "Recording Save Folder",
         "description": "Folder where recordings are saved.",
@@ -92,18 +94,6 @@
         "description": "Enable smooth edges on lines at the cost of reduced performance.",
         "preference_type": "toggle",
         "value": false
-      },
-      "graph_data_points": {
-        "name": "Data Point Amount",
-        "description": "Number of data points displayed in each graph. Large numbers may cause lag.",
-        "preference_type": "int",
-        "value": 250
-      },
-      "gps_graph_data_points": {
-        "name": "GPS Data Point Amount",
-        "description": "The amount of datapoints that showed in the gps graphs, the less the clerarer.",
-        "preference_type": "int",
-        "value": 25
       }
     }
   },
@@ -111,6 +101,7 @@
     "last_port": "COM10",
     "last_bauds": "115200",
     "auto_reConnect": true,
-    "small_mode": false
+    "small_mode": false,
+    "cloud_backup": true
   }
 }

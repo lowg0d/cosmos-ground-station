@@ -21,18 +21,19 @@ from ..models.recordings import RecordingModel
 class RecordingController:
     def __init__(self, parent):
         self.parent = parent
+        self.preferences = parent.preferences
 
         # TEMPORAL (
 
         self.mission = "NO_MISSION"
-        self.logged_in = True
 
         # )
 
         self.recordings_enabled = False
-        self.cloud_backup_enabled = False
-
         self.recordings_model = RecordingModel(parent)
+        self.cloud_backup_enabled = not self.preferences.get("HIDDEN.cloud_backup", 1)
+
+        self.toggle_cloud_backup()
 
     def toggle_recordings(self):
         self.recordings_enabled = not self.recordings_enabled
@@ -40,9 +41,16 @@ class RecordingController:
         if self.recordings_enabled:
             self.recordings_model.reset_log_file(self.mission)
 
-        if self.logged_in:
+        else:
+            if self.parent.cloud_model.logged_in:
+                self.parent.cloud_model.upload_recording(
+                    self.recordings_model.current_recording_file_path
+                )
+
+        if self.parent.cloud_model.logged_in:
             self.parent.ui.btn_toggleCloudBackup.setEnabled(self.recordings_enabled)
 
     def toggle_cloud_backup(self):
         self.cloud_backup_enabled = not self.cloud_backup_enabled
-        print(f"CLOUD: {self.cloud_backup_enabled}")
+        self.parent.ui.btn_toggleCloudBackup.setChecked(self.cloud_backup_enabled)
+        self.preferences.update("HIDDEN.cloud_backup", self.cloud_backup_enabled, 1)

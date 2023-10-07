@@ -20,30 +20,31 @@ This module defines the `MainWindow` class, which serves as the central componen
 Encapsulates various UI components and controllers for the gui.
 """
 
-from PyQt5.QtCore import Qt, QSize
-from PyQt5.QtWidgets import QShortcut, QLabel
+from PyQt5.QtCore import Qt
 from PyQt5.QtGui import QIcon, QKeySequence
+from PyQt5.QtWidgets import QLabel, QShortcut
 from qframelesswindow import FramelessMainWindow
 
+from src.controllers import (
+    ConnectionController,
+    RecordingController,
+    TerminalController,
+    WindowController,
+)
 from src.models import (
-    PreferenceModel,
-    RecordingModel,
-    SerialModel,
+    CloudModel,
     DataHandlerModel,
+    PreferenceModel,
+    SerialModel,
     VisualizationModel,
 )
-from src.controllers import WindowController, ConnectionController, TerminalController, RecordingController
-
-from src.ui import Ui_MainWindow, CustomTitleBar, PreferenceWidget
+from src.ui import CustomTitleBar, PreferenceWidget, Ui_MainWindow
 
 
 class MainWindow(FramelessMainWindow):
     """
-    The MainWindow class serves as the core of the user interface.
-    It manages various UI elements, preferences, and controllers.
-    This class handles user interactions related to connections,
-    terminal interactions, and window behaviors. Overall, it
-    encapsulates the core functionality and user interaction aspects.
+    Core class managing UI elements, preferences, and controllers.
+    Handles user interactions for connections, terminals, and window behavior.
     """
 
     def __init__(self) -> None:
@@ -59,6 +60,7 @@ class MainWindow(FramelessMainWindow):
         # Initialize models
         self.preferences = PreferenceModel()
         self.serial_model = SerialModel(self)
+        self.cloud_model = CloudModel(self)
         self.recording_controller = RecordingController(self)
         self.data_handler_model = DataHandlerModel(self)
 
@@ -69,7 +71,7 @@ class MainWindow(FramelessMainWindow):
         self.visualization_model = VisualizationModel(self)
         self.connection_controller = ConnectionController(self)
 
-        # Get the application information
+        # Get the application information from preferences
         self.name = self.preferences.get("name")
         self.version = self.preferences.get("version")
         self.dev_phase = self.preferences.get("dev_phase")
@@ -83,25 +85,26 @@ class MainWindow(FramelessMainWindow):
         self.ui.label_statusBar.setText(f"v{self.version}-{self.dev_phase}")
 
         self.ui.label_longVersion.setText(
-            f'VERSION: {self.version}-{self.dev_phase} // BY: {self.author} // <a href="https://github.com/lowg0d/cosmos-ground-station">Find Help or report a Bug -> </a>'
+            f'VERSION: {self.version}-{self.dev_phase} // BY: {self.author} // <a href="https://github.com/lowg0d/cosmos-ground-station">Find Help or report a Bug</a>'
         )
         self.ui.label_longVersion.setOpenExternalLinks(True)
 
+        # Connect the signals of the buttons with controllers functions
         self.setup_signals()
+
+        # Convert the preference file into interactive widgets for easy configuration modification.
         self.generate_ui_preferences_widgets()
 
-        # change the current apparence
+        # change the page to the dashboard
         self.ui.stackedWidget_central.setCurrentWidget(self.ui.page_centralDashboard)
 
+        # Adjust splitter sizes
+        self.ui.splitter.setSizes([6000, 100])
+
+        # raise titlebar, show the window and maximize it.
+        self.showMaximized()
         self.titleBar.raise_()
         self.show()
-
-        self.showMaximized()
-
-        # TEMPORAL (
-        self.ui.splitter.setSizes([6000, 100])
-        # self.ui.splitter.widget(0).hide()
-        # )
 
     def generate_ui_preferences_widgets(self):
         preferences_data = self.preferences.get("PREFERENCES", 1)

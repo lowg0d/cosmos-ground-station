@@ -1,3 +1,5 @@
 .venv
 .vscode
-recordings/
+build
+recordings
+src\config\cloud\private

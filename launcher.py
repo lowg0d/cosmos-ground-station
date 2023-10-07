@@ -4,14 +4,14 @@ Used To Launch the Application
 
 import sys
 
-from PyQt5.QtGui import QIcon
+import socks
 from PyQt5.QtCore import Qt
+from PyQt5.QtGui import QIcon
 from PyQt5.QtWidgets import QApplication
 
 from src import MainWindow
 
 if __name__ == "__main__":
-
     # Fix high DPI issues
     QApplication.setHighDpiScaleFactorRoundingPolicy(
         Qt.HighDpiScaleFactorRoundingPolicy.PassThrough

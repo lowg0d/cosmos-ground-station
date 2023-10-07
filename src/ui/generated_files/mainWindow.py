@@ -169,24 +169,24 @@ class Ui_MainWindow(object):
 "  border-radius: 4px;\n"
 "  border: 1px solid #45484e;\n"
 "  background-color: #212227;\n"
-"  font: 600 9pt \"Video SemBd\";\n"
+"  font: 63 9pt \"Video Cond SemBd\";\n"
 "}\n"
 "#frame_secondaryAndButtonContainer QFrame {\n"
 "  border-radius: 4px;\n"
 "  border: 1px solid #45484e;\n"
 "  background-color: #212227;\n"
-"  font: 600 9.5pt \"Video SemBd\";\n"
+"  font: 63 9pt \"Video Cond SemBd\";\n"
 "}\n"
 "\n"
-"\n"
 "#frame_mainTlmLabels QLabel {\n"
-"  font: 600 9pt \"Video SemBd\";\n"
+"      \n"
+"    font: 63 9pt \"Video Cond SemBd\";\n"
 "    border: none;\n"
 "    background-color: none;\n"
 "}\n"
 "\n"
 "#frame_BigTlmLabels QLabel {\n"
-"  font: 600 10pt \"Video SemBd\";\n"
+"      font: 63 10pt \"Video Cond SemBd\";\n"
 "    border: none;\n"
 "    background-color: none;\n"
 "}\n"
@@ -520,12 +520,21 @@ class Ui_MainWindow(object):
         self.verticalLayout_12.setContentsMargins(0, 0, 0, 0)
         self.verticalLayout_12.setSpacing(4)
         self.verticalLayout_12.setObjectName("verticalLayout_12")
-        self.btn_missionDisplay = QtWidgets.QPushButton(self.frame_topSideBarButtons)
+        self.frame = QtWidgets.QFrame(self.frame_topSideBarButtons)
+        self.frame.setFrameShape(QtWidgets.QFrame.StyledPanel)
+        self.frame.setFrameShadow(QtWidgets.QFrame.Raised)
+        self.frame.setObjectName("frame")
+        self.horizontalLayout_7 = QtWidgets.QHBoxLayout(self.frame)
+        self.horizontalLayout_7.setContentsMargins(0, 0, 0, 0)
+        self.horizontalLayout_7.setSpacing(4)
+        self.horizontalLayout_7.setObjectName("horizontalLayout_7")
+        self.btn_missionDisplay = QtWidgets.QPushButton(self.frame)
         self.btn_missionDisplay.setMinimumSize(QtCore.QSize(0, 32))
         self.btn_missionDisplay.setMaximumSize(QtCore.QSize(16777215, 32))
         self.btn_missionDisplay.setCursor(QtGui.QCursor(QtCore.Qt.PointingHandCursor))
         self.btn_missionDisplay.setObjectName("btn_missionDisplay")
-        self.verticalLayout_12.addWidget(self.btn_missionDisplay)
+        self.horizontalLayout_7.addWidget(self.btn_missionDisplay)
+        self.verticalLayout_12.addWidget(self.frame)
         self.frame_recordingButtons = QtWidgets.QFrame(self.frame_topSideBarButtons)
         self.frame_recordingButtons.setFrameShape(QtWidgets.QFrame.NoFrame)
         self.frame_recordingButtons.setFrameShadow(QtWidgets.QFrame.Raised)
@@ -641,7 +650,7 @@ class Ui_MainWindow(object):
         self.scrollArea_SideBar.setWidgetResizable(True)
         self.scrollArea_SideBar.setObjectName("scrollArea_SideBar")
         self.scrollAreaWidgetContents = QtWidgets.QWidget()
-        self.scrollAreaWidgetContents.setGeometry(QtCore.QRect(0, 0, 256, 285))
+        self.scrollAreaWidgetContents.setGeometry(QtCore.QRect(0, 0, 256, 283))
         self.scrollAreaWidgetContents.setObjectName("scrollAreaWidgetContents")
         self.verticalLayout_7 = QtWidgets.QVBoxLayout(self.scrollAreaWidgetContents)
         self.verticalLayout_7.setContentsMargins(0, 0, 0, 0)
@@ -920,7 +929,7 @@ class Ui_MainWindow(object):
         MainWindow.setCentralWidget(self.centralwidget)
 
         self.retranslateUi(MainWindow)
-        self.stackedWidget_central.setCurrentIndex(0)
+        self.stackedWidget_central.setCurrentIndex(1)
         QtCore.QMetaObject.connectSlotsByName(MainWindow)
 
     def retranslateUi(self, MainWindow):
@@ -932,7 +941,7 @@ class Ui_MainWindow(object):
         self.btn_openDashboardEditor.setText(_translate("MainWindow", "OPEN DASHBOARD EDITOR"))
         self.label_longVersion.setText(_translate("MainWindow", "VERSION: COSMOS-v1.0.0-ALPHA"))
         self.btn_missionDisplay.setText(_translate("MainWindow", "NO MISSION ACTIVE"))
-        self.btn_toggleRecordings.setText(_translate("MainWindow", " RECORDINGS"))
+        self.btn_toggleRecordings.setText(_translate("MainWindow", " RECORDING"))
         self.btn_toggleCloudBackup.setText(_translate("MainWindow", "  CLOUD BACKUP"))
         self.label_state.setText(_translate("MainWindow", "N/A"))
         self.label_countdown.setText(_translate("MainWindow", "T- 00:00:00.0"))
