@@ -1,4 +1,4 @@
-# Privacy Policy for [Your App Name]
+# Privacy Policy for Cosmos
 
 This Privacy Policy describes how [Your Company Name] ("we", "us", or "our") collects, uses, and shares your information when you use our mobile application [Your App Name] (the "App"). By using the App, you agree to the terms and conditions of this Privacy Policy.
 
