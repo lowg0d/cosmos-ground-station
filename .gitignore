@@ -2,4 +2,4 @@
 .vscode
 build
 recordings
-src\config\cloud\private
+src/config/cloud/private/credentials.json
