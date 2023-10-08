@@ -219,6 +219,8 @@ class PreferenceWidget(QWidget):
         self.parent.cloud_model.login()
 
     def google_logout(self):
+        if self.parent.recording_controller.cloud_backup_enabled:
+            self.parent.recording_controller.toggle_cloud_backup()
         self.parent.cloud_model.logout()
         self.ui.profile.hide()
 

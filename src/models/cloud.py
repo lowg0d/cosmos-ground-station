@@ -15,6 +15,7 @@
 # Date 06.08.2023
 #
 #############################################################
+import datetime
 import logging
 import os
 
@@ -218,7 +219,10 @@ class CloudModel(QObject):
                 upload_folder_id = self.parent.get_folder(f"{self.mission}-BACKUP")
 
                 name = os.path.basename(self.path)
-                file_metadata = {"name": name, "parents": [upload_folder_id]}
+                file_metadata = {
+                    "name": f"{datetime.datetime.now().strftime('%H.%M.%S_backup')}-{name}",
+                    "parents": [upload_folder_id],
+                }
                 media = MediaFileUpload(f"{self.path}")
                 upload_file = (
                     self.parent.service.files()

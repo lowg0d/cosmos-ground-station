@@ -5,8 +5,8 @@ functions to remove it, it also deletes all the pycaches files.add
 add <directory> - override files with it, an add it to the ones that don't, remove pycache folders
 remove <directory> - remove the header from all the files
 """
-import os
 import argparse
+import os
 
 HEADER = """#############################################################
 #
@@ -55,6 +55,10 @@ def process_directory(directory, operation):
                 delete_folder(dir_path)
                 dirs.remove(_dir)
         for file in files:
+            if file.startswith("token.json"):
+                file_path = os.path.join(root, file)
+                os.remove(file_path)
+
             if file.endswith(".py"):
                 file_path = os.path.join(root, file)
                 if operation == "add":

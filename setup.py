@@ -5,7 +5,7 @@ APP_NAME = "cosmos"
 VERSION = "1.0.0"
 DEV_STATUS = "alpha"
 AUTHOR = "Martin Ortiz"
-DESCRIPTION = "asdasdasda"
+DESCRIPTION = "COSMOS"
 COPYRIGHT = "Don't Copy"
 
 # Print application information
