@@ -102,7 +102,7 @@ class PreferenceWidget(QWidget):
             self.ui.misc.setEnabled(False)
 
             self.ui.description_label.setText(f"Loading Google Account Data...")
-            self.ui.label_config_name.setText(f"Loading Data...")
+            self.ui.label_config_name.setText(f"Loading Google Account...")
             self.ui.misc.setText("Loading...")
 
         elif data_type == "toggle_widget":
@@ -219,40 +219,52 @@ class PreferenceWidget(QWidget):
         self.parent.cloud_model.login()
 
     def google_logout(self):
-        if self.parent.recording_controller.cloud_backup_enabled:
-            self.parent.recording_controller.toggle_cloud_backup()
-        self.parent.cloud_model.logout()
-        self.ui.profile.hide()
+        if self.parent.window_controller.show_confirm_dialog("Log Out"):
+            if self.parent.recording_controller.cloud_backup_enabled:
+                self.parent.recording_controller.toggle_cloud_backup()
+            self.parent.cloud_model.logout()
+            self.ui.profile.hide()
 
     def set_to_logged_in(self, is_logged_in):
         if is_logged_in:
-            self.ui.misc.setMinimumWidth(140)
-            self.ui.misc.setMaximumWidth(140)
-            self.ui.misc.setText("LogOut")
+            if not is_logged_in == "NO_INTERNET":
+                self.ui.misc.setText("Log Out")
 
-            try:
-                self.ui.misc.clicked.disconnect(self.google_login)
-            except:
-                pass
-            self.ui.misc.clicked.connect(self.google_logout)
+                try:
+                    self.ui.misc.clicked.disconnect(self.google_login)
+                except:
+                    pass
+                self.ui.misc.clicked.connect(self.google_logout)
 
-            self.ui.misc.setStyleSheet(
-                """
-    QPushButton{
-        border-radius: 4px;
-        border: 1px solid rgba(235, 77, 75,0.8);
-        background-color: rgba(255, 121, 121,0.5);
-        border-left: 0px;
-        color: rgba(255, 255, 255, 0.65);
-        font: 63 10.5pt "Video SemBd";
+                self.ui.misc.setStyleSheet(
+                    """
+        QPushButton{
+            border-radius: 4px;
+            border: 1px solid rgba(235, 77, 75,0.8);
+            background-color: rgba(255, 121, 121,0.5);
+            border-left: 0px;
+            color: rgba(255, 255, 255, 0.65);
+            font: 63 10.5pt "Video SemBd";
 
-    }"""
-            )
+        }"""
+                )
+
+            else:
+                self.ui.misc.setText("Try Again")
+
+                try:
+                    self.ui.misc.clicked.disconnect(self.google_logout)
+                except:
+                    pass
+                try:
+                    self.ui.misc.clicked.disconnect(self.google_login)
+                except:
+                    pass
+
+                self.ui.misc.clicked.connect(self.try_again_drive)
 
         else:
-            self.ui.misc.setMinimumWidth(140)
-            self.ui.misc.setMaximumWidth(140)
-            self.ui.misc.setText("LogIn")
+            self.ui.misc.setText("Log In")
 
             try:
                 self.ui.misc.clicked.disconnect(self.google_logout)
@@ -268,11 +280,32 @@ class PreferenceWidget(QWidget):
 
         self.ui.misc.setEnabled(True)
 
-    def update_gmail(self, gmail):
-        self.ui.description_label.setText(f"Logged in google as '{gmail}'")
-        self.ui.label_config_name.setText(f"{gmail}")
+    def try_again_drive(self):
+        self.ui.description_label.setText(f"Loading Google Account Data...")
+        self.ui.label_config_name.setText(f"Loading Google Account...")
+        self.ui.misc.setText("Loading...")
+        self.ui.profile.hide()
+        self.ui.misc.clicked.disconnect(self.try_again_drive)
+        self.parent.cloud_model.check_account()
 
-        self.ui.profile.show()
-        pixmap = QPixmap("./src/config/cloud/profile.jpg")
-        pixmap = pixmap.scaled(65, 65)
-        self.ui.profile.setPixmap(pixmap)
+    def update_gmail(self, gmail):
+        if gmail == "NO_INTERNET":
+            self.ui.description_label.setText(
+                'No internet connection available, connect to the internet and hit "TRY AGAIN", cosmos can work without internet connection.'
+            )
+            self.ui.label_config_name.setText("Can't Load Account")
+            self.ui.misc.setText("Try Again")
+
+            self.ui.profile.show()
+            pixmap = QPixmap("./src/config/cloud/private/error.png")
+            pixmap = pixmap.scaled(65, 65)
+            self.ui.profile.setPixmap(pixmap)
+
+        else:
+            self.ui.description_label.setText(f"Logged in google as '{gmail}'")
+            self.ui.label_config_name.setText(f"{gmail}")
+
+            self.ui.profile.show()
+            pixmap = QPixmap("./src/config/cloud/profile.jpg")
+            pixmap = pixmap.scaled(65, 65)
+            self.ui.profile.setPixmap(pixmap)

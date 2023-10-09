@@ -1,12 +1,17 @@
 from cx_Freeze import Executable, setup
 
+from src.models import PreferenceModel
+
+config = PreferenceModel()
+
 # Define constants
-APP_NAME = "cosmos"
-VERSION = "1.0.0"
-DEV_STATUS = "alpha"
-AUTHOR = "Martin Ortiz"
-DESCRIPTION = "COSMOS"
-COPYRIGHT = "Don't Copy"
+APP_NAME = config.get("name")
+VERSION = config.get("version")
+DEV_STATUS = config.get("dev_phase")
+AUTHOR = config.get("author")
+DESCRIPTION = config.get("description")
+COPYRIGHT = config.get("copy_right")
+ICON_PATH = config.get("icon")
 
 # Print application information
 print(f"[+] App: {APP_NAME}")
@@ -17,7 +22,6 @@ print("[+] COOKING...")
 FILES = ["./src"]
 SCRIPT = "launcher.py"
 BASE = "Win32GUI"
-ICON_PATH = "./src/ui/resources/app.ico"
 UPGRADE_CODE = "{017efcd7-1115-4248-a806-c75a182e2876}"
 INCLUDE_PACKAGES = ["numpy", "numpy.core", "numpy.core.multiarray", "PyQt5"]
 EXCLUDE_PACKAGES = []

@@ -18,6 +18,9 @@
 """
 This module defines a WindowController class that manages various functionalities for the application.
 """
+import random
+import time
+
 from PyQt5.QtCore import *
 from PyQt5.QtGui import *
 from PyQt5.QtWidgets import *
@@ -40,6 +43,9 @@ class WindowController:
         self.preferences_page_enabled = False
 
         self.small_mode_toggled = not self.preferences.get("HIDDEN.small_mode", 1)
+
+        self.update_progress_bar_timer = QTimer()
+        self.update_progress_bar_timer.timeout.connect(self.update_progress)
 
         self.setup_dropdown_animation()
         self.toggle_small_mode()
@@ -121,7 +127,7 @@ class WindowController:
 
             self.ui.frame_dsahboardGraph.show()
 
-            self.parent.setMinimumWidth(1150)
+            self.parent.setMinimumWidth(750)
             self.parent.setMaximumWidth(16777215)
             self.parent.resize(QSize(1150, self.parent.height()))
 
@@ -148,6 +154,28 @@ class WindowController:
         self.ui.btn_connectBtn.setChecked(True)
         self.ui.btn_connectBtn.setText(f"CONNECTED: [ {port} ]")
 
+    def start_progress_bar(self):
+        self.ui.progress_bar_statusBar.show()
+        self.ui.progress_bar_statusBar.setValue(0)
+
+        # Start the timer with a 10 millisecond interval
+        self.update_progress_bar_timer.start(20)
+
+    def stop_progress_bar(self):
+        self.ui.progress_bar_statusBar.setValue(100)
+        self.ui.progress_bar_statusBar.hide()
+
+    def update_progress(self):
+        # Get the current value of the progress bar
+        current_value = self.ui.progress_bar_statusBar.value()
+
+        # If the value is less than 99, add 1
+        if current_value < 99:
+            self.ui.progress_bar_statusBar.setValue(current_value + 1)
+        else:
+            # If 99 is reached, stop the timer
+            self.update_progress_bar_timer.stop()
+
     # Show Error Dialog
     def show_error_dialog(self, title, error_message):
         self.msg = QMessageBox()
@@ -156,7 +184,27 @@ class WindowController:
         self.msg.setIcon(QMessageBox.Critical)
 
         close_btn = self.msg.addButton("Close", QMessageBox.AcceptRole)
+        self.msg.setWindowIcon(QIcon("./src/ui/resources/app.ico"))
 
         self.msg.setDefaultButton(close_btn)
 
         self.msg.exec_()
+
+    def show_confirm_dialog(self, title):
+        self.msg = QMessageBox()
+        self.msg.setWindowTitle(f"Continue with {title}")
+        self.msg.setText(f"Are you sure you want to continue with {title} ?")
+        self.msg.setIcon(QMessageBox.Question)
+        self.msg.setWindowIcon(QIcon("./src/ui/resources/app.ico"))
+
+        continue_btn = self.msg.addButton("Continue", QMessageBox.AcceptRole)
+        go_back_btn = self.msg.addButton("Go Back", QMessageBox.RejectRole)
+
+        self.msg.setDefaultButton(continue_btn)
+
+        self.msg.exec_()
+
+        if self.msg.clickedButton() == go_back_btn:
+            return False
+        elif self.msg.clickedButton() == continue_btn:
+            return True

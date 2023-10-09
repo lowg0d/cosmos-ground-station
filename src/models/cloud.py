@@ -18,6 +18,7 @@
 import datetime
 import logging
 import os
+import time
 
 import requests
 from google.auth.transport.requests import Request
@@ -29,7 +30,6 @@ from googleapiclient.http import MediaFileUpload
 from PyQt5.QtCore import QObject, QThread, pyqtSignal
 
 SCOPES = ["https://www.googleapis.com/auth/drive"]
-CLOUD_FILE_NAME = "COSMOS BACKUPS"
 
 
 class CloudModel(QObject):
@@ -38,20 +38,25 @@ class CloudModel(QObject):
         self.parent = parent
 
         logging.getLogger("googleapiclient").setLevel(logging.WARNING)
-        logging.getLogger("google").setLevel(logging.WARNING)
+        logging.getLogger("google_auth_oauthlib").setLevel(logging.WARNING)
 
         self.creds = None
         self.service = None
         self.folder_id = None
         self.main_folder_id = None
         self.logged_in = False
+        self.internet = False
 
         self.user_mail = None
         self.binded_widget = None
+        self.uploading = False
 
     def bind_preference(self, widget):
         self.binded_widget = widget
         self.check_account()
+
+    def try_again(self):
+        pass
 
     # LOGIN / LOGOUT
 
@@ -93,72 +98,82 @@ class CloudModel(QObject):
             self.parent = parent
 
         def run(self):
-            if os.path.exists("./src/config/cloud/token.json"):
-                self.parent.creds = Credentials.from_authorized_user_file(
-                    "./src/config/cloud/token.json", SCOPES
-                )
-                if not self.parent.creds.valid:
-                    if (
-                        self.parent.creds
-                        and self.parent.creds.expired
-                        and self.parent.creds._refresh_token
-                    ):
-                        self.parent.creds.refresh(Request())
+            try:
+                if os.path.exists("./src/config/cloud/token.json"):
+                    self.parent.creds = Credentials.from_authorized_user_file(
+                        "./src/config/cloud/token.json", SCOPES
+                    )
+                    if not self.parent.creds.valid:
+                        if (
+                            self.parent.creds
+                            and self.parent.creds.expired
+                            and self.parent.creds._refresh_token
+                        ):
+                            self.parent.creds.refresh(Request())
 
-                        with open("./src/config/cloud/token.json", "w") as token:
-                            token.write(self.parent.creds.to_json())
+                            with open("./src/config/cloud/token.json", "w") as token:
+                                token.write(self.parent.creds.to_json())
 
-                self.parent.logged_in = True
+                    self.parent.logged_in = True
+                    self.parent.internet = True
 
-                self.parent.service = build(
-                    "drive", "v3", credentials=self.parent.creds
-                )
+                    self.parent.service = build(
+                        "drive", "v3", credentials=self.parent.creds
+                    )
 
-                self.parent.user_mail = self.parent.update_gmail()
-                self.parent.update_pic()
+                    self.parent.user_mail = self.parent.update_gmail()
+                    self.parent.update_pic()
 
-                self.parent.main_folder_id = self.parent.get_folder(
-                    "COSMOS", main_folder=True
-                )
-                self.parent.binded_widget.update_gmail(self.parent.user_mail)
+                    self.parent.main_folder_id = self.parent.get_folder(
+                        "COSMOS", main_folder=True
+                    )
 
-            else:
-                self.parent.logged_in = False
+                    self.parent.binded_widget.update_gmail(self.parent.user_mail)
 
-            self.parent.binded_widget.set_to_logged_in(self.parent.logged_in)
+                else:
+                    self.parent.logged_in = False
+
+                self.parent.binded_widget.set_to_logged_in(self.parent.logged_in)
+
+            except Exception as e:
+                self.parent.internet = False
+                self.parent.binded_widget.set_to_logged_in("NO_INTERNET")
+                self.parent.binded_widget.update_gmail("NO_INTERNET")
 
     def check_account(self):
         thread = self.CheckAccountThread(self)
         thread.start()
 
     def update_gmail(self):
-        try:
-            self.service = build("drive", "v3", credentials=self.creds)
-            about = self.service.about().get(fields="user(emailAddress)").execute()
-            gmail_address = about["user"]["emailAddress"]
-            return gmail_address
+        if self.internet:
+            try:
+                self.service = build("drive", "v3", credentials=self.creds)
+                about = self.service.about().get(fields="user(emailAddress)").execute()
+                gmail_address = about["user"]["emailAddress"]
+                return gmail_address
 
-        except HttpError as e:
-            print(f"Error [{e}]")
+            except HttpError as e:
+                print(f"Error [{e}]")
 
     def update_pic(self):
-        try:
-            self.service = build("drive", "v3", credentials=self.creds)
-            about = self.service.about().get(fields="user(photoLink)").execute()
-            photo_link = about["user"]["photoLink"]
+        if self.internet:
+            try:
+                self.service = build("drive", "v3", credentials=self.creds)
+                about = self.service.about().get(fields="user(photoLink)").execute()
+                photo_link = about["user"]["photoLink"]
 
-            # download photo to profile.jpg
-            response = requests.get(photo_link)
-            if response.status_code == 200:
-                with open("./src/config/cloud/profile.jpg", "wb") as file:
-                    file.write(response.content)
-            else:
-                print(
-                    f"Error downloading profile picture. Status code: {response.status_code}"
-                )
+                # download photo to profile.jpg
+                response = requests.get(photo_link)
+                if response.status_code == 200:
+                    with open("./src/config/cloud/profile.jpg", "wb") as file:
+                        file.write(response.content)
+                else:
+                    print(
+                        f"Error downloading profile picture. Status code: {response.status_code}"
+                    )
 
-        except HttpError as e:
-            print(f"Error [{e}]")
+            except HttpError as e:
+                print(f"Error [{e}]")
 
     # CHECK FOLDER
     # Create folder
@@ -207,6 +222,7 @@ class CloudModel(QObject):
     # UPLOAD
     class UploadFileThread(QThread):
         finished = pyqtSignal()  # Signal to indicate thread has finished
+        started = pyqtSignal()  # Signal to indicate thread has finished
 
         def __init__(self, parent, path, mission):
             super().__init__(parent)
@@ -215,6 +231,21 @@ class CloudModel(QObject):
             self.path = path
 
         def run(self):
+            if not self.parent.uploading:
+                self.upload()
+            else:
+                while self.parent.uploading:
+                    time.sleep(0.5)
+
+                try:
+                    self.upload()
+
+                except:
+                    print("[ERROR] Uploading buffer overflow - canceling upload")
+
+        def upload(self):
+            self.parent.uploading = True
+            self.started.emit()
             if os.path.exists(self.path):
                 upload_folder_id = self.parent.get_folder(f"{self.mission}-BACKUP")
 
@@ -230,10 +261,11 @@ class CloudModel(QObject):
                     .execute()
                 )
 
-                print(f"[+] File Uploaded: {name}")
-
-                self.finished.emit()  # Emit the finished signal
+            self.finished.emit()  # Emit the finished signal
+            self.parent.uploading = False
 
     def upload_recording(self, path, mission="NO_MISSION"):
         thread = self.UploadFileThread(self, path, mission)
+        thread.started.connect(self.parent.window_controller.start_progress_bar)
+        thread.finished.connect(self.parent.window_controller.stop_progress_bar)
         thread.start()

@@ -9,13 +9,13 @@
    <rect>
     <x>0</x>
     <y>0</y>
-    <width>1150</width>
-    <height>650</height>
+    <width>1204</width>
+    <height>620</height>
    </rect>
   </property>
   <property name="minimumSize">
    <size>
-    <width>1050</width>
+    <width>750</width>
     <height>550</height>
    </size>
   </property>
@@ -329,6 +329,23 @@ QScrollBar::sub-page:vertical {
 #frame_preferencesContainer QLabel {
 	font: 63 11pt &quot;Video SemBd&quot;;
 }
+#statusBarFrame QProgressBar{
+	border-style: none;
+	text-align: center;
+	
+	 font: 600 7.5pt &quot;Video SemBd&quot;;
+	border-radius: 2px;
+ 	 color: #a6a7a8;
+
+  border: 1.2px solid #666769;
+}
+
+#statusBarFrame QProgressBar::chunk{
+	border-radius: 2px;
+	background-color: qlineargradient(spread:pad, x1:0.978, y1:0.460273, x2:0, y2:0.562636, stop:0 rgba(108, 95, 180, 255), stop:1 rgba(60, 50, 117, 255));
+	
+}
+
 
 /* SEPARATOR LINES */
 #line,
@@ -712,8 +729,8 @@ QScrollBar::sub-page:vertical {
                   <rect>
                    <x>0</x>
                    <y>0</y>
-                   <width>730</width>
-                   <height>554</height>
+                   <width>100</width>
+                   <height>30</height>
                   </rect>
                  </property>
                  <layout class="QVBoxLayout" name="verticalLayout_21">
@@ -1263,7 +1280,7 @@ QScrollBar::sub-page:vertical {
                    <x>0</x>
                    <y>0</y>
                    <width>256</width>
-                   <height>283</height>
+                   <height>253</height>
                   </rect>
                  </property>
                  <layout class="QVBoxLayout" name="verticalLayout_7">
@@ -2136,6 +2153,37 @@ p, li { white-space: pre-wrap; }
              </size>
             </property>
            </spacer>
+          </item>
+          <item>
+           <widget class="QProgressBar" name="progress_bar_statusBar">
+            <property name="minimumSize">
+             <size>
+              <width>160</width>
+              <height>12</height>
+             </size>
+            </property>
+            <property name="maximumSize">
+             <size>
+              <width>160</width>
+              <height>12</height>
+             </size>
+            </property>
+            <property name="value">
+             <number>20</number>
+            </property>
+            <property name="alignment">
+             <set>Qt::AlignCenter</set>
+            </property>
+            <property name="invertedAppearance">
+             <bool>false</bool>
+            </property>
+            <property name="textDirection">
+             <enum>QProgressBar::TopToBottom</enum>
+            </property>
+            <property name="format">
+             <string>Uploading File: %p%</string>
+            </property>
+           </widget>
           </item>
          </layout>
         </widget>

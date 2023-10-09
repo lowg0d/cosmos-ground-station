@@ -19,6 +19,9 @@
 This module defines the `MainWindow` class, which serves as the central component of the Cosmos.
 Encapsulates various UI components and controllers for the gui.
 """
+import os
+import subprocess
+import sys
 
 from PyQt5.QtCore import Qt
 from PyQt5.QtGui import QIcon, QKeySequence
@@ -49,7 +52,6 @@ class MainWindow(FramelessMainWindow):
 
     def __init__(self) -> None:
         super().__init__()
-
         # Set a custom title bar for the window
         self.setTitleBar(CustomTitleBar(self))
 
@@ -85,7 +87,7 @@ class MainWindow(FramelessMainWindow):
         self.ui.label_statusBar.setText(f"v{self.version}-{self.dev_phase}")
 
         self.ui.label_longVersion.setText(
-            f'VERSION: {self.version}-{self.dev_phase} // BY: {self.author} // <a href="https://github.com/lowg0d/cosmos-ground-station">Find Help or report a Bug</a>'
+            f'Version: {self.version}-{self.dev_phase} - Author: {self.author} - Help: <a href="https://github.com/lowg0d/cosmos-ground-station">Find Help or report a Bug</a>'
         )
         self.ui.label_longVersion.setOpenExternalLinks(True)
 
@@ -101,10 +103,12 @@ class MainWindow(FramelessMainWindow):
         # Adjust splitter sizes
         self.ui.splitter.setSizes([6000, 100])
 
+        self.ui.progress_bar_statusBar.hide()
+
         # raise titlebar, show the window and maximize it.
-        self.showMaximized()
         self.titleBar.raise_()
         self.show()
+        self.showMaximized()
 
     def generate_ui_preferences_widgets(self):
         preferences_data = self.preferences.get("PREFERENCES", 1)
@@ -178,16 +182,13 @@ class MainWindow(FramelessMainWindow):
         )
 
         #
-        self.ui.btn_reloadWIndow.clicked.connect(self.reload_window)
+        self.ui.btn_reloadWIndow.clicked.connect(self.restart)
         self.ui.cb_bauds.currentIndexChanged.connect(self.on_bauds_changed)
         self.ui.cb_ports.currentIndexChanged.connect(self.on_port_changed)
 
-    def reload_window(self):
-        self.update()
-        self.destroy()
-        self.close()
-
-        self.__init__()
+    @staticmethod
+    def restart():
+        MainWindow.singleton = MainWindow()
 
     def on_bauds_changed(self):
         new_bauds = self.ui.cb_bauds.currentText()

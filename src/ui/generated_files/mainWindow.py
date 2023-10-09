@@ -32,8 +32,8 @@ class Ui_MainWindow(object):
     def setupUi(self, MainWindow):
         MainWindow.setObjectName("MainWindow")
         MainWindow.setWindowModality(QtCore.Qt.ApplicationModal)
-        MainWindow.resize(1150, 650)
-        MainWindow.setMinimumSize(QtCore.QSize(1050, 550))
+        MainWindow.resize(1204, 620)
+        MainWindow.setMinimumSize(QtCore.QSize(750, 550))
         MainWindow.setAutoFillBackground(False)
         MainWindow.setStyleSheet("/* Global Styling */\n"
 "QMainWindow {\n"
@@ -338,6 +338,23 @@ class Ui_MainWindow(object):
 "#frame_preferencesContainer QLabel {\n"
 "    font: 63 11pt \"Video SemBd\";\n"
 "}\n"
+"#statusBarFrame QProgressBar{\n"
+"    border-style: none;\n"
+"    text-align: center;\n"
+"    \n"
+"     font: 600 7.5pt \"Video SemBd\";\n"
+"    border-radius: 2px;\n"
+"      color: #a6a7a8;\n"
+"\n"
+"  border: 1.2px solid #666769;\n"
+"}\n"
+"\n"
+"#statusBarFrame QProgressBar::chunk{\n"
+"    border-radius: 2px;\n"
+"    background-color: qlineargradient(spread:pad, x1:0.978, y1:0.460273, x2:0, y2:0.562636, stop:0 rgba(108, 95, 180, 255), stop:1 rgba(60, 50, 117, 255));\n"
+"    \n"
+"}\n"
+"\n"
 "\n"
 "/* SEPARATOR LINES */\n"
 "#line,\n"
@@ -469,7 +486,7 @@ class Ui_MainWindow(object):
         self.scrollArea_SettingContainer.setAlignment(QtCore.Qt.AlignHCenter|QtCore.Qt.AlignTop)
         self.scrollArea_SettingContainer.setObjectName("scrollArea_SettingContainer")
         self.scrollAreaWidgetContents_settings = QtWidgets.QWidget()
-        self.scrollAreaWidgetContents_settings.setGeometry(QtCore.QRect(0, 0, 730, 554))
+        self.scrollAreaWidgetContents_settings.setGeometry(QtCore.QRect(0, 0, 100, 30))
         self.scrollAreaWidgetContents_settings.setObjectName("scrollAreaWidgetContents_settings")
         self.verticalLayout_21 = QtWidgets.QVBoxLayout(self.scrollAreaWidgetContents_settings)
         self.verticalLayout_21.setContentsMargins(0, 0, 0, 0)
@@ -650,7 +667,7 @@ class Ui_MainWindow(object):
         self.scrollArea_SideBar.setWidgetResizable(True)
         self.scrollArea_SideBar.setObjectName("scrollArea_SideBar")
         self.scrollAreaWidgetContents = QtWidgets.QWidget()
-        self.scrollAreaWidgetContents.setGeometry(QtCore.QRect(0, 0, 256, 283))
+        self.scrollAreaWidgetContents.setGeometry(QtCore.QRect(0, 0, 256, 253))
         self.scrollAreaWidgetContents.setObjectName("scrollAreaWidgetContents")
         self.verticalLayout_7 = QtWidgets.QVBoxLayout(self.scrollAreaWidgetContents)
         self.verticalLayout_7.setContentsMargins(0, 0, 0, 0)
@@ -924,6 +941,15 @@ class Ui_MainWindow(object):
         self.horizontalLayout.addWidget(self.label_statusBar)
         spacerItem4 = QtWidgets.QSpacerItem(933, 13, QtWidgets.QSizePolicy.Expanding, QtWidgets.QSizePolicy.Minimum)
         self.horizontalLayout.addItem(spacerItem4)
+        self.progress_bar_statusBar = QtWidgets.QProgressBar(self.statusBarFrame)
+        self.progress_bar_statusBar.setMinimumSize(QtCore.QSize(160, 12))
+        self.progress_bar_statusBar.setMaximumSize(QtCore.QSize(160, 12))
+        self.progress_bar_statusBar.setProperty("value", 20)
+        self.progress_bar_statusBar.setAlignment(QtCore.Qt.AlignCenter)
+        self.progress_bar_statusBar.setInvertedAppearance(False)
+        self.progress_bar_statusBar.setTextDirection(QtWidgets.QProgressBar.TopToBottom)
+        self.progress_bar_statusBar.setObjectName("progress_bar_statusBar")
+        self.horizontalLayout.addWidget(self.progress_bar_statusBar)
         self.verticalLayout_2.addWidget(self.statusBarFrame)
         self.verticalLayout.addWidget(self.centralFrame)
         MainWindow.setCentralWidget(self.centralwidget)
@@ -962,4 +988,5 @@ class Ui_MainWindow(object):
 "<p style=\"-qt-paragraph-type:empty; margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;\"><br /></p></body></html>"))
         self.terminal_input.setPlaceholderText(_translate("MainWindow", "Type here a message to send to the serial port"))
         self.label_statusBar.setText(_translate("MainWindow", "Version"))
+        self.progress_bar_statusBar.setFormat(_translate("MainWindow", "Uploading File: %p%"))
 from ..generated_files import src_rc

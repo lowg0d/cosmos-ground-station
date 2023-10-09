@@ -31,7 +31,7 @@ from PyQt5 import QtCore, QtGui, QtWidgets
 class Ui_SettingsForm(object):
     def setupUi(self, SettingsForm):
         SettingsForm.setObjectName("SettingsForm")
-        SettingsForm.resize(1198, 70)
+        SettingsForm.resize(1205, 70)
         SettingsForm.setMinimumSize(QtCore.QSize(0, 70))
         SettingsForm.setMaximumSize(QtCore.QSize(16777215, 70))
         SettingsForm.setStyleSheet("  selection-color: #ffffff;\n"
@@ -47,7 +47,6 @@ class Ui_SettingsForm(object):
 "    font: 500 9.5pt \"Video Med\";\n"
 "    border-radius: 4px;\n"
 "    background-color: rgba(58, 59, 63, 0.2);\n"
-"    margin-right: 3px;\n"
 "}\n"
 "\n"
 "QFrame:hover{\n"
@@ -189,6 +188,7 @@ class Ui_SettingsForm(object):
 "QComboBox:drop-down {\n"
 "    border: 0px;\n"
 "    border-radius: 0px;\n"
+"    font: 500 14.5pt \"Video Med\";\n"
 "}\n"
 "\n"
 "QComboBox::down-arrow {\n"
@@ -201,7 +201,35 @@ class Ui_SettingsForm(object):
 "QFrame {\n"
 "    color: rgba(255, 255, 255, 0.6);\n"
 "    background-color: rgba(52, 73, 94, 0.3);\n"
-"    font: 500 10.5pt \"Video Med\";\n"
+"    font: 500 14.5pt \"Video Med\";\n"
+"    padding: 5px;\n"
+"}\n"
+"QComboBox QAbstractItem {\n"
+"  padding: 4px 8px;\n"
+"  border-radius: 4px;\n"
+"  selection-background-color: none;\n"
+"  border: none;\n"
+"    border-bottom: 1px rgba(255,255,255,0.4);\n"
+"    font: 500 14.5pt \"Video Med\";\n"
+"}\n"
+"QComboBox QAbstractItem::item {\n"
+"  padding: 4px 8px;\n"
+"  border-radius: 4px;\n"
+"font: 500 14.5pt \"Video Med\";\n"
+"}\n"
+"\n"
+"QComboBox QAbstractItemView::item:selected {\n"
+"  border: none;\n"
+"  background-color: #6357a4;\n"
+"font: 500 14.5pt \"Video Med\";\n"
+"}\n"
+"\n"
+"QListView {\n"
+"  border-radius: 4px;\n"
+"  border: 1px solid #2b2d30;\n"
+"  background-color: #12141a;\n"
+"font: 500 14.5pt \"Video Med\";\n"
+"  outline: none;\n"
 "}")
         self.options.setSizeAdjustPolicy(QtWidgets.QComboBox.AdjustToContents)
         self.options.setObjectName("options")
