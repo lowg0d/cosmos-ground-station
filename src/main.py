@@ -19,10 +19,6 @@
 This module defines the `MainWindow` class, which serves as the central component of the Cosmos.
 Encapsulates various UI components and controllers for the gui.
 """
-import os
-import subprocess
-import sys
-
 from PyQt5.QtCore import Qt
 from PyQt5.QtGui import QIcon, QKeySequence
 from PyQt5.QtWidgets import QLabel, QShortcut
@@ -37,6 +33,7 @@ from src.controllers import (
 from src.models import (
     CloudModel,
     DataHandlerModel,
+    MissionModel,
     PreferenceModel,
     SerialModel,
     VisualizationModel,
@@ -62,6 +59,7 @@ class MainWindow(FramelessMainWindow):
         # Initialize models
         self.preferences = PreferenceModel()
         self.serial_model = SerialModel(self)
+        self.missions_model = MissionModel(self)
         self.cloud_model = CloudModel(self)
         self.recording_controller = RecordingController(self)
         self.data_handler_model = DataHandlerModel(self)
@@ -72,6 +70,9 @@ class MainWindow(FramelessMainWindow):
 
         self.visualization_model = VisualizationModel(self)
         self.connection_controller = ConnectionController(self)
+
+        if not self.window_controller.small_mode_toggled:
+            self.showMaximized()
 
         # Get the application information from preferences
         self.name = self.preferences.get("name")
@@ -108,7 +109,6 @@ class MainWindow(FramelessMainWindow):
         # raise titlebar, show the window and maximize it.
         self.titleBar.raise_()
         self.show()
-        self.showMaximized()
 
     def generate_ui_preferences_widgets(self):
         preferences_data = self.preferences.get("PREFERENCES", 1)
@@ -180,6 +180,12 @@ class MainWindow(FramelessMainWindow):
         self.ui.terminal_input.returnPressed.connect(
             self.connection_controller.send_data_action
         )
+
+        self.ui.btn_missionDisplay.clicked.connect(
+            self.window_controller.toggle_mission_page
+        )
+
+        self.ui.btn_GoBack2.clicked.connect(self.window_controller.toggle_mission_page)
 
         #
         self.ui.btn_reloadWIndow.clicked.connect(self.restart)

@@ -29,6 +29,7 @@ class PreferenceModel:
             "./src/config/app.json",
             "./src/config/preferences/preferences.json",
             "./src/config/visualization/dashboards.json",
+            "./src/config/missions/missions.json",
         ]
         self.preference_path = 1
 

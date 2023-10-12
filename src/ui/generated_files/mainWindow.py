@@ -32,7 +32,7 @@ class Ui_MainWindow(object):
     def setupUi(self, MainWindow):
         MainWindow.setObjectName("MainWindow")
         MainWindow.setWindowModality(QtCore.Qt.ApplicationModal)
-        MainWindow.resize(1204, 620)
+        MainWindow.resize(1227, 625)
         MainWindow.setMinimumSize(QtCore.QSize(750, 550))
         MainWindow.setAutoFillBackground(False)
         MainWindow.setStyleSheet("/* Global Styling */\n"
@@ -55,6 +55,7 @@ class Ui_MainWindow(object):
 "  border-right: 3px solid #6c5fb4;\n"
 "  border-radius: 3px;\n"
 "}\n"
+"\n"
 "#label_loadingDots {\n"
 "  font: 63 68pt \"Video SemBd\";\n"
 "}\n"
@@ -75,17 +76,21 @@ class Ui_MainWindow(object):
 "  border: 1px solid #2b2d30;\n"
 "  color: #808183;\n"
 "}\n"
+"\n"
 "#frame_topSideBarButtons QPushButton:hover {\n"
 "  background-color: #1a1b1f;\n"
 "}\n"
+"\n"
 "#frame_topSideBarButtons QPushButton:pressed {\n"
 "  background-color: #2b2d30;\n"
 "}\n"
+"\n"
 "#frame_topSideBarButtons QPushButton:checked {\n"
 "  color: #ffffff;\n"
 "  border: 1px solid #6357a4;\n"
 "  background-color: #1b1a28;\n"
 "}\n"
+"\n"
 "#frame_topSideBarButtons QPushButton:disabled {\n"
 "  border: 1px solid #1e1f22;\n"
 "  color: #292b29;\n"
@@ -100,11 +105,13 @@ class Ui_MainWindow(object):
 "  border: 1px solid #2b2d30;\n"
 "  color: #808183;\n"
 "}\n"
+"\n"
 "#frame_mainControls QPushButton:hover,\n"
 "#frame_terminalContainer QPushButton:hover,\n"
 "#frame_connectionDropDown QPushButton:hover {\n"
 "  background-color: #1a1b1f;\n"
 "}\n"
+"\n"
 "#frame_mainControls QPushButton:pressed,\n"
 "#frame_terminalContainer QPushButton:pressed,\n"
 "#frame_connectionDropDown QPushButton:pressed {\n"
@@ -124,23 +131,30 @@ class Ui_MainWindow(object):
 "}\n"
 "\n"
 "/* preferences page */\n"
+"#SideBarMissionsPage QPushButton,\n"
 "#frame_preferencesSideBar QPushButton {\n"
 "  font: 500 8pt \"Video Med\";\n"
 "  border-radius: 4px;\n"
 "  border: 1px solid #2b2d30;\n"
 "  color: #808183;\n"
 "}\n"
+"\n"
+"#SideBarMissionsPage QPushButton:hover,\n"
 "#frame_preferencesSideBar QPushButton:hover {\n"
 "  background-color: #1a1b1f;\n"
 "}\n"
+"\n"
+"#SideBarMissionsPage QPushButton:pressed,\n"
 "#frame_preferencesSideBar QPushButton:pressed {\n"
 "  background-color: #2b2d30;\n"
 "}\n"
+"\n"
 "#frame_preferencesSideBar QPushButton:checked {\n"
 "  color: #ffffff;\n"
 "  border: 1px solid #6357a4;\n"
 "  background-color: #1b1a28;\n"
 "}\n"
+"\n"
 "#frame_preferencesSideBar QPushButton:disabled {\n"
 "  border: 1px solid #292a30;\n"
 "  color: #292b29;\n"
@@ -154,12 +168,14 @@ class Ui_MainWindow(object):
 "  border: 1px solid #45484e;\n"
 "  background-color: #212227;\n"
 "}\n"
+"\n"
 "#frame_StateAndCountdownContainer QPushButton {\n"
 "  border-radius: 4px;\n"
 "  font: 600 10.5pt \"Video SemBd\";\n"
 "  border: 1px solid #45484e;\n"
 "  background-color: #212227;\n"
 "}\n"
+"\n"
 "#frame_StateAndCountdownContainer QPushButton:hover {\n"
 "  background-color: #37383d;\n"
 "}\n"
@@ -171,6 +187,7 @@ class Ui_MainWindow(object):
 "  background-color: #212227;\n"
 "  font: 63 9pt \"Video Cond SemBd\";\n"
 "}\n"
+"\n"
 "#frame_secondaryAndButtonContainer QFrame {\n"
 "  border-radius: 4px;\n"
 "  border: 1px solid #45484e;\n"
@@ -179,22 +196,21 @@ class Ui_MainWindow(object):
 "}\n"
 "\n"
 "#frame_mainTlmLabels QLabel {\n"
-"      \n"
-"    font: 63 9pt \"Video Cond SemBd\";\n"
-"    border: none;\n"
-"    background-color: none;\n"
+"  font: 63 9pt \"Video Cond SemBd\";\n"
+"  border: none;\n"
+"  background-color: none;\n"
 "}\n"
 "\n"
 "#frame_BigTlmLabels QLabel {\n"
-"      font: 63 10pt \"Video Cond SemBd\";\n"
-"    border: none;\n"
-"    background-color: none;\n"
+"  font: 63 10pt \"Video Cond SemBd\";\n"
+"  border: none;\n"
+"  background-color: none;\n"
 "}\n"
 "\n"
 "#frame_secondaryAndButtonContainer QLabel {\n"
 "  font: 600 9pt \"Video SemBd\";\n"
-"    border: none;\n"
-"    background-color: none;\n"
+"  border: none;\n"
+"  background-color: none;\n"
 "}\n"
 "\n"
 "/** DROP COMBO BOX **/\n"
@@ -214,12 +230,11 @@ class Ui_MainWindow(object):
 "  border: 0px;\n"
 "}\n"
 "\n"
-"\n"
 "#frame_connectionDropDown QComboBox::down-arrow {\n"
-"    image: url(:/icons/icons/down_arrow.png);\n"
-"    width: 8px;\n"
-"    height: 8px;\n"
-"    margin-right: 10px;\n"
+"  image: url(:/icons/icons/down_arrow.png);\n"
+"  width: 8px;\n"
+"  height: 8px;\n"
+"  margin-right: 10px;\n"
 "}\n"
 "\n"
 "#frame_connectionDropDown QComboBox QAbstractItem {\n"
@@ -228,6 +243,7 @@ class Ui_MainWindow(object):
 "  selection-background-color: none;\n"
 "  border: none;\n"
 "}\n"
+"\n"
 "#frame_connectionDropDown QComboBox QAbstractItem::item {\n"
 "  padding: 4px 8px;\n"
 "  border-radius: 4px;\n"
@@ -260,6 +276,7 @@ class Ui_MainWindow(object):
 "  border-radius: 4px;\n"
 "  border: 1px solid #373a3e;\n"
 "}\n"
+"\n"
 "/* TEXT BROWSER */\n"
 "#textBrowser_terminal {\n"
 "  padding-left: 4px;\n"
@@ -270,6 +287,7 @@ class Ui_MainWindow(object):
 "  selection-background-color: #6357a3;\n"
 "  border: none;\n"
 "}\n"
+"\n"
 "#frame_terminalTextBrowserContainer {\n"
 "  border-radius: 4px;\n"
 "  border: 1px solid #373a3e;\n"
@@ -287,6 +305,7 @@ class Ui_MainWindow(object):
 "  selection-color: #ffffff;\n"
 "  selection-background-color: #6357a3;\n"
 "}\n"
+"\n"
 "#frame_MessageSender QLineEdit:focus {\n"
 "  color: #808183;\n"
 "}\n"
@@ -298,32 +317,39 @@ class Ui_MainWindow(object):
 "  border-radius: 4px;\n"
 "  width: 15px;\n"
 "}\n"
+"\n"
 "QScrollBar::handle::vertical {\n"
 "  border-radius: 3px;\n"
 "  background-color: #282a2e;\n"
 "  min-height: 20px;\n"
 "}\n"
+"\n"
 "QScrollBar::handle::vertical:hover {\n"
 "  border-radius: 3px;\n"
 "  background-color: #535558;\n"
 "  min-height: 20px;\n"
 "}\n"
+"\n"
 "QScrollBar::sub-line {\n"
 "  border: none;\n"
 "  height: 0;\n"
 "}\n"
+"\n"
 "QScrollBar::sub-line:vertical {\n"
 "  border: none;\n"
 "  height: 0;\n"
 "}\n"
+"\n"
 "QScrollBar::add-line:vertical {\n"
 "  border: none;\n"
 "  height: 0;\n"
 "}\n"
+"\n"
 "QScrollBar::up-arrow:vertical,\n"
 "QScrollBar::down-arrow:vertical {\n"
 "  background: none;\n"
 "}\n"
+"\n"
 "QScrollBar::add-page:vertical,\n"
 "QScrollBar::sub-page:vertical {\n"
 "  background: none;\n"
@@ -332,29 +358,27 @@ class Ui_MainWindow(object):
 "#label_longVersion {\n"
 "  border-radius: 4px;\n"
 "  font: 600 9.5pt \"Video SemBd\";\n"
-"    color: #808183;\n"
-"\n"
+"  color: #808183;\n"
 "}\n"
+"\n"
 "#frame_preferencesContainer QLabel {\n"
-"    font: 63 11pt \"Video SemBd\";\n"
-"}\n"
-"#statusBarFrame QProgressBar{\n"
-"    border-style: none;\n"
-"    text-align: center;\n"
-"    \n"
-"     font: 600 7.5pt \"Video SemBd\";\n"
-"    border-radius: 2px;\n"
-"      color: #a6a7a8;\n"
-"\n"
-"  border: 1.2px solid #666769;\n"
+"  font: 63 11pt \"Video SemBd\";\n"
 "}\n"
 "\n"
-"#statusBarFrame QProgressBar::chunk{\n"
-"    border-radius: 2px;\n"
-"    background-color: qlineargradient(spread:pad, x1:0.978, y1:0.460273, x2:0, y2:0.562636, stop:0 rgba(108, 95, 180, 255), stop:1 rgba(60, 50, 117, 255));\n"
-"    \n"
+"#statusBarFrame QProgressBar {\n"
+"  border-style: none;\n"
+"  text-align: center;\n"
+"\n"
+"  font: 600 7.5pt \"Video SemBd\";\n"
+"  border-radius: 2px;\n"
+"  color: #a6a7a8;\n"
+"  border: 1.2px solid #333435;\n"
 "}\n"
 "\n"
+"#statusBarFrame QProgressBar::chunk {\n"
+"  border-radius: 2px;\n"
+"  background-color: qlineargradient(spread:pad, x1:0.978, y1:0.460273, x2:0, y2:0.562636, stop:0 rgba(108, 95, 180, 255), stop:1 rgba(60, 50, 117, 255));\n"
+"}\n"
 "\n"
 "/* SEPARATOR LINES */\n"
 "#line,\n"
@@ -518,7 +542,19 @@ class Ui_MainWindow(object):
         self.horizontalLayout_2.setContentsMargins(0, 0, 0, 0)
         self.horizontalLayout_2.setSpacing(4)
         self.horizontalLayout_2.setObjectName("horizontalLayout_2")
-        self.frame_LeftSideBar = QtWidgets.QFrame(self.page_centralDashboard)
+        self.StackedWidget_mainSidebar = QtWidgets.QStackedWidget(self.page_centralDashboard)
+        self.StackedWidget_mainSidebar.setMinimumSize(QtCore.QSize(258, 0))
+        self.StackedWidget_mainSidebar.setMaximumSize(QtCore.QSize(258, 16777215))
+        self.StackedWidget_mainSidebar.setObjectName("StackedWidget_mainSidebar")
+        self.SidebarTlmPage = QtWidgets.QWidget()
+        self.SidebarTlmPage.setMinimumSize(QtCore.QSize(258, 0))
+        self.SidebarTlmPage.setMaximumSize(QtCore.QSize(258, 16777215))
+        self.SidebarTlmPage.setObjectName("SidebarTlmPage")
+        self.verticalLayout_14 = QtWidgets.QVBoxLayout(self.SidebarTlmPage)
+        self.verticalLayout_14.setContentsMargins(0, 0, 0, 0)
+        self.verticalLayout_14.setSpacing(0)
+        self.verticalLayout_14.setObjectName("verticalLayout_14")
+        self.frame_LeftSideBar = QtWidgets.QFrame(self.SidebarTlmPage)
         self.frame_LeftSideBar.setMinimumSize(QtCore.QSize(260, 0))
         self.frame_LeftSideBar.setMaximumSize(QtCore.QSize(260, 16777215))
         self.frame_LeftSideBar.setFrameShape(QtWidgets.QFrame.NoFrame)
@@ -667,7 +703,7 @@ class Ui_MainWindow(object):
         self.scrollArea_SideBar.setWidgetResizable(True)
         self.scrollArea_SideBar.setObjectName("scrollArea_SideBar")
         self.scrollAreaWidgetContents = QtWidgets.QWidget()
-        self.scrollAreaWidgetContents.setGeometry(QtCore.QRect(0, 0, 256, 253))
+        self.scrollAreaWidgetContents.setGeometry(QtCore.QRect(0, 0, 256, 258))
         self.scrollAreaWidgetContents.setObjectName("scrollAreaWidgetContents")
         self.verticalLayout_7 = QtWidgets.QVBoxLayout(self.scrollAreaWidgetContents)
         self.verticalLayout_7.setContentsMargins(0, 0, 0, 0)
@@ -827,7 +863,48 @@ class Ui_MainWindow(object):
         self.btn_connectionDroDown.setObjectName("btn_connectionDroDown")
         self.horizontalLayout_3.addWidget(self.btn_connectionDroDown)
         self.verticalLayout_3.addWidget(self.frame_mainControls)
-        self.horizontalLayout_2.addWidget(self.frame_LeftSideBar)
+        self.verticalLayout_14.addWidget(self.frame_LeftSideBar)
+        self.StackedWidget_mainSidebar.addWidget(self.SidebarTlmPage)
+        self.SideBarMissionsPage = QtWidgets.QWidget()
+        self.SideBarMissionsPage.setObjectName("SideBarMissionsPage")
+        self.verticalLayout_24 = QtWidgets.QVBoxLayout(self.SideBarMissionsPage)
+        self.verticalLayout_24.setContentsMargins(0, 0, 0, 0)
+        self.verticalLayout_24.setSpacing(4)
+        self.verticalLayout_24.setObjectName("verticalLayout_24")
+        self.btn_GoBack2 = QtWidgets.QPushButton(self.SideBarMissionsPage)
+        self.btn_GoBack2.setEnabled(True)
+        self.btn_GoBack2.setMinimumSize(QtCore.QSize(0, 32))
+        self.btn_GoBack2.setMaximumSize(QtCore.QSize(16777215, 32))
+        self.btn_GoBack2.setCursor(QtGui.QCursor(QtCore.Qt.PointingHandCursor))
+        self.btn_GoBack2.setObjectName("btn_GoBack2")
+        self.verticalLayout_24.addWidget(self.btn_GoBack2)
+        self.line_9 = QtWidgets.QFrame(self.SideBarMissionsPage)
+        self.line_9.setMinimumSize(QtCore.QSize(0, 1))
+        self.line_9.setMaximumSize(QtCore.QSize(16777215, 1))
+        self.line_9.setFrameShape(QtWidgets.QFrame.HLine)
+        self.line_9.setFrameShadow(QtWidgets.QFrame.Sunken)
+        self.line_9.setObjectName("line_9")
+        self.verticalLayout_24.addWidget(self.line_9)
+        self.scrollArea_missions = QtWidgets.QScrollArea(self.SideBarMissionsPage)
+        self.scrollArea_missions.setFrameShape(QtWidgets.QFrame.NoFrame)
+        self.scrollArea_missions.setWidgetResizable(True)
+        self.scrollArea_missions.setObjectName("scrollArea_missions")
+        self.scrollAreaWidgetContents_Missions = QtWidgets.QWidget()
+        self.scrollAreaWidgetContents_Missions.setGeometry(QtCore.QRect(0, 0, 100, 30))
+        self.scrollAreaWidgetContents_Missions.setObjectName("scrollAreaWidgetContents_Missions")
+        self.verticalLayout_25 = QtWidgets.QVBoxLayout(self.scrollAreaWidgetContents_Missions)
+        self.verticalLayout_25.setContentsMargins(0, 0, 0, 0)
+        self.verticalLayout_25.setSpacing(4)
+        self.verticalLayout_25.setObjectName("verticalLayout_25")
+        self.layout_missionContainer = QtWidgets.QGridLayout()
+        self.layout_missionContainer.setObjectName("layout_missionContainer")
+        self.verticalLayout_25.addLayout(self.layout_missionContainer)
+        spacerItem4 = QtWidgets.QSpacerItem(20, 519, QtWidgets.QSizePolicy.Minimum, QtWidgets.QSizePolicy.Expanding)
+        self.verticalLayout_25.addItem(spacerItem4)
+        self.scrollArea_missions.setWidget(self.scrollAreaWidgetContents_Missions)
+        self.verticalLayout_24.addWidget(self.scrollArea_missions)
+        self.StackedWidget_mainSidebar.addWidget(self.SideBarMissionsPage)
+        self.horizontalLayout_2.addWidget(self.StackedWidget_mainSidebar)
         self.frame_dsahboardGraph = QtWidgets.QFrame(self.page_centralDashboard)
         self.frame_dsahboardGraph.setFrameShape(QtWidgets.QFrame.NoFrame)
         self.frame_dsahboardGraph.setFrameShadow(QtWidgets.QFrame.Raised)
@@ -939,8 +1016,8 @@ class Ui_MainWindow(object):
         self.label_statusBar = QtWidgets.QLabel(self.statusBarFrame)
         self.label_statusBar.setObjectName("label_statusBar")
         self.horizontalLayout.addWidget(self.label_statusBar)
-        spacerItem4 = QtWidgets.QSpacerItem(933, 13, QtWidgets.QSizePolicy.Expanding, QtWidgets.QSizePolicy.Minimum)
-        self.horizontalLayout.addItem(spacerItem4)
+        spacerItem5 = QtWidgets.QSpacerItem(933, 13, QtWidgets.QSizePolicy.Expanding, QtWidgets.QSizePolicy.Minimum)
+        self.horizontalLayout.addItem(spacerItem5)
         self.progress_bar_statusBar = QtWidgets.QProgressBar(self.statusBarFrame)
         self.progress_bar_statusBar.setMinimumSize(QtCore.QSize(160, 12))
         self.progress_bar_statusBar.setMaximumSize(QtCore.QSize(160, 12))
@@ -956,6 +1033,7 @@ class Ui_MainWindow(object):
 
         self.retranslateUi(MainWindow)
         self.stackedWidget_central.setCurrentIndex(1)
+        self.StackedWidget_mainSidebar.setCurrentIndex(0)
         QtCore.QMetaObject.connectSlotsByName(MainWindow)
 
     def retranslateUi(self, MainWindow):
@@ -981,6 +1059,7 @@ class Ui_MainWindow(object):
         self.btn_smallModeTogle.setToolTip(_translate("MainWindow", "Toggle Small Mode"))
         self.btn_preferencesToggle.setToolTip(_translate("MainWindow", "Go To Preferences"))
         self.btn_connectionDroDown.setToolTip(_translate("MainWindow", "Toggle The Connection Menu"))
+        self.btn_GoBack2.setText(_translate("MainWindow", "GO BACK"))
         self.textBrowser_terminal.setHtml(_translate("MainWindow", "<!DOCTYPE HTML PUBLIC \"-//W3C//DTD HTML 4.0//EN\" \"http://www.w3.org/TR/REC-html40/strict.dtd\">\n"
 "<html><head><meta name=\"qrichtext\" content=\"1\" /><style type=\"text/css\">\n"
 "p, li { white-space: pre-wrap; }\n"

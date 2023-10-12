@@ -44,7 +44,7 @@
   "BUTTONS": {
     "TARS": [
       {
-        "name": "🚀 SET GO LAUNCH",
+        "name": "SET GO LAUNCH",
         "payload": 2,
         "color": "27ae60"
       },

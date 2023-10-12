@@ -15,10 +15,19 @@
 # Date 06.08.2023
 #
 #############################################################
-from .cloud import CloudModel
-from .data_handler import DataHandlerModel
-from .missions import MissionModel
-from .preferences import PreferenceModel
-from .recordings import RecordingModel
-from .serial import SerialModel
-from .visualization.visualization import VisualizationModel
+from PyQt5.QtWidgets import QWidget
+
+from ..generated_files.missions import Ui_MissionForm
+
+
+class MissionForm(QWidget):
+    def __init__(self, parent, name, description):
+        super(MissionForm, self).__init__(parent)
+        self.ui = Ui_MissionForm()
+        self.ui.setupUi(self)
+
+        self.name = name
+        self.description = description
+
+        self.ui.titleLabel.setText(self.name)
+        self.ui.descripTionLabel.setText(self.description)

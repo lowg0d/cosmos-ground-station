@@ -41,6 +41,7 @@ class WindowController:
         self.dropdown_enabled = True
         self.small_mode_was_toggled = None
         self.preferences_page_enabled = False
+        self.missions_page_enabled = False
 
         self.small_mode_toggled = not self.preferences.get("HIDDEN.small_mode", 1)
 
@@ -68,6 +69,15 @@ class WindowController:
 
             if self.small_mode_toggled:
                 self.toggle_small_mode()
+
+    def toggle_mission_page(self):
+        self.missions_page_enabled = not self.missions_page_enabled
+
+        if self.missions_page_enabled:
+            self.ui.StackedWidget_mainSidebar.setCurrentIndex(1)
+
+        else:
+            self.ui.StackedWidget_mainSidebar.setCurrentIndex(0)
 
     # Toggle fullscreen
     def toggle_fullscreen(self):

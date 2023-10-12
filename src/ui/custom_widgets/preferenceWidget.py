@@ -291,7 +291,7 @@ class PreferenceWidget(QWidget):
     def update_gmail(self, gmail):
         if gmail == "NO_INTERNET":
             self.ui.description_label.setText(
-                'No internet connection available, connect to the internet and hit "TRY AGAIN", cosmos can work without internet connection.'
+                'No internet connection available, connect to the internet and hit "TRY AGAIN", cosmos will still work without internet connection.'
             )
             self.ui.label_config_name.setText("Can't Load Account")
             self.ui.misc.setText("Try Again")

@@ -24,7 +24,7 @@ ANTIALIAS = True
 DATA_POINTS = 300
 GPS_DATA_POINTS = 200
 X_VALS = np.linspace(0.0, (DATA_POINTS - 1) / DATA_POINTS, DATA_POINTS)
-FONT = QFont("Video Med", 11)
+FONT = QFont("Video Med", 9)
 
 
 class MonoAxePlotWidget(pg.PlotItem):
@@ -81,6 +81,7 @@ class MonoAxePlotWidget(pg.PlotItem):
         # TEMPORAL (
         self.getAxis("bottom").label.setFont(FONT)
         self.getAxis("left").label.setFont(FONT)
+        self.titleLabel.item.setFont(FONT)
         # )
 
         self.getViewBox().disableAutoRange(axis="x")
@@ -172,6 +173,12 @@ class DualAxePlotWidget(pg.PlotItem):
         self.getAxis("bottom").setPen(pg.mkPen("#a5a5a5"))
         self.getAxis("left").setPen(pg.mkPen("#a5a5a5"))
         self.getAxis("left").setStyle(tickTextOffset=-35)
+
+        # TEMPORAL (
+        self.getAxis("bottom").label.setFont(FONT)
+        self.getAxis("left").label.setFont(FONT)
+        self.titleLabel.item.setFont(FONT)
+        # )
 
         self.getViewBox().disableAutoRange(axis="x")
         self.getViewBox().setMouseEnabled(x=False, y=False)
@@ -285,6 +292,12 @@ class TripleAxePlotWidget(pg.PlotItem):
         self.getAxis("left").setPen(pg.mkPen("#a5a5a5"))
         self.getAxis("left").setStyle(tickTextOffset=-35)
 
+        # TEMPORAL (
+        self.getAxis("bottom").label.setFont(FONT)
+        self.getAxis("left").label.setFont(FONT)
+        self.titleLabel.item.setFont(FONT)
+        # )
+
         self.getViewBox().disableAutoRange(axis="x")
         self.getViewBox().setMouseEnabled(x=False, y=False)
 
@@ -367,6 +380,12 @@ class GpsPlotWidget(pg.PlotItem):
         self.showGrid(x=True, y=True)
         self.getAxis("bottom").setPen(pg.mkPen("#777"))
         self.getAxis("left").setPen(pg.mkPen("#777"))
+
+        # TEMPORAL (
+        self.getAxis("bottom").label.setFont(FONT)
+        self.getAxis("left").label.setFont(FONT)
+        self.titleLabel.item.setFont(FONT)
+        # )
 
         self.hideButtons()
         self.getViewBox().setMouseEnabled(x=False, y=False)

@@ -102,6 +102,6 @@
     "last_bauds": "115200",
     "auto_reConnect": true,
     "small_mode": false,
-    "cloud_backup": false
+    "cloud_backup": true
   }
 }
