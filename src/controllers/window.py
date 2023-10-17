@@ -48,6 +48,8 @@ class WindowController:
         self.update_progress_bar_timer = QTimer()
         self.update_progress_bar_timer.timeout.connect(self.update_progress)
 
+        self.progress_bar_time = 1
+
         self.setup_dropdown_animation()
         self.toggle_small_mode()
 
@@ -169,13 +171,22 @@ class WindowController:
         self.ui.progress_bar_statusBar.setValue(0)
 
         # Start the timer with a 10 millisecond interval
-        self.update_progress_bar_timer.start(20)
+        self.update_progress_bar_timer.start(self.progress_bar_time)
 
     def stop_progress_bar(self):
         self.ui.progress_bar_statusBar.setValue(100)
         self.ui.progress_bar_statusBar.hide()
+        self.progress_bar_time = 1
 
     def update_progress(self):
+        if self.ui.progress_bar_statusBar.value() > 80:
+            self.progress_bar_time += 10
+
+        else:
+            new_value = self.ui.progress_bar_statusBar.value() + 5
+            self.ui.progress_bar_statusBar.setValue(new_value)
+
+        self.update_progress_bar_timer.setInterval(self.progress_bar_time)
         # Get the current value of the progress bar
         current_value = self.ui.progress_bar_statusBar.value()
 

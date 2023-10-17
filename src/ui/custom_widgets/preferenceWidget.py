@@ -134,6 +134,18 @@ class PreferenceWidget(QWidget):
             self.ui.options.setCurrentText(str(current_value))
             self.ui.options.currentIndexChanged.connect(self.update_profile_config)
 
+        elif data_type == "select_theme":
+            self.ui.options.show()
+            list_of_options = []
+
+            data = self.parent.preferences.get("THEMES", 4)
+            for option in data:
+                list_of_options.append(option)
+
+            self.ui.options.addItems(list_of_options)
+            self.ui.options.setCurrentText(str(current_value))
+            self.ui.options.currentIndexChanged.connect(self.update_theme)
+
     def open_file_config(self):
         # Get the file path from the configuration using self.config_name
         file_path = self.parent.preferences.get_preference(self.config_name)
@@ -193,6 +205,11 @@ class PreferenceWidget(QWidget):
         value = self.ui.options.currentText()
         self.parent.preferences.update_preference(self.config_name, str(value))
         self.parent.visualization_model.dashboards.switch_dashboard()
+
+    def update_theme(self):
+        value = self.ui.options.currentText()
+        self.parent.preferences.update_preference(self.config_name, str(value))
+        self.parent.load_theme()
 
     def toggle_widget(self):
         current_value = self.parent.preferences.get_preference(self.config_name)

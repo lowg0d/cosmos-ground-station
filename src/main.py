@@ -19,7 +19,9 @@
 This module defines the `MainWindow` class, which serves as the central component of the Cosmos.
 Encapsulates various UI components and controllers for the gui.
 """
-from PyQt5.QtCore import Qt
+import os
+
+from PyQt5.QtCore import QFile, Qt, QTextStream
 from PyQt5.QtGui import QIcon, QKeySequence
 from PyQt5.QtWidgets import QLabel, QShortcut
 from qframelesswindow import FramelessMainWindow
@@ -40,6 +42,14 @@ from src.models import (
 )
 from src.ui import CustomTitleBar, PreferenceWidget, Ui_MainWindow
 
+BUTTONS_WITH_ICONS = [
+    "btn_smallModeTogle",
+    "btn_preferencesToggle",
+    "btn_connectionDroDown",
+    "btn_toggleAutoReconnection",
+    "btn_clearTerminal",
+]
+
 
 class MainWindow(FramelessMainWindow):
     """
@@ -47,10 +57,12 @@ class MainWindow(FramelessMainWindow):
     Handles user interactions for connections, terminals, and window behavior.
     """
 
-    def __init__(self) -> None:
+    def __init__(self, app) -> None:
         super().__init__()
         # Set a custom title bar for the window
-        self.setTitleBar(CustomTitleBar(self))
+        self.customTitleBar = CustomTitleBar(self)
+        self.setTitleBar(self.customTitleBar)
+        self.application = app
 
         # Setup UI
         self.ui = Ui_MainWindow()
@@ -70,6 +82,8 @@ class MainWindow(FramelessMainWindow):
 
         self.visualization_model = VisualizationModel(self)
         self.connection_controller = ConnectionController(self)
+
+        self.load_theme()
 
         if not self.window_controller.small_mode_toggled:
             self.showMaximized()
@@ -191,6 +205,37 @@ class MainWindow(FramelessMainWindow):
         self.ui.btn_reloadWIndow.clicked.connect(self.restart)
         self.ui.cb_bauds.currentIndexChanged.connect(self.on_bauds_changed)
         self.ui.cb_ports.currentIndexChanged.connect(self.on_port_changed)
+
+    # TEMPORAL (
+    def load_theme(self):
+        theme_name = self.preferences.get_preference("dashboard.theme")
+
+        qss_file = self.preferences.get(f"THEMES.{theme_name}.style_file", 4)
+        qss_file = os.path.join("./src/ui/styles/", qss_file)
+
+        icon_path = self.preferences.get(f"THEMES.{theme_name}.icons_path", 4)
+        icon_path = os.path.join("./src/ui/resources/icons/", icon_path)
+
+        text_color = self.preferences.get(f"THEMES.{theme_name}.text_color", 4)
+        bg_2 = self.preferences.get(f"THEMES.{theme_name}.background_color2", 4)
+
+        self.visualization_model.update_colors(text_color, bg_2)
+
+        file = QFile(qss_file)
+        file.open(QFile.ReadOnly | QFile.Text)
+        stream = QTextStream(file)
+        self.application.setStyleSheet(stream.readAll())
+        file.close()
+
+        self.customTitleBar.change_colors(text_color)
+
+        for button in BUTTONS_WITH_ICONS:
+            icon = QIcon(f"{icon_path}/{button}.png")
+
+            button = getattr(self.ui, button)
+            button.setIcon(icon)
+
+    # )
 
     @staticmethod
     def restart():

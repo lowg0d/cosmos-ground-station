@@ -100,8 +100,8 @@ class DashboardsModel(QObject):
         self.gps_graph_data_points = None
 
     def update_ui_widgets(self):
-        self.setup_graphs()
         try:
+            self.setup_graphs()
             self.setup_buttons()
             self.setup_labels()
 
@@ -165,7 +165,6 @@ class DashboardsModel(QObject):
         button_widget.setStyleSheet(
             "QPushButton {"
             + f"""
-                    color: rgba(255, 255, 255, 0.9);
                     background-color: #4D{color};
                     font: 500 9pt "Video Med";
                     border-radius: 4px;

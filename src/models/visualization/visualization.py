@@ -38,6 +38,8 @@ class VisualizationModel(QObject):
         self.dashboards = DashboardsModel(self)
         self.updates = InformationUpdateModel(self)
 
+        self.text_color = "rgb(240,240,240)"
+
     def change_to_connected(self):
         self.updates.widget_update_timer.start()
         self.updates.data_stale_timer.start()
@@ -62,7 +64,7 @@ class VisualizationModel(QObject):
             f"""
                 background-color: #4D{color};
                 border: 1px solid #{color};
-                color: rgb(240,240,240);"""
+                color: {self.text_color};"""
         )
 
         # Set the text of the state label
@@ -93,3 +95,12 @@ class VisualizationModel(QObject):
         self.graph_layout.setSpacing(0)
 
         self.parent.ui.layout_graphContainer.addWidget(main_layout)
+
+    def update_colors(self, text_color, background_color2):
+        self.text_color = text_color
+        pg.setConfigOptions(
+            foreground=text_color,
+        )
+        self.dashboards.switch_dashboard()
+        self.updates.update_graphs_color(text_color)
+        self.set_state("N/A", background_color2.replace("#", ""))

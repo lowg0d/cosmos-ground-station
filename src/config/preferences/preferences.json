@@ -9,6 +9,12 @@
       }
     },
     "dashboard": {
+      "theme": {
+        "name": "Theme",
+        "description": "Change the current theme.",
+        "preference_type": "select_theme",
+        "value": "blue"
+      },
       "visualization_dashboard": {
         "name": "Visualization Dashboard",
         "description": "Change the current visualization dashboard.",

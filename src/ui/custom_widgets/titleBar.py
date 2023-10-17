@@ -15,7 +15,6 @@
 # Date 06.08.2023
 #
 #############################################################
-
 from PyQt5.QtGui import QColor
 from qframelesswindow import StandardTitleBar
 
@@ -60,4 +59,34 @@ class CustomTitleBar(StandardTitleBar):
                 font: 300 9.5pt "Video Light";
                 color: rgba(245, 245, 245, 0.6);
                 }"""  # Set the font color with transparency
+        )
+
+    def change_colors(self, text_color):
+        btns = [self.minBtn, self.maxBtn]
+        for btn in btns:
+            btn.setNormalColor(QColor(text_color))
+            btn.setHoverBackgroundColor(
+                QColor(119, 110, 166)
+            )  # Set the background color on hover
+            btn.setPressedBackgroundColor(
+                QColor(99, 90, 146)
+            )  # Set the background color when pressed
+
+        self.closeBtn.setNormalColor(QColor(text_color))
+        self.closeBtn.setHoverBackgroundColor(
+            QColor(220, 69, 71)
+        )  # Close button background color on hover
+        self.closeBtn.setPressedBackgroundColor(
+            QColor(150, 49, 51)
+        )  # Close button background color when pressed
+        # Change the font and center the title bar title
+        self.titleLabel.setStyleSheet(
+            """QLabel{
+                margin: 0 0 0 5;
+                background: transparent;
+                font: 300 9.5pt "Video Light";
+                color: &color
+                }""".replace(
+                "&color", text_color
+            )  # Set the font color with transparency
         )

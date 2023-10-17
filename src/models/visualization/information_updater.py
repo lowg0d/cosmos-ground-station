@@ -209,6 +209,33 @@ class InformationUpdateModel(QObject):
         ) in self.dashboards.gps_map.items():
             widget.clear()
 
+    def update_graphs_color(self, text_color):
+        ## MONO
+        for widget, value_index in self.dashboards.mono_axe_map.items():
+            widget.change_color(text_color)
+
+        ## DUAl
+        for widget, (
+            value_index,
+            value_index_2,
+        ) in self.dashboards.dual_axe_map.items():
+            widget.change_color(text_color)
+
+        ## TRIPLE
+        for widget, (
+            value_index,
+            value_index_2,
+            value_index_3,
+        ) in self.dashboards.triple_axe_map.items():
+            widget.change_color(text_color)
+
+        ## GPS
+        for widget, (
+            value_index,
+            value_index_2,
+        ) in self.dashboards.gps_map.items():
+            widget.change_color(text_color)
+
     ############################################################
     ## STATES
     ############################################################

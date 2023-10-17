@@ -93,6 +93,10 @@ QToolTip {
   background-color: #17191d;
 }
 
+  #frame_CommandButton QPushButton {
+    color: #b3b8c2;
+  }
+
 /* preferences page */
 #SideBarMissionsPage QPushButton,
 #frame_preferencesSideBar QPushButton {

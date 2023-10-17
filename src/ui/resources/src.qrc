@@ -1,15 +1,18 @@
 <RCC>
-  <qresource prefix="icons">
-    <file>icons/down_arrow.png</file>
-    <file>icons/home.png</file>
-    <file>icons/plug_volt.png</file>
-    <file>icons/arrow_left.png</file>
-    <file>icons/bin.png</file>
-    <file>icons/cloud.png</file>
-    <file>icons/logs.png</file>
-    <file>icons/plug.png</file>
-    <file>icons/preferences.png</file>
-    <file>icons/reload.png</file>
-    <file>icons/send.png</file>
+  <qresource prefix="blue-dark">
+    <file>icons/blue/btn_clearTerminal.png</file>
+    <file>icons/blue/btn_connectionDroDown.png</file>
+    <file>icons/blue/btn_preferencesToggle.png</file>
+    <file>icons/blue/btn_smallModeTogle.png</file>
+    <file>icons/blue/btn_toggleAutoReconnection.png</file>
+    <file>icons/blue/down_arrow.png</file>
+  </qresource>
+  <qresource prefix="light">
+    <file>icons/light/btn_clearTerminal.png</file>
+    <file>icons/light/btn_connectionDroDown.png</file>
+    <file>icons/light/btn_preferencesToggle.png</file>
+    <file>icons/light/btn_smallModeTogle.png</file>
+    <file>icons/light/btn_toggleAutoReconnection.png</file>
+    <file>icons/light/down_arrow.png</file>
   </qresource>
 </RCC>

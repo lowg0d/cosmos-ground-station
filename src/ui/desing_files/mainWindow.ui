@@ -10,7 +10,7 @@
     <x>0</x>
     <y>0</y>
     <width>1227</width>
-    <height>625</height>
+    <height>613</height>
    </rect>
   </property>
   <property name="minimumSize">
@@ -26,366 +26,365 @@
    <bool>false</bool>
   </property>
   <property name="styleSheet">
-   <string notr="true">/* Global Styling */
-QMainWindow {
-  background-color: #111217;
-}
+   <string notr="true">  /* 
+      Global Styling 
+  */
+  QMainWindow {
+    background-color: #f6f5f2;
+  }
 
-QWidget {
-  background-color: #111217;
-  color: #b3b8c2;
-  selection-color: #ffffff;
-  selection-background-color: #6357a3;
-}
+  QWidget {
+    background-color: #f6f5f2;
+    color: #2f3640;
+    selection-color: #ffffff;
+    selection-background-color: #6357a3;
+  }
 
-/* ToolTip Styling */
-QToolTip {
-  background-color: #0a0c10;
-  font: 500 9pt &quot;Video Med&quot;;
-  color: #ffffff;
-  border-right: 3px solid #6c5fb4;
-  border-radius: 3px;
-}
+  /* 
+      ToolTip Styling 
+  */
+  QToolTip {
+    background-color: #ffffff;
+    font: 500 9pt &quot;Video Med&quot;;
+    color: #2f3640;
+    border-right: 3px solid #6c5fb4;
+    border-radius: 3px;
+  }
 
-#label_loadingDots {
-  font: 63 68pt &quot;Video SemBd&quot;;
-}
+  #label_loadingDots {
+    font: 63 68pt &quot;Video SemBd&quot;;
+  }
 
-/** Status Bar**/
-#statusBarFrame QFrame {
-  margin-top: 1px;
-  font: 600 8pt &quot;Video SemBd&quot;;
-  background-color: rgba(0, 0, 0, 0);
-  border: 0;
-  color: rgb(73, 78, 89);
-}
+  /* 
+      SCROLLBAR
+  */
+  QScrollBar {
+    margin: 3px 0px 3px 3px;
+    border: 0;
+    border-radius: 4px;
+    width: 15px;
+  }
 
-/* Sidebar Buttons */
-#frame_topSideBarButtons QPushButton {
-  font: 500 8pt &quot;Video Med&quot;;
-  border-radius: 4px;
-  border: 1px solid #2b2d30;
-  color: #808183;
-}
+  QScrollBar::handle::vertical {
+    border-radius: 3px;
+    background-color: #e8e6e0;
+    min-height: 20px;
+  }
 
-#frame_topSideBarButtons QPushButton:hover {
-  background-color: #1a1b1f;
-}
+  QScrollBar::handle::vertical:hover {
+    border-radius: 3px;
+    background-color: #616161;
+    min-height: 20px;
+  }
 
-#frame_topSideBarButtons QPushButton:pressed {
-  background-color: #2b2d30;
-}
+  QScrollBar::sub-line {
+    border: none;
+    height: 0;
+  }
 
-#frame_topSideBarButtons QPushButton:checked {
-  color: #ffffff;
-  border: 1px solid #6357a4;
-  background-color: #1b1a28;
-}
+  QScrollBar::sub-line:vertical {
+    border: none;
+    height: 0;
+  }
 
-#frame_topSideBarButtons QPushButton:disabled {
-  border: 1px solid #1e1f22;
-  color: #292b29;
-  background-color: #17191d;
-}
+  QScrollBar::add-line:vertical {
+    border: none;
+    height: 0;
+  }
 
-#frame_mainControls QPushButton,
-#frame_terminalContainer QPushButton,
-#frame_connectionDropDown QPushButton {
-  font: 500 8pt &quot;Video Med&quot;;
-  border-radius: 4px;
-  border: 1px solid #2b2d30;
-  color: #808183;
-}
+  QScrollBar::up-arrow:vertical,
+  QScrollBar::down-arrow:vertical {
+    background: none;
+  }
 
-#frame_mainControls QPushButton:hover,
-#frame_terminalContainer QPushButton:hover,
-#frame_connectionDropDown QPushButton:hover {
-  background-color: #1a1b1f;
-}
+  QScrollBar::add-page:vertical,
+  QScrollBar::sub-page:vertical {
+    background: none;
+  }
 
-#frame_mainControls QPushButton:pressed,
-#frame_terminalContainer QPushButton:pressed,
-#frame_connectionDropDown QPushButton:pressed {
-  background-color: #2b2d30;
-}
+  /* 
+      INFO LABELS
+  */
 
-#frame_connectionDropDown QPushButton:checked {
-  color: #ffffff;
-  border: 1px solid #6357a4;
-  background-color: #1b1a28;
-}
+  #label_longVersion {
+    border-radius: 4px;
+    font: 600 9.5pt &quot;Video SemBd&quot;;
+    color: #2f3640;
+  }
 
-#frame_connectionDropDown QPushButton:disabled {
-  border: 1px solid #1e1f22;
-  color: #292b29;
-  background-color: #17191d;
-}
+  #frame_preferencesContainer QLabel {
+    font: 63 11pt &quot;Video SemBd&quot;;
+  }
 
-/* preferences page */
-#SideBarMissionsPage QPushButton,
-#frame_preferencesSideBar QPushButton {
-  font: 500 8pt &quot;Video Med&quot;;
-  border-radius: 4px;
-  border: 1px solid #2b2d30;
-  color: #808183;
-}
+  /* 
+    PROGRESS BAR
+  */
 
-#SideBarMissionsPage QPushButton:hover,
-#frame_preferencesSideBar QPushButton:hover {
-  background-color: #1a1b1f;
-}
+  #statusBarFrame QProgressBar {
+    border-style: none;
+    text-align: center;
 
-#SideBarMissionsPage QPushButton:pressed,
-#frame_preferencesSideBar QPushButton:pressed {
-  background-color: #2b2d30;
-}
+    font: 600 7.5pt &quot;Video SemBd&quot;;
+    border-radius: 2px;
+    color: #525252;
+    border: 1.2px solid #aaabac;
+  }
 
-#frame_preferencesSideBar QPushButton:checked {
-  color: #ffffff;
-  border: 1px solid #6357a4;
-  background-color: #1b1a28;
-}
+  #statusBarFrame QProgressBar::chunk {
+    border-radius: 2px;
+    background-color: qlineargradient(spread:pad, x1:0.978, y1:0.460273, x2:0, y2:0.562636, stop:0 rgba(108, 95, 180, 255), stop:1 rgba(60, 50, 117, 255));
+  }
 
-#frame_preferencesSideBar QPushButton:disabled {
-  border: 1px solid #292a30;
-  color: #292b29;
-  background-color: #12141a;
-}
+  /** 
+      Status Bar
+  **/
+  #statusBarFrame QFrame {
+    margin-top: 1px;
+    font: 600 8pt &quot;Video SemBd&quot;;
+    border: 0;
+    color: #928f86;
+  }
 
-/*  STATE AND COUNTDONW  LABEL // BTN */
-#frame_StateAndCountdownContainer QLabel {
-  border-radius: 4px;
-  font: 600 10.5pt &quot;Video SemBd&quot;;
-  border: 1px solid #45484e;
-  background-color: #212227;
-}
+  /*
+    /////////////////////
+          SIDEBAR
+    /////////////////////
+  */
 
-#frame_StateAndCountdownContainer QPushButton {
-  border-radius: 4px;
-  font: 600 10.5pt &quot;Video SemBd&quot;;
-  border: 1px solid #45484e;
-  background-color: #212227;
-}
+  /* 
+      Sidebar Top Buttons 
+  */
+  #frame_mainControls QPushButton,
+  #SideBarMissionsPage QPushButton,
+  #frame_topSideBarButtons QPushButton,
+  #frame_terminalContainer QPushButton,
+  #frame_connectionDropDown QPushButton,
+  #frame_preferencesSideBar QPushButton {
+    font: 500 8pt &quot;Video Med&quot;;
+    border-radius: 2px;
+    border: 1px solid #aaabac;
+    color: #525252;
+  }
 
-#frame_StateAndCountdownContainer QPushButton:hover {
-  background-color: #37383d;
-}
+  #frame_mainControls QPushButton:hover,
+  #SideBarMissionsPage QPushButton:hover,
+  #frame_topSideBarButtons QPushButton:hover,
+  #frame_terminalContainer QPushButton:hover,
+  #frame_connectionDropDown QPushButton:hover,
+  #frame_preferencesSideBar QPushButton:hover {
+    background-color: #c6c7cb;
+  }
 
-/*  TLM CONTAINERS */
-#frame_mainTlmLabels QFrame {
-  border-radius: 4px;
-  border: 1px solid #45484e;
-  background-color: #212227;
-  font: 63 9pt &quot;Video Cond SemBd&quot;;
-}
+  #frame_mainControls QPushButton:pressed,
+  #SideBarMissionsPage QPushButton:pressed,
+  #frame_topSideBarButtons QPushButton:pressed,
+  #frame_terminalContainer QPushButton:pressed,
+  #frame_connectionDropDown QPushButton:pressed,
+  #frame_preferencesSideBar QPushButton:pressed {
+    background-color: #b0b1b4;
+  }
 
-#frame_secondaryAndButtonContainer QFrame {
-  border-radius: 4px;
-  border: 1px solid #45484e;
-  background-color: #212227;
-  font: 63 9pt &quot;Video Cond SemBd&quot;;
-}
+  #frame_mainControls QPushButton:checked,
+  #SideBarMissionsPage QPushButton:checked,
+  #frame_topSideBarButtons QPushButton:checked,
+  #frame_terminalContainer QPushButton:checked,
+  #frame_connectionDropDown QPushButton:checked,
+  #frame_preferencesSideBar QPushButton:checked {
+    color: #ffffff;
+    border: 1px solid #6357a4;
+    background-color: #9289bf;
+  }
 
-#frame_mainTlmLabels QLabel {
-  font: 63 9pt &quot;Video Cond SemBd&quot;;
-  border: none;
-  background-color: none;
-}
+  #frame_mainControls QPushButton:checked {;
+    border-left: 2px solid #6357a4;
+    border-bottom: 2px solid #6357a4;
+    background-color: #c6c7cb;
+  }
 
-#frame_BigTlmLabels QLabel {
-  font: 63 10pt &quot;Video Cond SemBd&quot;;
-  border: none;
-  background-color: none;
-}
+  #frame_mainControls QPushButton:disabled,
+  #SideBarMissionsPage QPushButton:disabled,
+  #frame_topSideBarButtons QPushButton:disabled,
+  #frame_terminalContainer QPushButton:disabled,
+  #frame_connectionDropDown QPushButton:disabled,
+  #frame_preferencesSideBar QPushButton:disabled{
+    border: 1px solid #e3e3e3;
+    color: #949594;
+    background-color: #e3e3e3;
+  }
 
-#frame_secondaryAndButtonContainer QLabel {
-  font: 600 9pt &quot;Video SemBd&quot;;
-  border: none;
-  background-color: none;
-}
+  /*  
+    STATE AND COUNTDONW 
+  */
+  #frame_StateAndCountdownContainer QLabel {
+    border-radius: 2px;
+    font: 600 10.5pt &quot;Video SemBd&quot;;
+    border: 1px solid #bcb8ad;
+    background-color: #e8e6e0;
+    color: #525252;
+  }
 
-/** DROP COMBO BOX **/
-#frame_connectionDropDown QComboBox {
-  font: 500 8pt &quot;Video Med&quot;;
-  padding-left: 5px;
-  border-radius: 4px;
-  color: #808183;
-  border: 1px solid #2b2d30;
-}
+  /*  
+    TLM CONTAINERS FRAMES
+  */
+  #frame_mainTlmLabels QFrame {
+    border-radius: 2px;
+    border: 1px solid #bcb8ad;
+    background-color: #e8e6e0;
+    font: 63 9pt &quot;Video Cond SemBd&quot;;
+  }
 
-#frame_connectionDropDown QComboBox:hover {
-  background-color: #1a1b1f;
-}
+  #frame_secondaryAndButtonContainer QFrame {
+    border-radius: 2px;
+    border: 1px solid #bcb8ad;
+    background-color: #e8e6e0;
+    font: 63 9pt &quot;Video Cond SemBd&quot;;
+  }
 
-#frame_connectionDropDown QComboBox:drop-down {
-  border: 0px;
-}
+  /*  
+    TLM CONTAINERS LABELS
+  */
+  #frame_mainTlmLabels QLabel {
+    font: 63 9pt &quot;Video Cond SemBd&quot;;
+    border: none;
+    background-color: none;
+  }
 
-#frame_connectionDropDown QComboBox::down-arrow {
-  image: url(:/icons/icons/down_arrow.png);
-  width: 8px;
-  height: 8px;
-  margin-right: 10px;
-}
+  #frame_BigTlmLabels QLabel {
+    font: 63 10pt &quot;Video Cond SemBd&quot;;
+    border: none;
+    background-color: none;
+  }
 
-#frame_connectionDropDown QComboBox QAbstractItem {
-  padding: 4px 8px;
-  border-radius: 4px;
-  selection-background-color: none;
-  border: none;
-}
+  #frame_secondaryAndButtonContainer QLabel {
+    font: 600 9pt &quot;Video SemBd&quot;;
+    border: none;
+    background-color: none;
+  }
 
-#frame_connectionDropDown QComboBox QAbstractItem::item {
-  padding: 4px 8px;
-  border-radius: 4px;
-}
+  /*  
+    CONNECTION COMBO BOX
+  */
+  #frame_connectionDropDown QComboBox {
+    font: 500 8pt &quot;Video Med&quot;;
+    padding-left: 5px;
+    border-radius: 2px;
+    border: 1px solid #aaabac;
+    color: #444a53;
+  }
 
-#frame_connectionDropDown QComboBox QAbstractItemView::item:selected {
-  border: none;
-  background-color: #6357a4;
-}
+  #frame_connectionDropDown QComboBox:hover {
+    background-color: #c6c7cb;
+  }
 
-#frame_connectionDropDown QListView {
-  border-radius: 4px;
-  border: 1px solid #2b2d30;
-  background-color: #12141a;
-  outline: none;
-}
+  #frame_connectionDropDown QComboBox:drop-down {
+    border: 0px;
+  }
 
-/* WINDOW CONTROL BUTTONS */
-#frame_mainControls QPushButton:checked {
-  border-bottom: 2px solid #6357a3;
-  border-left: 2px solid rgba(108, 95, 180, 228);
-  background-color: rgba(32, 34, 38, 155);
-}
+  #frame_connectionDropDown QComboBox::down-arrow {
+	image: url(:/light/icons/light/down_arrow.png);
+    width: 8px;
+    height: 8px;
+    margin-right: 10px;
+  }
 
-/* TERMINAL */
-/* message sender */
-#frame_MessageSender,
-#frame_graphContainer,
-#frame_terminalContainer {
-  border-radius: 4px;
-  border: 1px solid #373a3e;
-}
+  #frame_connectionDropDown QComboBox QAbstractItem {
+    padding: 4px 8px;
+    border-radius: 4px;
+    selection-background-color: none;
+    border: none;
+  }
 
-/* TEXT BROWSER */
-#textBrowser_terminal {
-  padding-left: 4px;
-  color: #808183;
-  text-align: left;
-  font: 500 10pt &quot;Video Med&quot;;
-  selection-color: #ffffff;
-  selection-background-color: #6357a3;
-  border: none;
-}
+  #frame_connectionDropDown QComboBox QAbstractItem::item {
+    padding: 4px 8px;
+    border-radius: 4px;
+  }
 
-#frame_terminalTextBrowserContainer {
-  border-radius: 4px;
-  border: 1px solid #373a3e;
-}
+  #frame_connectionDropDown QComboBox QAbstractItemView::item:selected {
+    border: none;
+    background-color: #6357a4;
+  }
 
-/* LINE EDIT */
-#frame_MessageSender QLineEdit {
-  background-color: transparent;
-  border: none;
-  padding-left: 4px;
-  padding-right: 15px;
-  font: 500 9pt &quot;Video Med&quot;;
-  color: #737476;
-  padding-bottom: 2px;
-  selection-color: #ffffff;
-  selection-background-color: #6357a3;
-}
+  #frame_connectionDropDown QListView {
+    border-radius: 4px;
+    border: 1px solid #aaabac;
+    background-color: #dcdde1;
+    outline: none;
+  }
 
-#frame_MessageSender QLineEdit:focus {
-  color: #808183;
-}
+  /*
+    /////////////////////
+          TERMINAL
+    /////////////////////
+  */
 
-/*SCROLLBAR*/
-QScrollBar {
-  margin: 3px 0px 3px 3px;
-  border: 0;
-  border-radius: 4px;
-  width: 15px;
-}
+  /* 
+    TERMINAL INPUT  FRAME
+  */
+  #frame_MessageSender,
+  #frame_graphContainer,
+  #frame_terminalContainer {
+    border-radius: 4px;
+    border: 1px solid #bcb8ad;
+    background-color: #e8e6e0;
+  }
 
-QScrollBar::handle::vertical {
-  border-radius: 3px;
-  background-color: #282a2e;
-  min-height: 20px;
-}
+  /* 
+    TERMINAL INPUT  LINE EDIT
+  */
+  #frame_MessageSender QLineEdit {
+    padding-left: 5px;
+    padding-right: 15px;
+    font: 500 9pt &quot;Video Med&quot;;
+    color: #808183;
+    padding-bottom: 2px;
+    selection-color: #dcdde1;
+    selection-background-color: #6357a3;
+    background-color: #00000000;
+    border: none;
+  }
 
-QScrollBar::handle::vertical:hover {
-  border-radius: 3px;
-  background-color: #535558;
-  min-height: 20px;
-}
+  #frame_MessageSender QLineEdit:focus {
+    color: #616161;
+  }
 
-QScrollBar::sub-line {
-  border: none;
-  height: 0;
-}
+  #frame_MessageSender {
+    border: 1px solid #bcb8ad;
+    background-color: #e8e6e0;
+  }
 
-QScrollBar::sub-line:vertical {
-  border: none;
-  height: 0;
-}
+  /* TERMINAL TEXT */
+  #textBrowser_terminal {
+    padding-left: 4px;
+    color: #616161;
+    text-align: left;
+    font: 500 10pt &quot;Video Med&quot;;
+    selection-color: #dcdde1;
+    selection-background-color: #6357a3;
+    border: none;
+    background-color: #00000000;
+  }
 
-QScrollBar::add-line:vertical {
-  border: none;
-  height: 0;
-}
+  #frame_terminalTextBrowserContainer {
+    border-radius: 2px;
+    border: 1px solid #e8e6e0;
+    background-color: #e8e6e0;
+  }
 
-QScrollBar::up-arrow:vertical,
-QScrollBar::down-arrow:vertical {
-  background: none;
-}
-
-QScrollBar::add-page:vertical,
-QScrollBar::sub-page:vertical {
-  background: none;
-}
-
-#label_longVersion {
-  border-radius: 4px;
-  font: 600 9.5pt &quot;Video SemBd&quot;;
-  color: #808183;
-}
-
-#frame_preferencesContainer QLabel {
-  font: 63 11pt &quot;Video SemBd&quot;;
-}
-
-#statusBarFrame QProgressBar {
-  border-style: none;
-  text-align: center;
-
-  font: 600 7.5pt &quot;Video SemBd&quot;;
-  border-radius: 2px;
-  color: #a6a7a8;
-  border: 1.2px solid #333435;
-}
-
-#statusBarFrame QProgressBar::chunk {
-  border-radius: 2px;
-  background-color: qlineargradient(spread:pad, x1:0.978, y1:0.460273, x2:0, y2:0.562636, stop:0 rgba(108, 95, 180, 255), stop:1 rgba(60, 50, 117, 255));
-}
-
-/* SEPARATOR LINES */
-#line,
-#line_1,
-#line_2,
-#line_3,
-#line_4,
-#line_5,
-#line_6,
-#line_7,
-#line_8,
-#line_9,
-#line_10 {
-  border: 0;
-  background-color: #45484e;
-}
+  /* SEPARATOR LINES */
+  #line,
+  #line_1,
+  #line_2,
+  #line_3,
+  #line_4,
+  #line_5,
+  #line_6,
+  #line_7,
+  #line_8,
+  #line_9,
+  #line_10 {
+    border: 0;
+    background-color: #aaabac;
+  }
 </string>
   </property>
   <widget class="QWidget" name="centralwidget">
@@ -753,8 +752,8 @@ QScrollBar::sub-page:vertical {
                   <rect>
                    <x>0</x>
                    <y>0</y>
-                   <width>100</width>
-                   <height>30</height>
+                   <width>807</width>
+                   <height>517</height>
                   </rect>
                  </property>
                  <layout class="QVBoxLayout" name="verticalLayout_21">
@@ -1051,10 +1050,6 @@ QScrollBar::sub-page:vertical {
                           <property name="text">
                            <string> RECORDING</string>
                           </property>
-                          <property name="icon">
-                           <iconset resource="../resources/src.qrc">
-                            <normaloff>:/icons/icons/logs.png</normaloff>:/icons/icons/logs.png</iconset>
-                          </property>
                           <property name="checkable">
                            <bool>true</bool>
                           </property>
@@ -1085,10 +1080,6 @@ QScrollBar::sub-page:vertical {
                           </property>
                           <property name="text">
                            <string>  CLOUD BACKUP</string>
-                          </property>
-                          <property name="icon">
-                           <iconset resource="../resources/src.qrc">
-                            <normaloff>:/icons/icons/cloud.png</normaloff>:/icons/icons/cloud.png</iconset>
                           </property>
                           <property name="checkable">
                            <bool>true</bool>
@@ -1350,7 +1341,7 @@ QScrollBar::sub-page:vertical {
                        <x>0</x>
                        <y>0</y>
                        <width>256</width>
-                       <height>258</height>
+                       <height>246</height>
                       </rect>
                      </property>
                      <layout class="QVBoxLayout" name="verticalLayout_7">
@@ -1634,7 +1625,7 @@ QScrollBar::sub-page:vertical {
                            <string/>
                           </property>
                           <property name="icon">
-                           <iconset resource="../resources/src.qrc">
+                           <iconset>
                             <normaloff>:/icons/icons/plug_volt.png</normaloff>:/icons/icons/plug_volt.png</iconset>
                           </property>
                           <property name="iconSize">
@@ -1786,7 +1777,7 @@ QScrollBar::sub-page:vertical {
                         <string/>
                        </property>
                        <property name="icon">
-                        <iconset resource="../resources/src.qrc">
+                        <iconset>
                          <normaloff>:/icons/icons/arrow_left.png</normaloff>:/icons/icons/arrow_left.png</iconset>
                        </property>
                        <property name="checkable">
@@ -1818,7 +1809,7 @@ QScrollBar::sub-page:vertical {
                         <string/>
                        </property>
                        <property name="icon">
-                        <iconset resource="../resources/src.qrc">
+                        <iconset>
                          <normaloff>:/icons/icons/preferences.png</normaloff>:/icons/icons/preferences.png</iconset>
                        </property>
                        <property name="checkable">
@@ -1850,7 +1841,7 @@ QScrollBar::sub-page:vertical {
                         <string/>
                        </property>
                        <property name="icon">
-                        <iconset resource="../resources/src.qrc">
+                        <iconset>
                          <normaloff>:/icons/icons/plug.png</normaloff>:/icons/icons/plug.png</iconset>
                        </property>
                        <property name="checkable">
@@ -1943,8 +1934,8 @@ QScrollBar::sub-page:vertical {
                    <rect>
                     <x>0</x>
                     <y>0</y>
-                    <width>100</width>
-                    <height>30</height>
+                    <width>258</width>
+                    <height>521</height>
                    </rect>
                   </property>
                   <layout class="QVBoxLayout" name="verticalLayout_25">
@@ -2206,7 +2197,7 @@ p, li { white-space: pre-wrap; }
                        </property>
                        <layout class="QHBoxLayout" name="horizontalLayout_6">
                         <property name="spacing">
-                         <number>4</number>
+                         <number>0</number>
                         </property>
                         <property name="leftMargin">
                          <number>3</number>
@@ -2241,7 +2232,7 @@ p, li { white-space: pre-wrap; }
                            <string/>
                           </property>
                           <property name="icon">
-                           <iconset resource="../resources/src.qrc">
+                           <iconset>
                             <normaloff>:/icons/icons/bin.png</normaloff>:/icons/icons/bin.png</iconset>
                           </property>
                           <property name="iconSize">

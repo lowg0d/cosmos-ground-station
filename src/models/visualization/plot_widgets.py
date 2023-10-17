@@ -87,6 +87,10 @@ class MonoAxePlotWidget(pg.PlotItem):
         self.getViewBox().disableAutoRange(axis="x")
         self.getViewBox().setMouseEnabled(x=False, y=False)
 
+    def change_color(self, color):
+        self.getAxis("bottom").setPen(pg.mkPen(color))
+        self.getAxis("left").setPen(pg.mkPen(color))
+
     def update(self, value):
         value = float(value)
 
@@ -182,6 +186,10 @@ class DualAxePlotWidget(pg.PlotItem):
 
         self.getViewBox().disableAutoRange(axis="x")
         self.getViewBox().setMouseEnabled(x=False, y=False)
+
+    def change_color(self, color):
+        self.getAxis("bottom").setPen(pg.mkPen(color))
+        self.getAxis("left").setPen(pg.mkPen(color))
 
     def update(self, value_1, value_2):
         value_1 = float(value_1)
@@ -301,6 +309,10 @@ class TripleAxePlotWidget(pg.PlotItem):
         self.getViewBox().disableAutoRange(axis="x")
         self.getViewBox().setMouseEnabled(x=False, y=False)
 
+    def change_color(self, color):
+        self.getAxis("bottom").setPen(pg.mkPen(color))
+        self.getAxis("left").setPen(pg.mkPen(color))
+
     def update(self, value_1, value_2, value_3):
         value_1 = float(value_1)
         value_2 = float(value_2)
@@ -389,6 +401,10 @@ class GpsPlotWidget(pg.PlotItem):
 
         self.hideButtons()
         self.getViewBox().setMouseEnabled(x=False, y=False)
+
+    def change_color(self, color):
+        self.getAxis("bottom").setPen(pg.mkPen(color))
+        self.getAxis("left").setPen(pg.mkPen(color))
 
     def update(self, value_1, value_2):
         value_1 = float(value_1)
