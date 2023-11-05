@@ -17,7 +17,7 @@
 #############################################################
 # -*- coding: utf-8 -*-
 
-# Form implementation generated from reading ui file './src/ui/desing_files\missions.ui'
+# Form implementation generated from reading ui file 'c:\Users\Lowgo\Desktop\Desktop\1. DEV\1. STARLAB\cosmos\cosmos-ground-station\src\ui\desing_files\missions.ui'
 #
 # Created by: PyQt5 UI code generator 5.15.9
 #
@@ -105,4 +105,4 @@ class Ui_MissionForm(object):
         MissionForm.setWindowTitle(_translate("MissionForm", "Form"))
         self.titleLabel.setText(_translate("MissionForm", "TextLabel"))
         self.descripTionLabel.setText(_translate("MissionForm", "TextLabel"))
-from ..generated_files import src_rc
+import src_rc

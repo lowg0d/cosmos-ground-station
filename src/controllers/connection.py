@@ -23,8 +23,6 @@ It handles port detection, connection establishment, data sending, and error han
 
 from PyQt5.QtCore import QObject, QTimer
 
-from src.models.serial import SerialModel
-
 
 class ConnectionController(QObject):
     """

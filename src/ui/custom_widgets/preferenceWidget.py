@@ -19,7 +19,7 @@ import os
 import subprocess
 
 from PyQt5.QtGui import QPixmap
-from PyQt5.QtWidgets import QWidget
+from PyQt5.QtWidgets import QFileDialog, QWidget
 
 from ..generated_files.settings import Ui_SettingsForm
 
@@ -33,17 +33,21 @@ class PreferenceWidget(QWidget):
         config_name=None,
         data_type=None,
         data=None,
+        restart=False,
     ) -> None:
         super(PreferenceWidget, self).__init__(parent)
         self.ui = Ui_SettingsForm()
         self.ui.setupUi(self)
         self.config_name = config_name
         self.parent = parent
+        self.restart = restart
         self.ui.label_config_name.setText(name)
         self.ui.description_label.setText(description)
 
         self.name = name
         self.description = description
+
+        self.last_value = None
 
         # Hide all widgets initially
         self.ui.integer.hide()
@@ -52,6 +56,8 @@ class PreferenceWidget(QWidget):
         self.ui.string.hide()
         self.ui.misc.hide()
         self.ui.profile.hide()
+        self.ui.folder.hide()
+        self.ui.restart.hide()
 
         self.widget = None
         self.default_style = self.ui.misc.styleSheet()
@@ -83,11 +89,23 @@ class PreferenceWidget(QWidget):
             self.ui.btn_off.clicked.connect(self.update_toggle_button)
             self.ui.btn_on.clicked.connect(self.update_toggle_button)
 
-        elif data_type == "open_folder":
+        elif data_type == "folder":
             # File path setting type
             self.ui.misc.show()
-            self.ui.misc.setText("Open Folder")
+            self.ui.folder.show()
+
+            self.ui.misc.setText("Open")
+            simplified_path = "/".join(
+                current_value.split("/")[-2:]
+            )  # Get the last two folders
+
+            if len(simplified_path) > 20:
+                simplified_path = simplified_path[:18] + "..."
+
+            self.ui.folder.setText(simplified_path)
+
             self.ui.misc.clicked.connect(self.open_folder_action)
+            self.ui.folder.clicked.connect(self.change_folder_action)
 
         elif data_type == "open_file":
             # File path setting type
@@ -118,12 +136,18 @@ class PreferenceWidget(QWidget):
                 self.ui.btn_off.setChecked(True)
                 self.ui.btn_on.setChecked(False)
 
+                self.widget.hide()
+
             self.ui.btn_off.clicked.connect(self.toggle_widget)
             self.ui.btn_on.clicked.connect(self.toggle_widget)
 
         elif data_type == "select_dashboard":
             # Dropdown (combobox) setting type for changing profiles
             self.ui.options.show()
+            self.ui.misc.show()
+
+            self.ui.misc.setText("Open Editor")
+
             list_of_options = []
 
             data = self.parent.preferences.get("DASHBOARDS", 2)
@@ -133,6 +157,8 @@ class PreferenceWidget(QWidget):
             self.ui.options.addItems(list_of_options)
             self.ui.options.setCurrentText(str(current_value))
             self.ui.options.currentIndexChanged.connect(self.update_profile_config)
+
+            self.ui.misc.clicked.connect(self.open_profile_editor)
 
         elif data_type == "select_theme":
             self.ui.options.show()
@@ -163,28 +189,61 @@ class PreferenceWidget(QWidget):
             self.file_path = relative_path
 
     def open_folder_action(self):
-        folder_path = self.parent.preferences.get_preference(self.config_name)
-        if folder_path:
-            # Open the folder in the default file explorer
-            try:
-                os.system(f'explorer "{folder_path}"')  # For Windows
-                # For Linux, you can use: os.system(f'xdg-open "{folder_path}"')
-            except Exception as e:
-                raise Exception(f"Error: {e}")
+        try:
+            folder_path = os.path.abspath(
+                self.parent.preferences.get_preference(self.config_name)
+            )
 
-            # Save the relative path to the function or configuration (adjust as per your requirement)
-            relative_path = os.path.relpath(folder_path)
-            self.folder_path = relative_path
+            if folder_path:
+                # Open the folder in the default file explorer
+                if os.name == "nt":  # Windows
+                    subprocess.run(["explorer", folder_path])
+                elif os.name == "posix":  # Linux/Unix
+                    subprocess.run(["xdg-open", folder_path])
+                else:
+                    raise Exception("Unsupported operating system")
+
+                # Save the relative path to the function or configuration (adjust as per your requirement)
+                self.folder_path = os.path.relpath(folder_path)
+        except Exception as e:
+            raise Exception(f"Error: {e}")
+
+    def change_folder_action(self):
+        options = QFileDialog.Options()
+        folder_path = QFileDialog.getExistingDirectory(
+            self, "Select Folder", options=options, directory="./"
+        )
+
+        if folder_path:
+            self.parent.preferences.update_preference(self.config_name, folder_path)
+
+            simplified_path = "/".join(
+                folder_path.split("/")[-2:]
+            )  # Get the last two folders
+
+            if len(simplified_path) > 20:
+                simplified_path = simplified_path[:18] + "..."
+
+            self.ui.folder.setText(simplified_path)
+
+        if self.restart:
+            self.ui.restart.show()
 
     def update_spinbox_config(self):
         # Update the integer value in the configuration
         value = self.ui.spinBox.value()
         self.parent.preferences.update_preference(self.config_name, int(value))
 
+        if self.restart:
+            self.ui.restart.show()
+
     def update_text_config(self):
         # Update the string value in the configuration
         value = self.ui.string.text()
         self.parent.preferences.update_preference(self.config_name, str(value))
+
+        if self.restart:
+            self.ui.restart.show()
 
     def update_toggle_button(self):
         current_value = self.parent.preferences.get_preference(self.config_name)
@@ -199,6 +258,14 @@ class PreferenceWidget(QWidget):
             self.ui.btn_off.setChecked(True)
 
         self.parent.preferences.update_preference(self.config_name, new_value)
+
+        if self.restart:
+            if self.last_value == new_value:
+                self.ui.restart.hide()
+
+            else:
+                self.last_value = not new_value
+                self.ui.restart.show()
 
     def update_profile_config(self):
         # Update the selected profile in the configuration
@@ -231,7 +298,6 @@ class PreferenceWidget(QWidget):
             else:
                 self.widget.hide()
 
-    ##################
     def google_login(self):
         self.parent.cloud_model.login()
 
@@ -326,3 +392,13 @@ class PreferenceWidget(QWidget):
             pixmap = QPixmap("./src/config/cloud/profile.jpg")
             pixmap = pixmap.scaled(65, 65)
             self.ui.profile.setPixmap(pixmap)
+
+    def open_profile_editor(self):
+        exe_path = os.path.abspath("./build/exe.win-amd64-3.11/cosmos.exe")
+        if os.path.exists(exe_path):
+            os.startfile(exe_path)
+
+        else:
+            self.parent.window_controller.show_error_dialog(
+                "Editor Not Installed", "the editor is not installed in the system."
+            )

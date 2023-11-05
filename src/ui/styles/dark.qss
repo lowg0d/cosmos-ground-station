@@ -1,0 +1,359 @@
+  /* 
+      Global Styling 
+  */
+  QMainWindow {
+    background-color: #121214;
+  }
+
+  QWidget {
+    background-color: #121214;
+    color: #d0d0d0;
+    selection-color: #59595b;
+    selection-background-color: #6357a3;
+  }
+
+  /* 
+      ToolTip Styling 
+  */
+  QToolTip {
+    background-color: #414143;
+    font: 500 9pt "Video Med";
+    color: #d0d0d0;
+    border-right: 3px solid #6c5fb4;
+    border-radius: 3px;
+  }
+
+  #label_loadingDots {
+    font: 63 68pt "Video SemBd";
+  }
+
+  /* 
+      SCROLLBAR
+  */
+  QScrollBar {
+    margin: 3px 0px 3px 3px;
+    border: 0;
+    border-radius: 4px;
+    width: 15px;
+  }
+
+  QScrollBar::handle::vertical {
+    border-radius: 3px;
+    background-color: #121214;
+    min-height: 20px;
+  }
+
+  QScrollBar::handle::vertical:hover {
+    border-radius: 3px;
+    background-color: #59595b;
+    min-height: 20px;
+  }
+
+  QScrollBar::sub-line {
+    border: none;
+    height: 0;
+  }
+
+  QScrollBar::sub-line:vertical {
+    border: none;
+    height: 0;
+  }
+
+  QScrollBar::add-line:vertical {
+    border: none;
+    height: 0;
+  }
+
+  QScrollBar::up-arrow:vertical,
+  QScrollBar::down-arrow:vertical {
+    background: none;
+  }
+
+  QScrollBar::add-page:vertical,
+  QScrollBar::sub-page:vertical {
+    background: none;
+  }
+
+  /* 
+      INFO LABELS
+  */
+
+  #label_longVersion {
+    border-radius: 4px;
+    font: 600 9.5pt "Video SemBd";
+    color: #d0d0d0;
+  }
+
+  #frame_preferencesContainer QLabel {
+    font: 63 11pt "Video SemBd";
+  }
+
+  /* 
+    PROGRESS BAR
+  */
+
+  #statusBarFrame QProgressBar {
+    border-style: none;
+    text-align: center;
+
+    font: 600 7.5pt "Video SemBd";
+    border-radius: 2px;
+    color: #d0d0d0;
+    border: 1.2px solid #717172;
+  }
+
+  #statusBarFrame QProgressBar::chunk {
+    border-radius: 2px;
+    background-color: qlineargradient(spread:pad, x1:0.978, y1:0.460273, x2:0, y2:0.562636, stop:0 rgba(108, 95, 180, 255), stop:1 rgba(60, 50, 117, 255));
+  }
+
+  /** 
+      Status Bar
+  **/
+  #statusBarFrame QFrame {
+    margin-top: 1px;
+    font: 600 8pt "Video SemBd";
+    border: 0;
+    color: #d0d0d0;
+  }
+
+  /*
+    /////////////////////
+          SIDEBAR
+    /////////////////////
+  */
+
+  /* 
+      Sidebar Top Buttons 
+  */
+  #frame_mainControls QPushButton,
+  #SideBarMissionsPage QPushButton,
+  #frame_topSideBarButtons QPushButton,
+  #frame_terminalContainer QPushButton,
+  #frame_connectionDropDown QPushButton,
+  #frame_preferencesSideBar QPushButton {
+    font: 500 8pt "Video Med";
+    border-radius: 2px;
+    border: 1px solid #414143;
+    color: #d0d0d0;
+  }
+
+  #frame_mainControls QPushButton:hover,
+  #SideBarMissionsPage QPushButton:hover,
+  #frame_connectionDropDown QComboBox:hover,
+  #frame_topSideBarButtons QPushButton:hover,
+  #frame_terminalContainer QPushButton:hover,
+  #frame_connectionDropDown QPushButton:hover,
+  #frame_preferencesSideBar QPushButton:hover {
+    background-color: #2a2a2c;
+  }
+
+  #frame_mainControls QPushButton:pressed,
+  #SideBarMissionsPage QPushButton:pressed,
+  #frame_topSideBarButtons QPushButton:pressed,
+  #frame_terminalContainer QPushButton:pressed,
+  #frame_connectionDropDown QPushButton:pressed,
+  #frame_preferencesSideBar QPushButton:pressed {
+    background-color: #414143;
+  }
+
+  #frame_mainControls QPushButton:checked,
+  #SideBarMissionsPage QPushButton:checked,
+  #frame_topSideBarButtons QPushButton:checked,
+  #frame_terminalContainer QPushButton:checked,
+  #frame_connectionDropDown QPushButton:checked,
+  #frame_preferencesSideBar QPushButton:checked {
+    border: 1px solid #6357a4;
+    background-color: #1b1a28;
+  }
+
+  #frame_mainControls QPushButton:checked {;
+    border-left: 2px solid #6357a4;
+    border-bottom: 2px solid #6357a4;
+    background-color: #1b1a28;
+  }
+
+  #frame_mainControls QPushButton:disabled,
+  #SideBarMissionsPage QPushButton:disabled,
+  #frame_topSideBarButtons QPushButton:disabled,
+  #frame_terminalContainer QPushButton:disabled,
+  #frame_connectionDropDown QPushButton:disabled,
+  #frame_preferencesSideBar QPushButton:disabled{
+    border: 1px solid #414143;
+    color: #89898a;
+    background-color: #414143;
+  }
+
+  /*  
+    STATE AND COUNTDONW 
+  */
+  #frame_StateAndCountdownContainer QLabel {
+    border-radius: 2px;
+    font: 600 10.5pt "Video SemBd";
+    border: 1px solid #45484e;
+    background-color: #212227;
+    color: #d0d0d0;
+  }
+
+  /*  
+    TLM CONTAINERS FRAMES
+  */
+  #frame_mainTlmLabels QFrame {
+    border-radius: 2px;
+    border: 1px solid #45484e;
+    background-color: #212227;
+    font: 63 9pt "Video Cond SemBd";
+  }
+
+  #frame_secondaryAndButtonContainer QFrame {
+    border-radius: 2px;
+    border: 1px solid #45484e;
+    background-color: #212227;
+    font: 63 9pt "Video Cond SemBd";
+  }
+
+  /*  
+    TLM CONTAINERS LABELS
+  */
+  #frame_mainTlmLabels QLabel {
+    font: 63 9pt "Video Cond SemBd";
+    border: none;
+    background-color: none;
+  }
+
+  #frame_BigTlmLabels QLabel {
+    font: 63 10pt "Video Cond SemBd";
+    border: none;
+    background-color: none;
+  }
+
+  #frame_secondaryAndButtonContainer QLabel {
+    font: 600 9pt "Video SemBd";
+    border: none;
+    background-color: none;
+  }
+
+  #frame_CommandButton QPushButton {
+    color: #d0d0d0;
+  }
+
+  /*  
+    CONNECTION COMBO BOX
+  */
+  #frame_connectionDropDown QComboBox {
+    font: 500 8pt "Video Med";
+    padding-left: 5px;
+    border-radius: 2px;
+    border: 1px solid #414143;
+    color: #414143;
+  }
+
+  #frame_connectionDropDown QComboBox:drop-down {
+    border: 0px;
+  }
+
+  #frame_connectionDropDown QComboBox::down-arrow {
+    image: url(:/icons/icons/down_arrow.png);
+    width: 8px;
+    height: 8px;
+    margin-right: 10px;
+  }
+
+  #frame_connectionDropDown QComboBox QAbstractItem {
+    padding: 4px 8px;
+    border-radius: 4px;
+    selection-background-color: none;
+    border: none;
+  }
+
+  #frame_connectionDropDown QComboBox QAbstractItem::item {
+    padding: 4px 8px;
+    border-radius: 4px;
+  }
+
+  #frame_connectionDropDown QComboBox QAbstractItemView::item:selected {
+    border: none;
+    background-color: #6357a4;
+  }
+
+  #frame_connectionDropDown QListView {
+    border-radius: 4px;
+    border: 1px solid #414143;
+    background-color: #121214;
+    outline: none;
+  }
+
+  /*
+    /////////////////////
+          TERMINAL
+    /////////////////////
+  */
+
+  /* 
+    TERMINAL INPUT  FRAME
+  */
+  #frame_MessageSender,
+  #frame_graphContainer,
+  #frame_terminalContainer {
+    border-radius: 2px;
+    border: 1px solid #45484e;
+    background-color: #212227;
+  }
+
+  /* 
+    TERMINAL INPUT  LINE EDIT
+  */
+  #frame_MessageSender QLineEdit {
+    padding-left: 5px;
+    padding-right: 15px;
+    font: 500 9pt "Video Med";
+    color: #d0d0d0;
+    padding-bottom: 2px;
+    selection-color: #c6c6c7;
+    selection-background-color: #6357a3;
+    background-color: #212227;
+    border: none;
+  }
+
+  #frame_MessageSender QLineEdit:focus {
+    color: #d9d9d9;
+  }
+
+  #frame_MessageSender {
+    border: 1px solid #45484e;
+    background-color: #212227;
+  }
+
+  /* TERMINAL TEXT */
+  #textBrowser_terminal {
+    padding-left: 4px;
+    color: #d0d0d0;
+    text-align: left;
+    font: 500 10pt "Video Med";
+    selection-color: #c6c6c7;
+    selection-background-color: #6357a3;
+    border: none;
+    background-color: #212227;
+  }
+
+  #frame_terminalTextBrowserContainer {
+    border-radius: 2px;
+    border: 1px solid #45484e;
+    background-color: #212227;
+  }
+
+  /* SEPARATOR LINES */
+  #line,
+  #line_1,
+  #line_2,
+  #line_3,
+  #line_4,
+  #line_5,
+  #line_6,
+  #line_7,
+  #line_8,
+  #line_9,
+  #line_10 {
+    border: 0;
+    background-color: #676769;
+  }

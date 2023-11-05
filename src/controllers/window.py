@@ -54,6 +54,10 @@ class WindowController:
         self.toggle_small_mode()
 
     # Toggle pages
+
+    def toggle_join_room_page(self):
+        self.ui.stackedWidget_3.setCurrentIndex(1)
+
     def toggle_preferences_page(self):
         if self.preferences_page_enabled:
             self.preferences_page_enabled = False
@@ -106,7 +110,7 @@ class WindowController:
         self.animation_dropdown_on = QPropertyAnimation(
             self.ui.frame_connectionDropDown, b"maximumHeight"
         )
-        self.animation_dropdown_on.setDuration(155)
+        self.animation_dropdown_on.setDuration(95)
         self.animation_dropdown_on.setStartValue(0)
         self.animation_dropdown_on.setEndValue(70)
         self.animation_dropdown_on.setEasingCurve(QEasingCurve.OutQuad)
@@ -115,7 +119,7 @@ class WindowController:
         self.animation_dropdown_off = QPropertyAnimation(
             self.ui.frame_connectionDropDown, b"maximumHeight"
         )
-        self.animation_dropdown_off.setDuration(155)
+        self.animation_dropdown_off.setDuration(95)
         self.animation_dropdown_off.setStartValue(70)
         self.animation_dropdown_off.setEndValue(0)
         self.animation_dropdown_off.setEasingCurve(QEasingCurve.OutQuad)
@@ -150,9 +154,9 @@ class WindowController:
 
             self.ui.frame_dsahboardGraph.hide()
 
-            self.parent.setMinimumWidth(272)
-            self.parent.setMaximumWidth(272)
-            self.parent.resize(QSize(272, self.parent.height()))
+            self.parent.setMinimumWidth(273)
+            self.parent.setMaximumWidth(273)
+            self.parent.resize(QSize(273, self.parent.height()))
             self.ui.btn_smallModeTogle.setChecked(True)
 
         self.small_mode_toggled = not self.small_mode_toggled
@@ -197,6 +201,13 @@ class WindowController:
             # If 99 is reached, stop the timer
             self.update_progress_bar_timer.stop()
 
+    def setTitle(self, title):
+        if title:
+            self.parent.setWindowTitle(f"{self.parent.name.upper()} - {title}")
+
+        else:
+            self.parent.setWindowTitle(self.parent.name.upper())
+
     # Show Error Dialog
     def show_error_dialog(self, title, error_message):
         self.msg = QMessageBox()
@@ -209,6 +220,17 @@ class WindowController:
 
         self.msg.setDefaultButton(close_btn)
 
+        self.msg.exec_()
+
+    def show_info_dialog(self, title, info_msg):
+        self.msg = QMessageBox()
+        self.msg.setWindowTitle(title)
+        self.msg.setText(info_msg)
+        self.msg.setIcon(QMessageBox.Information)  # Corrected this line
+
+        close_btn = self.msg.addButton("Close", QMessageBox.AcceptRole)
+        self.msg.setWindowIcon(QIcon("./src/ui/resources/app.ico"))
+        self.msg.setDefaultButton(close_btn)
         self.msg.exec_()
 
     def show_confirm_dialog(self, title):

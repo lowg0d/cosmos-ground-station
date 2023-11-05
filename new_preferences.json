@@ -1,0 +1,18 @@
+{
+  "dashboard_sync": false,
+  "theme": "blue",
+  "visualization_dashboard": "TARS",
+  "toggle_state": true,
+  "toggle_countdown": false,
+  "profile_file_open": "./src/config/visualization/dashboards.json",
+  "update_interval": 10,
+  "data_stale_detect_time": 5,
+  "data_filter": true,
+  "recordings_path": "C:/Users/Lowgo/Desktop/Desktop/1. DEV/1. STARLAB/cosmos/cosmos-ground-station/recordings",
+  "signature_header": "@TARS_TLM:",
+  "msg_signature_header": "@TARS_MSG:",
+  "state_value_index": 0,
+  "split_char": ";",
+  "opengl_enabled": false,
+  "graphs_antialias": false
+}

@@ -34,6 +34,7 @@
 #############################################################
 
 from .custom_widgets.missionWidget import MissionForm
+from .custom_widgets.notification import Notification
 from .custom_widgets.preferenceWidget import PreferenceWidget
 from .custom_widgets.titleBar import CustomTitleBar
 from .generated_files.mainWindow import Ui_MainWindow

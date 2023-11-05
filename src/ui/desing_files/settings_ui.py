@@ -17,7 +17,7 @@
 #############################################################
 # -*- coding: utf-8 -*-
 
-# Form implementation generated from reading ui file './src/ui/desing_files\settings.ui'
+# Form implementation generated from reading ui file 'c:\Users\Lowgo\Desktop\Desktop\1. DEV\1. STARLAB\cosmos\cosmos-ground-station\src\ui\desing_files\settings.ui'
 #
 # Created by: PyQt5 UI code generator 5.15.9
 #
@@ -477,4 +477,4 @@ class Ui_SettingsForm(object):
         self.btn_off.setText(_translate("SettingsForm", "OFF"))
         self.minus.setText(_translate("SettingsForm", "-"))
         self.plus.setText(_translate("SettingsForm", "+"))
-from ..generated_files import src_rc
+import src_rc

@@ -1,12 +1,4 @@
 <RCC>
-  <qresource prefix="blue-dark">
-    <file>icons/blue/btn_clearTerminal.png</file>
-    <file>icons/blue/btn_connectionDroDown.png</file>
-    <file>icons/blue/btn_preferencesToggle.png</file>
-    <file>icons/blue/btn_smallModeTogle.png</file>
-    <file>icons/blue/btn_toggleAutoReconnection.png</file>
-    <file>icons/blue/down_arrow.png</file>
-  </qresource>
   <qresource prefix="light">
     <file>icons/light/btn_clearTerminal.png</file>
     <file>icons/light/btn_connectionDroDown.png</file>

@@ -6,6 +6,12 @@
         "description": "LogIn with your google account to upload the recording cloud backup to.",
         "preference_type": "google_login",
         "value": "None"
+      },
+      "dashboard_sync": {
+        "name": "Cloud Sync",
+        "description": "Cloud backup for settings and dashboards",
+        "preference_type": "toggle",
+        "value": false
       }
     },
     "dashboard": {
@@ -19,7 +25,7 @@
         "name": "Visualization Dashboard",
         "description": "Change the current visualization dashboard.",
         "preference_type": "select_dashboard",
-        "value": "TARS"
+        "value": "CANSAT_IMU"
       },
       "toggle_state": {
         "name": "Show State Label",
@@ -47,13 +53,15 @@
         "name": "Update Interval (ms)",
         "description": "Frequency at which the graph and label updates occur.",
         "preference_type": "int",
-        "value": 10
+        "value": 10,
+        "restart": true
       },
       "data_stale_detect_time": {
         "name": "Data Stale Detection Time (sec)",
         "description": "Time without receiving new data before activating data stale mode indicator.",
         "preference_type": "int",
-        "value": 3
+        "value": 5,
+        "restart": true
       },
       "data_filter": {
         "name": "Data Filtration",
@@ -64,8 +72,9 @@
       "recordings_path": {
         "name": "Recording Save Folder",
         "description": "Folder where recordings are saved.",
-        "preference_type": "open_folder",
-        "value": "./recordings"
+        "preference_type": "folder",
+        "value": "C:/Users/Lowgo/Desktop/Desktop/1. DEV/1. STARLAB/cosmos/cosmos-ground-station/recordings",
+        "restart": true
       }
     },
     "packet": {
@@ -73,19 +82,29 @@
         "name": "Packet Signature Header",
         "description": "Header to identify valid data packets. Leave empty to disable.",
         "preference_type": "edit_string",
-        "value": "@TARS_TLM:"
+        "value": "@TARS_TLM:",
+        "restart": true
+      },
+      "msg_signature_header": {
+        "name": "Msg Packet Signature Header",
+        "description": "Header to identify message packets. Leave empty to disable.",
+        "preference_type": "edit_string",
+        "value": "@TARS_MSG:",
+        "restart": true
       },
       "state_value_index": {
         "name": "State Value Index",
         "description": "Position of the state value within the data packet string.",
         "preference_type": "int",
-        "value": 0
+        "value": 0,
+        "restart": true
       },
       "split_char": {
         "name": "Packet Split Character",
         "description": "Character used to separate values. Example: '123;321'.",
         "preference_type": "edit_string",
-        "value": ";"
+        "value": ";",
+        "restart": true
       }
     },
     "advanced": {
@@ -93,21 +112,23 @@
         "name": "OpenGL Rendering",
         "description": "Optimize Graph Rendering via GPU acceleration.",
         "preference_type": "toggle",
-        "value": false
+        "value": false,
+        "restart": true
       },
       "graphs_antialias": {
         "name": "Graph Antialiasing",
         "description": "Enable smooth edges on lines at the cost of reduced performance.",
         "preference_type": "toggle",
-        "value": false
+        "value": false,
+        "restart": true
       }
     }
   },
   "HIDDEN": {
-    "last_port": "COM10",
+    "last_port": "COM8",
     "last_bauds": "115200",
     "auto_reConnect": true,
     "small_mode": false,
-    "cloud_backup": true
+    "cloud_backup": false
   }
 }

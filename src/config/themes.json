@@ -2,14 +2,21 @@
     "THEMES":{
       "blue": {
         "style_file": "blue.qss",
-        "icons_path": "blue",
+        "icons_path": "light",
         "text_color": "#b3b8c2",
         "background_color": "#111217",
         "background_color2": "45484e"
       },
+      "dark": {
+        "style_file": "dark.qss",
+        "icons_path": "light",
+        "text_color": "#d0d0d0",
+        "background_color": "#121214",
+        "background_color2": "45484e"
+      },
       "light": {
         "style_file": "light.qss",
-        "icons_path": "light",
+        "icons_path": "dark",
         "text_color": "#2f3640",
         "background_color": "#f6f5f2",
         "background_color2": "e8e6e0"

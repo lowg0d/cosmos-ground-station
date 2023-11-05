@@ -21,6 +21,8 @@ Also it provides functions to access the preferences inside the custom preferenc
 """
 
 import json
+import os
+import tempfile
 
 
 class PreferenceModel:
@@ -38,7 +40,7 @@ class PreferenceModel:
         with open(path, encoding="utf-8") as f:
             return json.load(f)
 
-    def get(self, data_key, path_index=0):
+    def get(self, data_key, path_index=0, not_exit=False):
         # check if the path index exits
         if path_index >= len(self.paths):
             exit(f"[{path_index}] is not a valid path index")
@@ -52,7 +54,10 @@ class PreferenceModel:
         for key in keys:
             # if key does not exist
             if key not in path_data:
-                exit(f"[{data_key} ({key})] is not valid key")
+                if not not_exit:
+                    exit(f"[{data_key} ({key})] is not valid key")
+
+                return "NotFound"
 
             path_data = path_data[key]
 
@@ -133,3 +138,24 @@ class PreferenceModel:
 
         except Exception as e:
             exit(f"[Unknown Error] {e}")
+
+    def save_preferences_to_temp(self):
+        preferences = self.get("PREFERENCES", 1)
+        new_preferences = {}
+
+        for c, category_data in preferences.items():
+            for preference_key, preference_value in category_data.items():
+                if preference_key == "link_google_account":
+                    continue
+
+                preference_name = preference_key
+                preference_value = preference_value["value"]
+                new_preferences[preference_name] = preference_value
+
+        temp_dir = tempfile.gettempdir()
+        temp_file_path = os.path.join(temp_dir, "preferences_upload.json")
+
+        with open(temp_file_path, "w") as json_file:
+            json.dump(new_preferences, json_file)
+
+        return temp_file_path

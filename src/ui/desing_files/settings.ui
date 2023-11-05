@@ -6,7 +6,7 @@
    <rect>
     <x>0</x>
     <y>0</y>
-    <width>1205</width>
+    <width>1225</width>
     <height>70</height>
    </rect>
   </property>
@@ -210,25 +210,59 @@ background-color: rgba(0, 0, 0, 0.2);</string>
              <number>0</number>
             </property>
             <item>
-             <widget class="QLabel" name="label_config_name">
-              <property name="styleSheet">
-               <string notr="true">QLabel{
+             <widget class="QFrame" name="frame_2">
+              <property name="frameShape">
+               <enum>QFrame::NoFrame</enum>
+              </property>
+              <property name="frameShadow">
+               <enum>QFrame::Raised</enum>
+              </property>
+              <layout class="QHBoxLayout" name="horizontalLayout_6">
+               <property name="leftMargin">
+                <number>0</number>
+               </property>
+               <property name="topMargin">
+                <number>0</number>
+               </property>
+               <property name="rightMargin">
+                <number>0</number>
+               </property>
+               <property name="bottomMargin">
+                <number>0</number>
+               </property>
+               <item>
+                <widget class="QLabel" name="label_config_name">
+                 <property name="styleSheet">
+                  <string notr="true">QLabel{
 	font: 600 15pt &quot;Video SemBd&quot;;
 	color: rgba(255, 255, 255, 0.6);
 	border:0;
 	background: rgba(0,0,0,0);
 }</string>
-              </property>
-              <property name="text">
-               <string>NAME</string>
-              </property>
+                 </property>
+                 <property name="text">
+                  <string>NAME</string>
+                 </property>
+                </widget>
+               </item>
+               <item>
+                <widget class="QLabel" name="restart">
+                 <property name="styleSheet">
+                  <string notr="true">color: rgb(170, 0, 0);</string>
+                 </property>
+                 <property name="text">
+                  <string>NEED RESTART TO APLY !!</string>
+                 </property>
+                </widget>
+               </item>
+              </layout>
              </widget>
             </item>
             <item>
              <widget class="QLabel" name="description_label">
               <property name="minimumSize">
                <size>
-                <width>400</width>
+                <width>200</width>
                 <height>0</height>
                </size>
               </property>
@@ -299,6 +333,47 @@ background-color: rgba(0, 0, 0, 0.2);</string>
             </size>
            </property>
           </spacer>
+         </item>
+         <item>
+          <widget class="QPushButton" name="folder">
+           <property name="minimumSize">
+            <size>
+             <width>190</width>
+             <height>33</height>
+            </size>
+           </property>
+           <property name="maximumSize">
+            <size>
+             <width>190</width>
+             <height>33</height>
+            </size>
+           </property>
+           <property name="cursor">
+            <cursorShape>PointingHandCursor</cursorShape>
+           </property>
+           <property name="styleSheet">
+            <string notr="true">QPushButton {
+    font: 500 10.5pt &quot;Video Med&quot;;
+    padding-left: 8px;
+    border-radius: 4px;
+    color: rgba(255, 255, 255, 0.45);
+    border: 1px solid rgba(0, 0, 0, 0.4);
+    background-color: rgba(0, 0, 0, 0.2);
+    text-align: left;
+}
+
+QPushButton:hover {
+    background-color: rgba(0, 0, 0, 0.4);
+}
+
+QPushButton:pressed {
+    background-color: rgba(0, 0, 0, 0.5);
+}</string>
+           </property>
+           <property name="text">
+            <string>FOLDER</string>
+           </property>
+          </widget>
          </item>
          <item>
           <widget class="QLineEdit" name="string">
@@ -375,9 +450,10 @@ QComboBox:drop-down {
 }
 
 QComboBox::down-arrow {
-	image: url(:/icons/icons/down_arrow.png);
-	width: 8px;
-	height: 8px;
+	
+	image: url(:/light/icons/light/down_arrow.png);
+	width: 10px;
+	height: 10px;
 	margin-right: 10px;
 }
 

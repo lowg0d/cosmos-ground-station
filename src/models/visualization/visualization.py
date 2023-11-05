@@ -63,7 +63,7 @@ class VisualizationModel(QObject):
         self.ui.label_state.setStyleSheet(
             f"""
                 background-color: #4D{color};
-                border: 1px solid #{color};
+                border: 1.5px solid #{color};
                 color: {self.text_color};"""
         )
 
@@ -85,7 +85,7 @@ class VisualizationModel(QObject):
         )
 
         main_layout = pg.GraphicsLayoutWidget()
-        main_layout.setAntialiasing(True)
+        main_layout.setAntialiasing(False)
         main_layout.setRenderHints(QPainter.Antialiasing)
 
         self.graph_layout = main_layout.addLayout(

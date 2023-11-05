@@ -347,6 +347,17 @@ QScrollBar::sub-page:vertical {
   background-color: qlineargradient(spread:pad, x1:0.978, y1:0.460273, x2:0, y2:0.562636, stop:0 rgba(108, 95, 180, 255), stop:1 rgba(60, 50, 117, 255));
 }
 
+#frame_preferencesSideBar QLineEdit {
+  font: 500 8pt "Video Med";
+  border-radius: 4px;
+  border: 1px solid #2b2d30;
+  color: #808183;
+  padding-bottom: 2px;
+  padding-left: 4px;
+  selection-color: #ffffff;
+  selection-background-color: #6357a3;
+}
+
 /* SEPARATOR LINES */
 #line,
 #line_1,
@@ -358,7 +369,8 @@ QScrollBar::sub-page:vertical {
 #line_7,
 #line_8,
 #line_9,
-#line_10 {
+#line_10,
+#line_11  {
   border: 0;
   background-color: #45484e;
 }

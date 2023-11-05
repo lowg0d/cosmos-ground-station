@@ -9,13 +9,13 @@
    <rect>
     <x>0</x>
     <y>0</y>
-    <width>1227</width>
-    <height>613</height>
+    <width>1082</width>
+    <height>598</height>
    </rect>
   </property>
   <property name="minimumSize">
    <size>
-    <width>750</width>
+    <width>950</width>
     <height>550</height>
    </size>
   </property>
@@ -26,366 +26,7 @@
    <bool>false</bool>
   </property>
   <property name="styleSheet">
-   <string notr="true">  /* 
-      Global Styling 
-  */
-  QMainWindow {
-    background-color: #f6f5f2;
-  }
-
-  QWidget {
-    background-color: #f6f5f2;
-    color: #2f3640;
-    selection-color: #ffffff;
-    selection-background-color: #6357a3;
-  }
-
-  /* 
-      ToolTip Styling 
-  */
-  QToolTip {
-    background-color: #ffffff;
-    font: 500 9pt &quot;Video Med&quot;;
-    color: #2f3640;
-    border-right: 3px solid #6c5fb4;
-    border-radius: 3px;
-  }
-
-  #label_loadingDots {
-    font: 63 68pt &quot;Video SemBd&quot;;
-  }
-
-  /* 
-      SCROLLBAR
-  */
-  QScrollBar {
-    margin: 3px 0px 3px 3px;
-    border: 0;
-    border-radius: 4px;
-    width: 15px;
-  }
-
-  QScrollBar::handle::vertical {
-    border-radius: 3px;
-    background-color: #e8e6e0;
-    min-height: 20px;
-  }
-
-  QScrollBar::handle::vertical:hover {
-    border-radius: 3px;
-    background-color: #616161;
-    min-height: 20px;
-  }
-
-  QScrollBar::sub-line {
-    border: none;
-    height: 0;
-  }
-
-  QScrollBar::sub-line:vertical {
-    border: none;
-    height: 0;
-  }
-
-  QScrollBar::add-line:vertical {
-    border: none;
-    height: 0;
-  }
-
-  QScrollBar::up-arrow:vertical,
-  QScrollBar::down-arrow:vertical {
-    background: none;
-  }
-
-  QScrollBar::add-page:vertical,
-  QScrollBar::sub-page:vertical {
-    background: none;
-  }
-
-  /* 
-      INFO LABELS
-  */
-
-  #label_longVersion {
-    border-radius: 4px;
-    font: 600 9.5pt &quot;Video SemBd&quot;;
-    color: #2f3640;
-  }
-
-  #frame_preferencesContainer QLabel {
-    font: 63 11pt &quot;Video SemBd&quot;;
-  }
-
-  /* 
-    PROGRESS BAR
-  */
-
-  #statusBarFrame QProgressBar {
-    border-style: none;
-    text-align: center;
-
-    font: 600 7.5pt &quot;Video SemBd&quot;;
-    border-radius: 2px;
-    color: #525252;
-    border: 1.2px solid #aaabac;
-  }
-
-  #statusBarFrame QProgressBar::chunk {
-    border-radius: 2px;
-    background-color: qlineargradient(spread:pad, x1:0.978, y1:0.460273, x2:0, y2:0.562636, stop:0 rgba(108, 95, 180, 255), stop:1 rgba(60, 50, 117, 255));
-  }
-
-  /** 
-      Status Bar
-  **/
-  #statusBarFrame QFrame {
-    margin-top: 1px;
-    font: 600 8pt &quot;Video SemBd&quot;;
-    border: 0;
-    color: #928f86;
-  }
-
-  /*
-    /////////////////////
-          SIDEBAR
-    /////////////////////
-  */
-
-  /* 
-      Sidebar Top Buttons 
-  */
-  #frame_mainControls QPushButton,
-  #SideBarMissionsPage QPushButton,
-  #frame_topSideBarButtons QPushButton,
-  #frame_terminalContainer QPushButton,
-  #frame_connectionDropDown QPushButton,
-  #frame_preferencesSideBar QPushButton {
-    font: 500 8pt &quot;Video Med&quot;;
-    border-radius: 2px;
-    border: 1px solid #aaabac;
-    color: #525252;
-  }
-
-  #frame_mainControls QPushButton:hover,
-  #SideBarMissionsPage QPushButton:hover,
-  #frame_topSideBarButtons QPushButton:hover,
-  #frame_terminalContainer QPushButton:hover,
-  #frame_connectionDropDown QPushButton:hover,
-  #frame_preferencesSideBar QPushButton:hover {
-    background-color: #c6c7cb;
-  }
-
-  #frame_mainControls QPushButton:pressed,
-  #SideBarMissionsPage QPushButton:pressed,
-  #frame_topSideBarButtons QPushButton:pressed,
-  #frame_terminalContainer QPushButton:pressed,
-  #frame_connectionDropDown QPushButton:pressed,
-  #frame_preferencesSideBar QPushButton:pressed {
-    background-color: #b0b1b4;
-  }
-
-  #frame_mainControls QPushButton:checked,
-  #SideBarMissionsPage QPushButton:checked,
-  #frame_topSideBarButtons QPushButton:checked,
-  #frame_terminalContainer QPushButton:checked,
-  #frame_connectionDropDown QPushButton:checked,
-  #frame_preferencesSideBar QPushButton:checked {
-    color: #ffffff;
-    border: 1px solid #6357a4;
-    background-color: #9289bf;
-  }
-
-  #frame_mainControls QPushButton:checked {;
-    border-left: 2px solid #6357a4;
-    border-bottom: 2px solid #6357a4;
-    background-color: #c6c7cb;
-  }
-
-  #frame_mainControls QPushButton:disabled,
-  #SideBarMissionsPage QPushButton:disabled,
-  #frame_topSideBarButtons QPushButton:disabled,
-  #frame_terminalContainer QPushButton:disabled,
-  #frame_connectionDropDown QPushButton:disabled,
-  #frame_preferencesSideBar QPushButton:disabled{
-    border: 1px solid #e3e3e3;
-    color: #949594;
-    background-color: #e3e3e3;
-  }
-
-  /*  
-    STATE AND COUNTDONW 
-  */
-  #frame_StateAndCountdownContainer QLabel {
-    border-radius: 2px;
-    font: 600 10.5pt &quot;Video SemBd&quot;;
-    border: 1px solid #bcb8ad;
-    background-color: #e8e6e0;
-    color: #525252;
-  }
-
-  /*  
-    TLM CONTAINERS FRAMES
-  */
-  #frame_mainTlmLabels QFrame {
-    border-radius: 2px;
-    border: 1px solid #bcb8ad;
-    background-color: #e8e6e0;
-    font: 63 9pt &quot;Video Cond SemBd&quot;;
-  }
-
-  #frame_secondaryAndButtonContainer QFrame {
-    border-radius: 2px;
-    border: 1px solid #bcb8ad;
-    background-color: #e8e6e0;
-    font: 63 9pt &quot;Video Cond SemBd&quot;;
-  }
-
-  /*  
-    TLM CONTAINERS LABELS
-  */
-  #frame_mainTlmLabels QLabel {
-    font: 63 9pt &quot;Video Cond SemBd&quot;;
-    border: none;
-    background-color: none;
-  }
-
-  #frame_BigTlmLabels QLabel {
-    font: 63 10pt &quot;Video Cond SemBd&quot;;
-    border: none;
-    background-color: none;
-  }
-
-  #frame_secondaryAndButtonContainer QLabel {
-    font: 600 9pt &quot;Video SemBd&quot;;
-    border: none;
-    background-color: none;
-  }
-
-  /*  
-    CONNECTION COMBO BOX
-  */
-  #frame_connectionDropDown QComboBox {
-    font: 500 8pt &quot;Video Med&quot;;
-    padding-left: 5px;
-    border-radius: 2px;
-    border: 1px solid #aaabac;
-    color: #444a53;
-  }
-
-  #frame_connectionDropDown QComboBox:hover {
-    background-color: #c6c7cb;
-  }
-
-  #frame_connectionDropDown QComboBox:drop-down {
-    border: 0px;
-  }
-
-  #frame_connectionDropDown QComboBox::down-arrow {
-	image: url(:/light/icons/light/down_arrow.png);
-    width: 8px;
-    height: 8px;
-    margin-right: 10px;
-  }
-
-  #frame_connectionDropDown QComboBox QAbstractItem {
-    padding: 4px 8px;
-    border-radius: 4px;
-    selection-background-color: none;
-    border: none;
-  }
-
-  #frame_connectionDropDown QComboBox QAbstractItem::item {
-    padding: 4px 8px;
-    border-radius: 4px;
-  }
-
-  #frame_connectionDropDown QComboBox QAbstractItemView::item:selected {
-    border: none;
-    background-color: #6357a4;
-  }
-
-  #frame_connectionDropDown QListView {
-    border-radius: 4px;
-    border: 1px solid #aaabac;
-    background-color: #dcdde1;
-    outline: none;
-  }
-
-  /*
-    /////////////////////
-          TERMINAL
-    /////////////////////
-  */
-
-  /* 
-    TERMINAL INPUT  FRAME
-  */
-  #frame_MessageSender,
-  #frame_graphContainer,
-  #frame_terminalContainer {
-    border-radius: 4px;
-    border: 1px solid #bcb8ad;
-    background-color: #e8e6e0;
-  }
-
-  /* 
-    TERMINAL INPUT  LINE EDIT
-  */
-  #frame_MessageSender QLineEdit {
-    padding-left: 5px;
-    padding-right: 15px;
-    font: 500 9pt &quot;Video Med&quot;;
-    color: #808183;
-    padding-bottom: 2px;
-    selection-color: #dcdde1;
-    selection-background-color: #6357a3;
-    background-color: #00000000;
-    border: none;
-  }
-
-  #frame_MessageSender QLineEdit:focus {
-    color: #616161;
-  }
-
-  #frame_MessageSender {
-    border: 1px solid #bcb8ad;
-    background-color: #e8e6e0;
-  }
-
-  /* TERMINAL TEXT */
-  #textBrowser_terminal {
-    padding-left: 4px;
-    color: #616161;
-    text-align: left;
-    font: 500 10pt &quot;Video Med&quot;;
-    selection-color: #dcdde1;
-    selection-background-color: #6357a3;
-    border: none;
-    background-color: #00000000;
-  }
-
-  #frame_terminalTextBrowserContainer {
-    border-radius: 2px;
-    border: 1px solid #e8e6e0;
-    background-color: #e8e6e0;
-  }
-
-  /* SEPARATOR LINES */
-  #line,
-  #line_1,
-  #line_2,
-  #line_3,
-  #line_4,
-  #line_5,
-  #line_6,
-  #line_7,
-  #line_8,
-  #line_9,
-  #line_10 {
-    border: 0;
-    background-color: #aaabac;
-  }
-</string>
+   <string notr="true"/>
   </property>
   <widget class="QWidget" name="centralwidget">
    <layout class="QVBoxLayout" name="verticalLayout">
@@ -459,7 +100,7 @@
           <number>0</number>
          </property>
          <property name="currentIndex">
-          <number>1</number>
+          <number>0</number>
          </property>
          <widget class="QWidget" name="page_preferences">
           <layout class="QHBoxLayout" name="horizontalLayout_8">
@@ -482,15 +123,18 @@
             <widget class="QFrame" name="frame_preferencesSideBar">
              <property name="minimumSize">
               <size>
-               <width>250</width>
+               <width>258</width>
                <height>0</height>
               </size>
              </property>
              <property name="maximumSize">
               <size>
-               <width>250</width>
+               <width>258</width>
                <height>16777215</height>
               </size>
+             </property>
+             <property name="styleSheet">
+              <string notr="true"/>
              </property>
              <property name="frameShape">
               <enum>QFrame::NoFrame</enum>
@@ -503,160 +147,353 @@
                <number>4</number>
               </property>
               <property name="leftMargin">
-               <number>0</number>
+               <number>1</number>
               </property>
               <property name="topMargin">
-               <number>0</number>
+               <number>1</number>
               </property>
               <property name="rightMargin">
-               <number>0</number>
+               <number>1</number>
               </property>
               <property name="bottomMargin">
                <number>4</number>
               </property>
               <item>
-               <widget class="QPushButton" name="btn_goBackHome">
-                <property name="minimumSize">
-                 <size>
-                  <width>0</width>
-                  <height>32</height>
-                 </size>
+               <widget class="QStackedWidget" name="stackedWidget_3">
+                <property name="currentIndex">
+                 <number>0</number>
                 </property>
-                <property name="maximumSize">
-                 <size>
-                  <width>16777215</width>
-                  <height>32</height>
-                 </size>
-                </property>
-                <property name="cursor">
-                 <cursorShape>PointingHandCursor</cursorShape>
-                </property>
-                <property name="text">
-                 <string>GO BACK</string>
-                </property>
-               </widget>
-              </item>
-              <item>
-               <widget class="Line" name="line_8">
-                <property name="minimumSize">
-                 <size>
-                  <width>0</width>
-                  <height>1</height>
-                 </size>
-                </property>
-                <property name="maximumSize">
-                 <size>
-                  <width>16777215</width>
-                  <height>1</height>
-                 </size>
-                </property>
-                <property name="orientation">
-                 <enum>Qt::Horizontal</enum>
-                </property>
-               </widget>
-              </item>
-              <item>
-               <spacer name="verticalSpacer_4">
-                <property name="orientation">
-                 <enum>Qt::Vertical</enum>
-                </property>
-                <property name="sizeHint" stdset="0">
-                 <size>
-                  <width>20</width>
-                  <height>438</height>
-                 </size>
-                </property>
-               </spacer>
-              </item>
-              <item>
-               <widget class="Line" name="line_6">
-                <property name="minimumSize">
-                 <size>
-                  <width>0</width>
-                  <height>1</height>
-                 </size>
-                </property>
-                <property name="maximumSize">
-                 <size>
-                  <width>16777215</width>
-                  <height>1</height>
-                 </size>
-                </property>
-                <property name="orientation">
-                 <enum>Qt::Horizontal</enum>
-                </property>
-               </widget>
-              </item>
-              <item>
-               <widget class="QPushButton" name="btn_reloadWIndow">
-                <property name="minimumSize">
-                 <size>
-                  <width>0</width>
-                  <height>32</height>
-                 </size>
-                </property>
-                <property name="maximumSize">
-                 <size>
-                  <width>16777215</width>
-                  <height>32</height>
-                 </size>
-                </property>
-                <property name="cursor">
-                 <cursorShape>PointingHandCursor</cursorShape>
-                </property>
-                <property name="text">
-                 <string>RELOAD WINDOW</string>
-                </property>
-               </widget>
-              </item>
-              <item>
-               <widget class="QPushButton" name="btn_launchRoomPanel">
-                <property name="enabled">
-                 <bool>false</bool>
-                </property>
-                <property name="minimumSize">
-                 <size>
-                  <width>0</width>
-                  <height>32</height>
-                 </size>
-                </property>
-                <property name="maximumSize">
-                 <size>
-                  <width>16777215</width>
-                  <height>32</height>
-                 </size>
-                </property>
-                <property name="cursor">
-                 <cursorShape>PointingHandCursor</cursorShape>
-                </property>
-                <property name="text">
-                 <string>JOIN OR CREATE A SHARED ROOM</string>
-                </property>
-               </widget>
-              </item>
-              <item>
-               <widget class="QPushButton" name="btn_openDashboardEditor">
-                <property name="enabled">
-                 <bool>false</bool>
-                </property>
-                <property name="minimumSize">
-                 <size>
-                  <width>0</width>
-                  <height>32</height>
-                 </size>
-                </property>
-                <property name="maximumSize">
-                 <size>
-                  <width>16777215</width>
-                  <height>32</height>
-                 </size>
-                </property>
-                <property name="cursor">
-                 <cursorShape>PointingHandCursor</cursorShape>
-                </property>
-                <property name="text">
-                 <string>OPEN DASHBOARD EDITOR</string>
-                </property>
+                <widget class="QWidget" name="page_5">
+                 <layout class="QVBoxLayout" name="verticalLayout_23">
+                  <property name="spacing">
+                   <number>4</number>
+                  </property>
+                  <property name="leftMargin">
+                   <number>0</number>
+                  </property>
+                  <property name="topMargin">
+                   <number>0</number>
+                  </property>
+                  <property name="rightMargin">
+                   <number>0</number>
+                  </property>
+                  <property name="bottomMargin">
+                   <number>0</number>
+                  </property>
+                  <item>
+                   <widget class="QFrame" name="frame_4">
+                    <property name="frameShape">
+                     <enum>QFrame::StyledPanel</enum>
+                    </property>
+                    <property name="frameShadow">
+                     <enum>QFrame::Raised</enum>
+                    </property>
+                    <layout class="QHBoxLayout" name="horizontalLayout_11">
+                     <property name="spacing">
+                      <number>4</number>
+                     </property>
+                     <property name="leftMargin">
+                      <number>0</number>
+                     </property>
+                     <property name="topMargin">
+                      <number>0</number>
+                     </property>
+                     <property name="rightMargin">
+                      <number>0</number>
+                     </property>
+                     <property name="bottomMargin">
+                      <number>0</number>
+                     </property>
+                     <item>
+                      <widget class="QPushButton" name="btn_goBackHome">
+                       <property name="minimumSize">
+                        <size>
+                         <width>0</width>
+                         <height>32</height>
+                        </size>
+                       </property>
+                       <property name="maximumSize">
+                        <size>
+                         <width>258</width>
+                         <height>32</height>
+                        </size>
+                       </property>
+                       <property name="cursor">
+                        <cursorShape>PointingHandCursor</cursorShape>
+                       </property>
+                       <property name="text">
+                        <string>GO BACK</string>
+                       </property>
+                      </widget>
+                     </item>
+                     <item>
+                      <widget class="QPushButton" name="btn_reloadWIndow">
+                       <property name="minimumSize">
+                        <size>
+                         <width>0</width>
+                         <height>32</height>
+                        </size>
+                       </property>
+                       <property name="maximumSize">
+                        <size>
+                         <width>16777215</width>
+                         <height>32</height>
+                        </size>
+                       </property>
+                       <property name="cursor">
+                        <cursorShape>PointingHandCursor</cursorShape>
+                       </property>
+                       <property name="text">
+                        <string>RELOAD WINDOW</string>
+                       </property>
+                      </widget>
+                     </item>
+                    </layout>
+                   </widget>
+                  </item>
+                  <item>
+                   <widget class="Line" name="line_8">
+                    <property name="minimumSize">
+                     <size>
+                      <width>0</width>
+                      <height>1</height>
+                     </size>
+                    </property>
+                    <property name="maximumSize">
+                     <size>
+                      <width>16777215</width>
+                      <height>1</height>
+                     </size>
+                    </property>
+                    <property name="orientation">
+                     <enum>Qt::Horizontal</enum>
+                    </property>
+                   </widget>
+                  </item>
+                  <item>
+                   <spacer name="verticalSpacer_4">
+                    <property name="orientation">
+                     <enum>Qt::Vertical</enum>
+                    </property>
+                    <property name="sizeHint" stdset="0">
+                     <size>
+                      <width>20</width>
+                      <height>438</height>
+                     </size>
+                    </property>
+                   </spacer>
+                  </item>
+                  <item>
+                   <widget class="Line" name="line_10">
+                    <property name="minimumSize">
+                     <size>
+                      <width>0</width>
+                      <height>1</height>
+                     </size>
+                    </property>
+                    <property name="maximumSize">
+                     <size>
+                      <width>16777215</width>
+                      <height>1</height>
+                     </size>
+                    </property>
+                    <property name="orientation">
+                     <enum>Qt::Horizontal</enum>
+                    </property>
+                   </widget>
+                  </item>
+                  <item>
+                   <widget class="QFrame" name="joinRoomFrame">
+                    <property name="frameShape">
+                     <enum>QFrame::StyledPanel</enum>
+                    </property>
+                    <property name="frameShadow">
+                     <enum>QFrame::Raised</enum>
+                    </property>
+                    <layout class="QHBoxLayout" name="horizontalLayout_12">
+                     <property name="spacing">
+                      <number>4</number>
+                     </property>
+                     <property name="leftMargin">
+                      <number>1</number>
+                     </property>
+                     <property name="topMargin">
+                      <number>1</number>
+                     </property>
+                     <property name="rightMargin">
+                      <number>1</number>
+                     </property>
+                     <property name="bottomMargin">
+                      <number>1</number>
+                     </property>
+                     <item>
+                      <widget class="QLineEdit" name="lineEdit_roomCode">
+                       <property name="minimumSize">
+                        <size>
+                         <width>0</width>
+                         <height>32</height>
+                        </size>
+                       </property>
+                       <property name="maximumSize">
+                        <size>
+                         <width>16777215</width>
+                         <height>32</height>
+                        </size>
+                       </property>
+                       <property name="placeholderText">
+                        <string>Insert Room Code</string>
+                       </property>
+                      </widget>
+                     </item>
+                     <item>
+                      <widget class="QPushButton" name="btn_OpenCloseRoom">
+                       <property name="minimumSize">
+                        <size>
+                         <width>50</width>
+                         <height>32</height>
+                        </size>
+                       </property>
+                       <property name="maximumSize">
+                        <size>
+                         <width>50</width>
+                         <height>32</height>
+                        </size>
+                       </property>
+                       <property name="cursor">
+                        <cursorShape>PointingHandCursor</cursorShape>
+                       </property>
+                       <property name="text">
+                        <string>OPEN</string>
+                       </property>
+                      </widget>
+                     </item>
+                     <item>
+                      <widget class="QPushButton" name="btn_roomjoin">
+                       <property name="minimumSize">
+                        <size>
+                         <width>50</width>
+                         <height>32</height>
+                        </size>
+                       </property>
+                       <property name="maximumSize">
+                        <size>
+                         <width>50</width>
+                         <height>32</height>
+                        </size>
+                       </property>
+                       <property name="cursor">
+                        <cursorShape>PointingHandCursor</cursorShape>
+                       </property>
+                       <property name="text">
+                        <string>JOIN</string>
+                       </property>
+                      </widget>
+                     </item>
+                    </layout>
+                   </widget>
+                  </item>
+                  <item>
+                   <widget class="Line" name="line_6">
+                    <property name="minimumSize">
+                     <size>
+                      <width>0</width>
+                      <height>1</height>
+                     </size>
+                    </property>
+                    <property name="maximumSize">
+                     <size>
+                      <width>16777215</width>
+                      <height>1</height>
+                     </size>
+                    </property>
+                    <property name="frameShadow">
+                     <enum>QFrame::Sunken</enum>
+                    </property>
+                    <property name="orientation">
+                     <enum>Qt::Horizontal</enum>
+                    </property>
+                   </widget>
+                  </item>
+                  <item>
+                   <widget class="QFrame" name="frame_2">
+                    <property name="frameShape">
+                     <enum>QFrame::StyledPanel</enum>
+                    </property>
+                    <property name="frameShadow">
+                     <enum>QFrame::Raised</enum>
+                    </property>
+                    <layout class="QHBoxLayout" name="horizontalLayout_9">
+                     <property name="spacing">
+                      <number>4</number>
+                     </property>
+                     <property name="leftMargin">
+                      <number>0</number>
+                     </property>
+                     <property name="topMargin">
+                      <number>0</number>
+                     </property>
+                     <property name="rightMargin">
+                      <number>0</number>
+                     </property>
+                     <property name="bottomMargin">
+                      <number>0</number>
+                     </property>
+                     <item>
+                      <widget class="QPushButton" name="btn_createRoom">
+                       <property name="enabled">
+                        <bool>true</bool>
+                       </property>
+                       <property name="minimumSize">
+                        <size>
+                         <width>0</width>
+                         <height>32</height>
+                        </size>
+                       </property>
+                       <property name="maximumSize">
+                        <size>
+                         <width>16777215</width>
+                         <height>32</height>
+                        </size>
+                       </property>
+                       <property name="cursor">
+                        <cursorShape>PointingHandCursor</cursorShape>
+                       </property>
+                       <property name="text">
+                        <string>CREATE ROOM</string>
+                       </property>
+                      </widget>
+                     </item>
+                     <item>
+                      <widget class="QPushButton" name="btn_joinRoom">
+                       <property name="enabled">
+                        <bool>true</bool>
+                       </property>
+                       <property name="minimumSize">
+                        <size>
+                         <width>0</width>
+                         <height>32</height>
+                        </size>
+                       </property>
+                       <property name="maximumSize">
+                        <size>
+                         <width>16777215</width>
+                         <height>32</height>
+                        </size>
+                       </property>
+                       <property name="cursor">
+                        <cursorShape>PointingHandCursor</cursorShape>
+                       </property>
+                       <property name="text">
+                        <string>JOIN ROOM</string>
+                       </property>
+                      </widget>
+                     </item>
+                    </layout>
+                   </widget>
+                  </item>
+                 </layout>
+                </widget>
+                <widget class="QWidget" name="page_6"/>
                </widget>
               </item>
              </layout>
@@ -675,10 +512,10 @@
                <number>4</number>
               </property>
               <property name="leftMargin">
-               <number>65</number>
+               <number>4</number>
               </property>
               <property name="topMargin">
-               <number>0</number>
+               <number>3</number>
               </property>
               <property name="rightMargin">
                <number>85</number>
@@ -752,8 +589,8 @@
                   <rect>
                    <x>0</x>
                    <y>0</y>
-                   <width>807</width>
-                   <height>517</height>
+                   <width>715</width>
+                   <height>494</height>
                   </rect>
                  </property>
                  <layout class="QVBoxLayout" name="verticalLayout_21">
@@ -837,16 +674,16 @@
             <number>4</number>
            </property>
            <property name="leftMargin">
-            <number>0</number>
+            <number>1</number>
            </property>
            <property name="topMargin">
-            <number>0</number>
+            <number>1</number>
            </property>
            <property name="rightMargin">
-            <number>0</number>
+            <number>1</number>
            </property>
            <property name="bottomMargin">
-            <number>0</number>
+            <number>1</number>
            </property>
            <item>
             <widget class="QStackedWidget" name="StackedWidget_mainSidebar">
@@ -1142,13 +979,13 @@
                       <widget class="QLabel" name="label_state">
                        <property name="minimumSize">
                         <size>
-                         <width>0</width>
+                         <width>256</width>
                          <height>39</height>
                         </size>
                        </property>
                        <property name="maximumSize">
                         <size>
-                         <width>16777215</width>
+                         <width>256</width>
                          <height>39</height>
                         </size>
                        </property>
@@ -1164,13 +1001,13 @@
                       <widget class="QLabel" name="label_countdown">
                        <property name="minimumSize">
                         <size>
-                         <width>0</width>
+                         <width>256</width>
                          <height>27</height>
                         </size>
                        </property>
                        <property name="maximumSize">
                         <size>
-                         <width>16777215</width>
+                         <width>256</width>
                          <height>27</height>
                         </size>
                        </property>
@@ -1233,6 +1070,18 @@
                      </property>
                      <item>
                       <widget class="QFrame" name="frame_BigTlmLabels">
+                       <property name="minimumSize">
+                        <size>
+                         <width>240</width>
+                         <height>0</height>
+                        </size>
+                       </property>
+                       <property name="maximumSize">
+                        <size>
+                         <width>256</width>
+                         <height>16777215</height>
+                        </size>
+                       </property>
                        <property name="frameShape">
                         <enum>QFrame::NoFrame</enum>
                        </property>
@@ -1267,6 +1116,18 @@
                      </item>
                      <item>
                       <widget class="QFrame" name="frame_PrimaryTlmLabels">
+                       <property name="minimumSize">
+                        <size>
+                         <width>240</width>
+                         <height>0</height>
+                        </size>
+                       </property>
+                       <property name="maximumSize">
+                        <size>
+                         <width>256</width>
+                         <height>16777215</height>
+                        </size>
+                       </property>
                        <property name="frameShape">
                         <enum>QFrame::NoFrame</enum>
                        </property>
@@ -1341,7 +1202,7 @@
                        <x>0</x>
                        <y>0</y>
                        <width>256</width>
-                       <height>246</height>
+                       <height>28</height>
                       </rect>
                      </property>
                      <layout class="QVBoxLayout" name="verticalLayout_7">
@@ -1386,6 +1247,18 @@
                          </property>
                          <item>
                           <widget class="QFrame" name="frame_SecondaryTlmLabel">
+                           <property name="minimumSize">
+                            <size>
+                             <width>240</width>
+                             <height>0</height>
+                            </size>
+                           </property>
+                           <property name="maximumSize">
+                            <size>
+                             <width>256</width>
+                             <height>16777215</height>
+                            </size>
+                           </property>
                            <property name="frameShape">
                             <enum>QFrame::NoFrame</enum>
                            </property>
@@ -1420,6 +1293,18 @@
                          </item>
                          <item>
                           <widget class="QFrame" name="frame_CommandButton">
+                           <property name="minimumSize">
+                            <size>
+                             <width>240</width>
+                             <height>0</height>
+                            </size>
+                           </property>
+                           <property name="maximumSize">
+                            <size>
+                             <width>256</width>
+                             <height>16777215</height>
+                            </size>
+                           </property>
                            <property name="frameShape">
                             <enum>QFrame::NoFrame</enum>
                            </property>
@@ -1878,28 +1763,80 @@
                 <number>0</number>
                </property>
                <item>
-                <widget class="QPushButton" name="btn_GoBack2">
-                 <property name="enabled">
-                  <bool>true</bool>
+                <widget class="QFrame" name="frame_3">
+                 <property name="frameShape">
+                  <enum>QFrame::StyledPanel</enum>
                  </property>
-                 <property name="minimumSize">
-                  <size>
-                   <width>0</width>
-                   <height>32</height>
-                  </size>
+                 <property name="frameShadow">
+                  <enum>QFrame::Raised</enum>
                  </property>
-                 <property name="maximumSize">
-                  <size>
-                   <width>16777215</width>
-                   <height>32</height>
-                  </size>
-                 </property>
-                 <property name="cursor">
-                  <cursorShape>PointingHandCursor</cursorShape>
-                 </property>
-                 <property name="text">
-                  <string>GO BACK</string>
-                 </property>
+                 <layout class="QHBoxLayout" name="horizontalLayout_10">
+                  <property name="spacing">
+                   <number>4</number>
+                  </property>
+                  <property name="leftMargin">
+                   <number>0</number>
+                  </property>
+                  <property name="topMargin">
+                   <number>0</number>
+                  </property>
+                  <property name="rightMargin">
+                   <number>0</number>
+                  </property>
+                  <property name="bottomMargin">
+                   <number>0</number>
+                  </property>
+                  <item>
+                   <widget class="QPushButton" name="btn_GoBack">
+                    <property name="enabled">
+                     <bool>true</bool>
+                    </property>
+                    <property name="minimumSize">
+                     <size>
+                      <width>0</width>
+                      <height>32</height>
+                     </size>
+                    </property>
+                    <property name="maximumSize">
+                     <size>
+                      <width>16777215</width>
+                      <height>32</height>
+                     </size>
+                    </property>
+                    <property name="cursor">
+                     <cursorShape>PointingHandCursor</cursorShape>
+                    </property>
+                    <property name="text">
+                     <string>GO BACK</string>
+                    </property>
+                   </widget>
+                  </item>
+                  <item>
+                   <widget class="QPushButton" name="btn_createMission">
+                    <property name="enabled">
+                     <bool>true</bool>
+                    </property>
+                    <property name="minimumSize">
+                     <size>
+                      <width>0</width>
+                      <height>32</height>
+                     </size>
+                    </property>
+                    <property name="maximumSize">
+                     <size>
+                      <width>16777215</width>
+                      <height>32</height>
+                     </size>
+                    </property>
+                    <property name="cursor">
+                     <cursorShape>PointingHandCursor</cursorShape>
+                    </property>
+                    <property name="text">
+                     <string>CREATE MISSION</string>
+                    </property>
+                   </widget>
+                  </item>
+                 </layout>
                 </widget>
                </item>
                <item>
@@ -1934,8 +1871,8 @@
                    <rect>
                     <x>0</x>
                     <y>0</y>
-                    <width>258</width>
-                    <height>521</height>
+                    <width>100</width>
+                    <height>16</height>
                    </rect>
                   </property>
                   <layout class="QVBoxLayout" name="verticalLayout_25">
@@ -2164,8 +2101,8 @@
                            <string>&lt;!DOCTYPE HTML PUBLIC &quot;-//W3C//DTD HTML 4.0//EN&quot; &quot;http://www.w3.org/TR/REC-html40/strict.dtd&quot;&gt;
 &lt;html&gt;&lt;head&gt;&lt;meta name=&quot;qrichtext&quot; content=&quot;1&quot; /&gt;&lt;style type=&quot;text/css&quot;&gt;
 p, li { white-space: pre-wrap; }
-&lt;/style&gt;&lt;/head&gt;&lt;body style=&quot; font-family:'Video Med'; font-size:10pt; font-weight:504; font-style:normal;&quot;&gt;
-&lt;p style=&quot;-qt-paragraph-type:empty; margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;&quot;&gt;&lt;br /&gt;&lt;/p&gt;&lt;/body&gt;&lt;/html&gt;</string>
+&lt;/style&gt;&lt;/head&gt;&lt;body style=&quot; font-family:'MS Shell Dlg 2'; font-size:8.25pt; font-weight:400; font-style:normal;&quot;&gt;
+&lt;p style=&quot;-qt-paragraph-type:empty; margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px; font-family:'Video Med'; font-size:10pt; font-weight:504;&quot;&gt;&lt;br /&gt;&lt;/p&gt;&lt;/body&gt;&lt;/html&gt;</string>
                           </property>
                           <property name="openExternalLinks">
                            <bool>true</bool>
@@ -2284,13 +2221,13 @@ p, li { white-space: pre-wrap; }
          <property name="minimumSize">
           <size>
            <width>0</width>
-           <height>17</height>
+           <height>22</height>
           </size>
          </property>
          <property name="maximumSize">
           <size>
            <width>16777215</width>
-           <height>17</height>
+           <height>22</height>
           </size>
          </property>
          <property name="frameShape">
@@ -2339,7 +2276,7 @@ p, li { white-space: pre-wrap; }
            <widget class="QProgressBar" name="progress_bar_statusBar">
             <property name="minimumSize">
              <size>
-              <width>160</width>
+              <width>255</width>
               <height>12</height>
              </size>
             </property>

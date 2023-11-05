@@ -33,9 +33,12 @@ SCOPES = ["https://www.googleapis.com/auth/drive"]
 
 
 class CloudModel(QObject):
+    notificitaion = pyqtSignal()
+
     def __init__(self, parent):
         super().__init__(parent)
         self.parent = parent
+        self.preferences = parent.preferences
 
         logging.getLogger("googleapiclient").setLevel(logging.WARNING)
         logging.getLogger("google_auth_oauthlib").setLevel(logging.WARNING)
@@ -93,6 +96,9 @@ class CloudModel(QObject):
 
     # CHECK ACCOUNT
     class CheckAccountThread(QThread):
+        noInternet = pyqtSignal()
+        finished = pyqtSignal()
+
         def __init__(self, parent):
             super().__init__(parent)
             self.parent = parent
@@ -134,15 +140,39 @@ class CloudModel(QObject):
                     self.parent.logged_in = False
 
                 self.parent.binded_widget.set_to_logged_in(self.parent.logged_in)
+                self.finished.emit()
 
             except Exception as e:
                 self.parent.internet = False
                 self.parent.binded_widget.set_to_logged_in("NO_INTERNET")
                 self.parent.binded_widget.update_gmail("NO_INTERNET")
 
+                self.noInternet.emit()
+
     def check_account(self):
         thread = self.CheckAccountThread(self)
+        thread.noInternet.connect(self.noInternetNotification)
+        thread.finished.connect(self.check_cloud_preferences)
         thread.start()
+
+    def check_cloud_preferences(self):
+        self.parent.notifications.new(
+            msg="Syncyng Preferences...",
+            level="info",
+            duration="short",
+        )
+        x = self.parent.preferences.save_preferences_to_temp()
+
+        self.get_folder("preferences")
+
+        # self.upload_file(x)
+
+    def noInternetNotification(self):
+        self.parent.notifications.new(
+            msg="No Internet Connection",
+            level="error",
+            duration="permanent",
+        )
 
     def update_gmail(self):
         if self.internet:
@@ -220,7 +250,7 @@ class CloudModel(QObject):
         return folder_id
 
     # UPLOAD
-    class UploadFileThread(QThread):
+    class UploadRecordingThread(QThread):
         finished = pyqtSignal()  # Signal to indicate thread has finished
         started = pyqtSignal()  # Signal to indicate thread has finished
 
@@ -264,8 +294,63 @@ class CloudModel(QObject):
             self.finished.emit()  # Emit the finished signal
             self.parent.uploading = False
 
-    def upload_recording(self, path, mission="NO_MISSION"):
-        thread = self.UploadFileThread(self, path, mission)
-        thread.started.connect(self.parent.window_controller.start_progress_bar)
-        thread.finished.connect(self.parent.window_controller.stop_progress_bar)
+    class UploadCustomFileThread(QThread):
+        finished = pyqtSignal()  # Signal to indicate thread has finished
+        started = pyqtSignal()  # Signal to indicate thread has finished
+
+        def __init__(self, parent, path):
+            super().__init__(parent)
+            self.parent = parent
+            self.path = path
+
+        def run(self):
+            if not self.parent.uploading:
+                self.upload()
+            else:
+                while self.parent.uploading:
+                    time.sleep(0.5)
+
+                try:
+                    self.upload()
+
+                except:
+                    print("[ERROR] Uploading buffer overflow - canceling upload")
+
+        def upload(self):
+            self.parent.uploading = True
+            self.started.emit()
+            if os.path.exists(self.path):
+                upload_folder_id = self.parent.get_folder(f"preferences")
+
+                name = os.path.basename(self.path)
+                file_metadata = {
+                    "name": f"preferences.json",
+                    "parents": [upload_folder_id],
+                }
+                media = MediaFileUpload(f"{self.path}")
+                upload_file = (
+                    self.parent.service.files()
+                    .create(body=file_metadata, media_body=media, fields="id")
+                    .execute()
+                )
+
+            self.finished.emit()  # Emit the finished signal
+            self.parent.uploading = False
+
+    def upload_file(self, path):
+        thread = self.UploadCustomFileThread(self, path=path)
         thread.start()
+
+    def upload_recording(self, path, mission="NO_MISSION"):
+        thread = self.UploadRecordingThread(self, path, mission)
+        thread.started.connect(self.parent.window_controller.start_progress_bar)
+        thread.finished.connect(self.file_stop)
+        thread.start()
+
+    def file_stop(self):
+        self.parent.notifications.new(
+            msg="File Uploaded!",
+            level="info",
+            duration="short",
+        )
+        self.parent.window_controller.stop_progress_bar()

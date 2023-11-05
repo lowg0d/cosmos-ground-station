@@ -16,6 +16,7 @@
 #
 #############################################################
 from .connection import ConnectionController
+from .notifications import NotificationsController
 from .recordings import RecordingController
 from .terminal import TerminalController
 from .window import WindowController

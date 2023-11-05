@@ -25,15 +25,21 @@ class DataHandlerModel(QObject):
     write_to_terminal = pyqtSignal(str)
     update_value_chain = pyqtSignal(list)
 
+    send_notification = pyqtSignal(str)
+
     def __init__(self, parent):
         super().__init__(parent)
 
         self.parent = parent
+        self.unknown_header_first_time = False
         self.serial_model = parent.serial_model
         self.recording_model = parent.recording_controller.recordings_model
 
         self.packet_header = str(
             self.parent.preferences.get_preference("packet.signature_header")
+        )
+        self.message_header = str(
+            self.parent.preferences.get_preference("packet.msg_signature_header")
         )
         self.packet_split_char = str(
             self.parent.preferences.get_preference("packet.split_char")
@@ -47,7 +53,15 @@ class DataHandlerModel(QObject):
 
     def start_thread(self):
         self.worker = self.SerialReadThread(self)
+        self.worker.error.connect(self.error_notification)
         self.worker.start()
+
+    def error_notification(self, msg):
+        self.parent.notifications.new(
+            msg=msg,
+            level="error",
+            duration="permanent",
+        )
 
     def stop_thread(self):
         self.worker.terminate()
@@ -58,10 +72,12 @@ class DataHandlerModel(QObject):
         """
 
         finished = pyqtSignal()
+        error = pyqtSignal(str)
 
         def __init__(self, parent):
             super().__init__(parent)
             self.parent = parent
+            self.header_error = False
             self.finished.connect(self.parent.handle_thread_stop)
 
         def run(self):
@@ -85,7 +101,7 @@ class DataHandlerModel(QObject):
                         self.process_data(data)
 
                     else:
-                        print(f"[-] Packet Corrupted, can't parse data.")
+                        self.error.emit("Skipping Corrupt Packet, Unable To Decode.")
 
                 else:
                     break
@@ -101,7 +117,10 @@ class DataHandlerModel(QObject):
 
             if len(rcv_data) > 2:
                 if rcv_data.startswith(self.parent.packet_header):
-                    formated = rcv_data.replace(f"{self.parent.packet_header}", "")
+                    if self.header_error:
+                        self.header_error = False
+
+                    formated = rcv_data.replace(self.parent.packet_header, "")
                     value_chain = (
                         str(formated).strip().split(f"{self.parent.packet_split_char}")
                     )
@@ -113,14 +132,21 @@ class DataHandlerModel(QObject):
                     if self.parent.parent.recording_controller.recordings_enabled:
                         self.parent.recording_model.write_to_log_file(now, value_chain)
 
+                elif rcv_data.startswith(self.parent.message_header):
+                    self.parent.send_notification.emit(
+                        rcv_data.replace(self.parent.message_header, "")
+                    )
+
                 else:
                     if rcv_data != UnicodeDecodeError:
-                        print("[+] Packet With Unknown Header: " + rcv_data)
+                        if not self.header_error:
+                            self.header_error = True
+                            self.error.emit(
+                                f"Packet With Unknown Signature Header, Change In Settings"
+                            )
 
                     else:
-                        print(
-                            "[-] Decode Error ocurred, packet corrupted, normal to appear at the start of comms"
-                        )
+                        self.error.emit("Skipping Corrupt Packet, Unable To Decode.")
 
             # write everything to backup file
             self.parent.recording_model.write_to_blackbox(now, rcv_data)

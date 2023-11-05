@@ -1,103 +1,82 @@
 {
   "DASHBOARDS": {
-    "TARS": {
+    "CANSAT": {
       "max_columns": 2,
       "graph_pen_width": 2,
       "graph_data_points": 350,
       "gps_graph_data_points": 80,
-      "filter_ranges": "TARS",
-      "states": "TARS",
-      "buttons": "TARS",
-      "labels": "TARS",
-      "graphs": "GPS"
+      "filter_ranges": "CANSAT",
+      "states": "CANSAT",
+      "buttons": "CANSAT",
+      "labels": "CANSAT",
+      "graphs": "CANSAT"
     },
-    "EXAMPLE": {
+    "CANSAT_IMU": {
       "max_columns": 2,
       "graph_pen_width": 2,
-      "graph_data_points": 200,
-      "gps_graph_data_points": 20,
-      "filter_ranges": "TARS",
-      "states": "EXAMPLE",
-      "buttons": "EXAMPLE",
-      "labels": "EXAMPLE",
-      "graphs": "EXAMPLE"
+      "graph_data_points": 350,
+      "gps_graph_data_points": 80,
+      "filter_ranges": "CANSAT_IMU",
+      "states": "CANSAT",
+      "buttons": "CANSAT",
+      "labels": "CANSAT_IMU",
+      "graphs": "CANSAT_IMU"
     }
   },
   "STATES": {
-    "TARS": {
-      "-1": ["TARS BOOTUP", "596275"],
+    "CANSAT": {
       "0": ["IDLE", "16a085"],
-      "1": ["GO FOR LAUNCH", "27ae60"],
-      "2": ["POWERED ASCENT", "474787"],
-      "3": ["BURNOUT", "ff793f"],
-      "4": ["FREE FALL", "fff200"],
-      "5": ["CHUTE FALL", "3ae374"],
-      "6": ["LANDED", "30336b"],
-      "7": ["!! ABORT !!", "b33939"],
-      "10": ["!! ERROR !!", "b33939"]
-    },
-    "EXAMPLE": {
-      "0": ["EXAMPLE", "16a085"],
-      "1": ["EXAMPLE 1", "27ae60"]
+      "1": ["GO FOR LAUNCH", "6ab04c"],
+      "5": ["LANDED", "be2edd"],
+      "6": ["ERROR", "eb4d4b"],
+      "7": ["TEST", "95afc0"]
     }
   },
   "BUTTONS": {
-    "TARS": [
-      {
-        "name": "SET GO LAUNCH",
-        "payload": 2,
-        "color": "27ae60"
-      },
+    "CANSAT": [
       {
         "name": "SET IDLE",
-        "payload": 0,
+        "payload": "0",
         "color": "16a085"
       },
       {
-        "name": "SET LAUNCHPAD",
-        "payload": 1,
-        "color": "27ae60"
-      },
-      {
-        "name": "ABORT",
-        "payload": 3,
-        "color": "b33939"
-      }
-    ],
-    "EXAMPLE": [
-      {
-        "name": "BUTTON",
-        "payload": 0,
+        "name": "SET TEST",
+        "payload": "3",
         "color": "16a085"
       },
       {
-        "name": "BUTTON 2",
-        "payload": 33,
-        "color": "27ae60"
+        "name": "SET GO LAUNCH",
+        "payload": "1",
+        "color": "6ab04c"
       },
       {
-        "name": "BUTTON 3",
-        "payload": "example",
-        "color": "b33939"
+        "name": "SET LAND ZONE",
+        "payload": "6",
+        "color": "f0932b"
       },
       {
-        "name": "BUTTON 4",
-        "payload": "23",
-        "color": "9d4edd"
+        "name": "SET LAUNCH ZONE",
+        "payload": "5",
+        "color": "f0932b"
+      },
+      {
+        "name": "CLOSE FILES",
+        "payload": "7",
+        "color": "eb4d4b"
       }
     ]
   },
   "LABELS": {
-    "TARS": {
+    "CANSAT": {
       "big": [
         {
           "name": "ALT",
           "unit": "m",
-          "value_index_in_chain": 7
+          "value_index_in_chain": 5
         },
         {
-          "name": "VERT",
-          "value_index_in_chain": 14,
+          "name": "VEL",
+          "value_index_in_chain": 9,
           "unit": "m/s"
         }
       ],
@@ -108,18 +87,18 @@
           "unit": ""
         },
         {
-          "name": "VOT",
+          "name": "VST",
           "value_index_in_chain": 1,
           "unit": "format_seconds"
         },
         {
-          "name": "Voltage",
-          "value_index_in_chain": 0,
-          "unit": "v",
+          "name": "Sats",
+          "value_index_in_chain": 10,
+          "unit": "",
           "min_max_nomial": [0, 10]
         },
         {
-          "name": "TLM Rate",
+          "name": "Tlm Rate",
           "value_index_in_chain": "",
           "unit": "tlm_rate",
           "min_max_nomial": [0, 10]
@@ -127,57 +106,47 @@
       ],
       "secondary": [
         {
-          "name": "Latitude",
-          "value_index_in_chain": 3,
+          "name": "lat",
+          "value_index_in_chain": 7,
           "unit": ""
         },
         {
-          "name": "Temp",
+          "name": "long",
           "value_index_in_chain": 8,
-          "unit": "\u00baC"
+          "unit": ""
         },
         {
-          "name": "Yaw",
-          "value_index_in_chain": 9,
-          "unit": "\u00ba/s"
+          "name": "humi",
+          "value_index_in_chain": 3,
+          "unit": "%"
         },
         {
-          "name": "Pitch",
-          "value_index_in_chain": 10,
-          "unit": "\u00ba/s"
-        },
-        {
-          "name": "Roll",
-          "value_index_in_chain": 11,
-          "unit": "\u00ba/s"
-        },
-        {
-          "name": "Alt",
-          "value_index_in_chain": 1,
-          "unit": "m"
-        },
-        {
-          "name": "Vel",
+          "name": "atm",
           "value_index_in_chain": 4,
-          "unit": "m/s"
+          "unit": "pHa"
         },
         {
-          "name": "Ap",
-          "value_index_in_chain": 5,
-          "unit": "hPa"
+          "name": "lux",
+          "value_index_in_chain": 6,
+          "unit": "lux"
+        },
+        {
+          "name": "temp",
+          "value_index_in_chain": 2,
+          "unit": "\u00baC"
         }
       ]
     },
-    "EXAMPLE": {
+    "CANSAT_IMU": {
       "big": [
         {
-          "name": "EXMPl",
+          "name": "ALT",
           "unit": "m",
-          "value_index_in_chain": 1
+          "value_index_in_chain": 5
         },
         {
-          "name": "EXMPl",
-          "value_index_in_chain": 2,
+          "name": "VEL",
+          "value_index_in_chain": 9,
           "unit": "m/s"
         }
       ],
@@ -188,18 +157,18 @@
           "unit": ""
         },
         {
-          "name": "VOT",
-          "value_index_in_chain": 3,
+          "name": "VST",
+          "value_index_in_chain": 1,
           "unit": "format_seconds"
         },
         {
-          "name": "EXAMPLE",
-          "value_index_in_chain": 4,
-          "unit": "v",
+          "name": "Sats",
+          "value_index_in_chain": 10,
+          "unit": "",
           "min_max_nomial": [0, 10]
         },
         {
-          "name": "TLM Rate",
+          "name": "Tlm Rate",
           "value_index_in_chain": "",
           "unit": "tlm_rate",
           "min_max_nomial": [0, 10]
@@ -207,169 +176,214 @@
       ],
       "secondary": [
         {
-          "name": "EXAMPLE",
-          "value_index_in_chain": 5,
+          "name": "aX",
+          "value_index_in_chain": 12,
+          "unit": "g"
+        },
+        {
+          "name": "aY",
+          "value_index_in_chain": 13,
+          "unit": "g"
+        },
+        {
+          "name": "aZ",
+          "value_index_in_chain": 14,
+          "unit": "g"
+        },
+        {
+          "name": "mX",
+          "value_index_in_chain": 18,
+          "unit": "μT"
+        },
+        {
+          "name": "mY",
+          "value_index_in_chain": 19,
+          "unit": "μT"
+        },
+        {
+          "name": "mZ",
+          "value_index_in_chain": 20,
+          "unit": "μT"
+        },
+        {
+          "name": "humi",
+          "value_index_in_chain": 3,
+          "unit": "%"
+        },
+        {
+          "name": "lat",
+          "value_index_in_chain": 7,
+          "unit": ""
+        },
+        {
+          "name": "vSpeed",
+          "value_index_in_chain": 11,
+          "unit": ""
+        },
+        {
+          "name": "BME",
+          "value_index_in_chain": 21,
+          "unit": "sensor"
+        },
+        {
+          "name": "SD",
+          "value_index_in_chain": 24,
+          "unit": "sensor"
+        },
+        {
+          "name": "gX",
+          "value_index_in_chain": 15,
+          "unit": "°/s"
+        },
+        {
+          "name": "gY",
+          "value_index_in_chain": 16,
+          "unit": "°/s"
+        },
+        {
+          "name": "gZ",
+          "value_index_in_chain": 17,
+          "unit": "°/s"
+        },
+        {
+          "name": "atm",
+          "value_index_in_chain": 4,
+          "unit": "hPa"
+        },
+        {
+          "name": "lux",
+          "value_index_in_chain": 6,
+          "unit": "lx"
+        },
+        {
+          "name": "temp",
+          "value_index_in_chain": 2,
           "unit": "\u00baC"
         },
         {
-          "name": "EXAMPLE",
+          "name": "pid",
+          "value_index_in_chain": 25,
+          "unit": ""
+        },
+        {
+          "name": "long",
           "value_index_in_chain": 8,
-          "unit": "\u00ba/s"
+          "unit": ""
+        },
+        {
+          "name": "TSL",
+          "value_index_in_chain": 22,
+          "unit": "sensor"
+        },
+        {
+          "name": "GPS",
+          "value_index_in_chain": 23,
+          "unit": "sensor"
+        },
+        {
+          "name": "MAG",
+          "value_index_in_chain": 25,
+          "unit": "sensor"
         }
       ]
     }
   },
   "GRAPHS": {
-    "GPS": [
+    "CANSAT": [
       {
-        "title": "ALTITUDE",
-        "unit": "m",
-        "axes": 1,
-        "value_index_in_chain_1": 6,
-        "color_1": "ff3838",
+        "title": "Altitude - Vel",
+        "unit": "m - m/s",
+        "axes": 2,
+        "value_index_in_chain_1": 5,
+        "value_index_in_chain_2": 11,
+        "color_1": "00a8ff",
+        "color_2": "e84118",
         "col": 0,
         "row": 0
+      },
+      {
+        "title": "Pressure",
+        "unit": "pHa",
+        "axes": 1,
+        "value_index_in_chain_1": 4,
+        "color_1": "4cd137",
+        "col": 1,
+        "row": 0
+      },
+      {
+        "title": "Temp",
+        "unit": "\u00baC",
+        "axes": 1,
+        "value_index_in_chain_1": 2,
+        "color_1": "fbc531",
+        "col": 0,
+        "row": 1
       },
       {
         "title": "GPS",
         "unit": "m",
         "axes": "gps",
-        "value_index_in_chain_1": 2,
-        "value_index_in_chain_2": 3,
-        "color_1": "ffc048",
-        "col": 1,
-        "row": 0
-      },
-      {
-        "title": "Speed",
-        "unit": "m/s",
-        "axes": 2,
-        "value_index_in_chain_1": 14,
-        "value_index_in_chain_2": 15,
-        "color_1": "18dcff",
-        "color_2": "a29bfe",
-        "name_1": "Vertical",
-        "name_2": "Horizontal",
-        "col": 0,
-        "row": 1
-      },
-      {
-        "title": "Gyros",
-        "unit": "º/s",
-        "axes": 3,
-        "value_index_in_chain_1": 10,
-        "value_index_in_chain_2": 11,
-        "value_index_in_chain_3": 12,
-        "color_1": "7d5fff",
-        "color_2": "32ff7e",
-        "color_3": "ffaf40",
-        "name_1": "Gx",
-        "name_2": "Gy",
-        "name_3": "Gy",
-        "col": 1,
-        "row": 1
-      }
-    ],
-    "TARS": [
-      {
-        "title": "Altitude",
-        "unit": "m",
-        "axes": 1,
-        "color_1": "e74c3c",
-        "value_index_in_chain_1": 1,
-        "row": 0,
-        "col": 0
-      },
-      {
-        "title": "Vertical Speed",
-        "unit": "m/s",
-        "axes": 1,
-        "color_1": "9b59b6",
-        "value_index_in_chain_1": 2,
-        "row": 0,
-        "col": 1
-      },
-      {
-        "title": "Orientation",
-        "unit": "\u00ba",
-        "axes": 3,
-        "name_1": "Yaw",
-        "name_2": "Pitch",
-        "name_3": "Roll",
+        "1_x_axis_name": "Latitude",
+        "2_x_axis_name": "Longitude",
         "value_index_in_chain_1": 7,
         "value_index_in_chain_2": 8,
-        "value_index_in_chain_3": 9,
-        "row": 1,
-        "col": 0
-      },
-      {
-        "title": "GPS",
-        "unit": "m",
-        "axes": "gps",
-        "1_x_axis_name": "Latitude",
-        "2_x_axis_name": "Longitude",
-        "value_index_in_chain_1": 1,
-        "value_index_in_chain_2": 2,
-        "color_1": "2ecc71",
+        "color_1": "ffbe76",
         "row": 1,
         "col": 1
       }
     ],
-    "EXAMPLE": [
+    "CANSAT_IMU": [
       {
-        "title": "One Axes",
-        "unit": "m",
-        "axes": 1,
-        "color_1": "AE2012",
-        "value_index_in_chain_1": 1,
-        "row": 0,
-        "col": 0
-      },
-      {
-        "title": "Two Axes",
-        "unit": "m/s",
-        "axes": 2,
-        "color_1": "0A9396",
-        "color_2": "EE9B00",
-        "name_1": "example1",
-        "name_2": "example2",
-        "value_index_in_chain_1": 2,
-        "value_index_in_chain_2": 3,
-        "row": 0,
-        "col": 1
-      },
-      {
-        "title": "Three Axes",
-        "unit": "\u00ba",
+        "title": "Accelerometers",
+        "unit": "G",
         "axes": 3,
-        "name_1": "Yaw",
-        "name_2": "Pitch",
-        "name_3": "Roll",
-        "color_1": "0A9396",
-        "color_2": "E9D8A6",
-        "color_3": "AE2012",
-        "value_index_in_chain_1": 8,
-        "value_index_in_chain_2": 7,
-        "value_index_in_chain_3": 9,
-        "row": 1,
-        "col": 0
+        "value_index_in_chain_1": 12,
+        "value_index_in_chain_2": 13,
+        "value_index_in_chain_3": 14,
+        "name_1": "aX",
+        "name_2": "aY",
+        "name_3": "aZ",
+        "col": 0,
+        "row": 0
       },
       {
-        "title": "GPS",
-        "unit": "m",
-        "axes": "gps",
-        "1_x_axis_name": "Latitude",
-        "2_x_axis_name": "Longitude",
-        "value_index_in_chain_1": 1,
-        "value_index_in_chain_2": 2,
-        "color_1": "6a994e",
-        "row": 1,
-        "col": 1
+        "title": "Gyroscope",
+        "unit": "°/s",
+        "axes": 3,
+        "value_index_in_chain_1": 15,
+        "value_index_in_chain_2": 16,
+        "value_index_in_chain_3": 17,
+        "name_1": "gX",
+        "name_2": "gY",
+        "name_3": "gZ",
+        "col": 0,
+        "row": 1
+      },
+      {
+        "title": "Mag",
+        "unit": "μT",
+        "axes": 3,
+        "value_index_in_chain_1": 18,
+        "value_index_in_chain_2": 19,
+        "value_index_in_chain_3": 20,
+        "name_1": "mX",
+        "name_2": "mY",
+        "name_3": "mZ",
+        "col": 1,
+        "row": 0
+      },
+      {
+        "title": "CORRECTION",
+        "unit": "",
+        "axes": 1,
+        "value_index_in_chain_1": 21,
+        "col": 1,
+        "row": 1
       }
     ]
   },
   "FILTER_RANGES": {
-    "TARS": {
+    "CANSAT": {
       "0": [0.0, 10000.0],
       "1": [0.0, 10000.0],
       "2": [0.0, 10000.0],
@@ -390,6 +404,35 @@
       "17": [0.0, 10000.0],
       "18": [0.0, 10000.0],
       "19": [0.0, 10000.0]
+    },
+    "CANSAT_IMU": {
+      "0": [0.0, 10000.0],
+      "1": [0.0, 10000.0],
+      "2": [0.0, 10000.0],
+      "3": [-4.0, 10000.0],
+      "4": [0.0, 10000.0],
+      "6": [0.0, 10000.0],
+      "5": [0.0, 10000.0],
+      "7": [0.0, 10000.0],
+      "8": [0.0, 10000.0],
+      "9": [0.0, 10000.0],
+      "10": [0.0, 10000.0],
+      "11": [0.0, 10000.0],
+      "12": [0.0, 10000.0],
+      "13": [0.0, 10000.0],
+      "14": [-360.0, 10000.0],
+      "15": [-360.0, 10000.0],
+      "16": [-360.0, 10000.0],
+      "17": [-360.0, 10000.0],
+      "18": [-360.0, 10000.0],
+      "19": [-360.0, 10000.0],
+      "20": [-360.0, 10000.0],
+      "21": [-360.0, 10000.0],
+      "22": [-360.0, 10000.0],
+      "23": [-360.0, 10000.0],
+      "24": [-360.0, 10000.0],
+      "25": [-360.0, 10000.0],
+      "26": [-360.0, 10000.0]
     }
   }
 }

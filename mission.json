@@ -1,0 +1,12 @@
+{
+    "MISSIONS": {
+        "TARS_LAUNCH": {
+            "name": "TARS LAUNCH",
+            "description": "launch day for tars"
+        },
+        "NEW_MISSION": {
+            "name": "tetas",
+            "description": "tettaaaas"
+        }
+    }
+}

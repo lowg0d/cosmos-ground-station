@@ -1,0 +1,2 @@
+1:01: PLOT TIME: 2.81 ms SAMPLES: 2512/None // No Data Filtration
+1:01: PLOT TIME: 2.93 ms SAMPLES: 2382/None // No Data Filtration

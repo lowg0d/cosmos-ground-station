@@ -19,10 +19,10 @@ import numpy as np
 import pyqtgraph as pg
 from PyQt5.QtGui import QColor, QFont
 
-PEN_WIDTH = 2
+PEN_WIDTH = 1.5
 ANTIALIAS = True
-DATA_POINTS = 300
-GPS_DATA_POINTS = 200
+DATA_POINTS = 250
+GPS_DATA_POINTS = 100
 X_VALS = np.linspace(0.0, (DATA_POINTS - 1) / DATA_POINTS, DATA_POINTS)
 FONT = QFont("Video Med", 9)
 
@@ -71,7 +71,6 @@ class MonoAxePlotWidget(pg.PlotItem):
         self.y_vals = 0.0
 
         self.hideButtons()
-
         self.showGrid(x=True, y=True)
 
         self.getAxis("bottom").setPen(pg.mkPen("#a5a5a5"))
@@ -87,9 +86,7 @@ class MonoAxePlotWidget(pg.PlotItem):
         self.getViewBox().disableAutoRange(axis="x")
         self.getViewBox().setMouseEnabled(x=False, y=False)
 
-    def change_color(self, color):
-        self.getAxis("bottom").setPen(pg.mkPen(color))
-        self.getAxis("left").setPen(pg.mkPen(color))
+        self.dataPointsIndex = 1
 
     def update(self, value):
         value = float(value)
@@ -103,6 +100,10 @@ class MonoAxePlotWidget(pg.PlotItem):
 
         self.setXRange(self.y_vals - 0.1, self.y_vals, padding=0.02)
         self.graph_plot.setData(x=x_vals, y=y_data)
+
+    def change_color(self, color):
+        self.getAxis("bottom").setPen(pg.mkPen(color))
+        self.getAxis("left").setPen(pg.mkPen(color))
 
     def clear(self):
         self.y_vals = 0.0
@@ -130,13 +131,16 @@ class DualAxePlotWidget(pg.PlotItem):
             parent=parent, labels=labels, title=title, enableMenu=enableMenu, **kargs
         )
 
+        self.addLegend()
+
         color_1 = f"#{color_1}" if color_1 else "#e84118"
         color_2 = f"#{color_2}" if color_2 else "#4cd137"
 
+        name_1 = "X" if not name_1 else name_1
+        name_2 = "X" if not name_2 else name_2
+
         datapoints = datapoints if datapoints else DATA_POINTS
         pen_width = pen_width if pen_width else PEN_WIDTH
-
-        self.addLegend()
 
         self.x_vals = np.linspace(0.0, (datapoints - 1) / datapoints, datapoints)
         self.graph_plot_1 = self.plot(
@@ -239,14 +243,14 @@ class TripleAxePlotWidget(pg.PlotItem):
             parent=parent, labels=labels, title=title, enableMenu=enableMenu, **kargs
         )
 
+        self.addLegend()
+
         color_1 = f"#{color_1}" if color_1 else "#e84118"
         color_2 = f"#{color_2}" if color_2 else "#4cd137"
         color_3 = f"#{color_3}" if color_3 else "#00a8ff"
 
         datapoints = datapoints if datapoints else DATA_POINTS
         pen_width = pen_width if pen_width else PEN_WIDTH
-
-        self.addLegend()
 
         self.x_vals = np.linspace(0.0, (datapoints - 1) / datapoints, datapoints)
         self.graph_plot_1 = self.plot(
@@ -431,7 +435,7 @@ class GpsPlotWidget(pg.PlotItem):
             min(self.graph_data["y"]) - 0.0001,
             max(self.graph_data["y"]) + 0.0001,
         )
-        self.setRange(xRange=x_range, yRange=y_range, padding=1.5)
+        self.setRange(xRange=x_range, yRange=y_range, padding=2.5)
 
     def clear(self):
         self.graph_data = {"x": [], "y": []}

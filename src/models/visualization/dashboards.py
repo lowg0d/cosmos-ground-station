@@ -69,6 +69,27 @@ class DashboardsModel(QObject):
             "dashboard.visualization_dashboard"
         )
 
+        exits = self.preferences.get(
+            f"DASHBOARDS.{self.current_profile}", 2, not_exit=True
+        )
+
+        if exits == "NotFound":
+            dash_list = self.preferences.get("DASHBOARDS", 2)
+            dash_list = list(dash_list.keys())  # Convert dict_keys to a list
+            if len(dash_list) > 0:
+                self.preferences.update_preference(
+                    "dashboard.visualization_dashboard", dash_list[0]
+                )
+                self.parent.parent.notifications.new(
+                    msg=f"Dashboard '{self.current_profile}' Not Found, changed to '{dash_list[0]}'",
+                    level="warning",
+                    duration="long",
+                )
+                self.current_profile = dash_list[0]
+
+            else:
+                exit("[ERROR] NO DASHBOARD FILE DETECTED")
+
         self.update_profile_data()
         self.update_ui_widgets()
 
@@ -246,6 +267,12 @@ class DashboardsModel(QObject):
 
     def generate_label(self, data):
         name = data["name"]
+
+        if len(name) > 10:
+            name = name[:7] + "..."
+        else:
+            name = name
+
         unit = data["unit"]
         value_index = data["value_index_in_chain"]
         min_max = data.get("min_max_nomial")
@@ -264,6 +291,8 @@ class DashboardsModel(QObject):
             show_unit = False
         elif unit == "tlm_rate":
             unit_to_print = " ms"
+        elif unit == "sensor":
+            unit_to_print = ""
         else:
             unit_to_print = f"{unit}"
 

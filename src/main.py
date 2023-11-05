@@ -20,14 +20,26 @@ This module defines the `MainWindow` class, which serves as the central componen
 Encapsulates various UI components and controllers for the gui.
 """
 import os
+import subprocess
+import sys
 
-from PyQt5.QtCore import QFile, Qt, QTextStream
+from PyQt5.QtCore import (
+    QFile,
+    QFileSystemWatcher,
+    QObject,
+    Qt,
+    QTextStream,
+    QThread,
+    pyqtSignal,
+    pyqtSlot,
+)
 from PyQt5.QtGui import QIcon, QKeySequence
-from PyQt5.QtWidgets import QLabel, QShortcut
+from PyQt5.QtWidgets import QLabel, QShortcut, QStyle
 from qframelesswindow import FramelessMainWindow
 
 from src.controllers import (
     ConnectionController,
+    NotificationsController,
     RecordingController,
     TerminalController,
     WindowController,
@@ -69,6 +81,7 @@ class MainWindow(FramelessMainWindow):
         self.ui.setupUi(self)
 
         # Initialize models
+        self.notifications = NotificationsController(self)
         self.preferences = PreferenceModel()
         self.serial_model = SerialModel(self)
         self.missions_model = MissionModel(self)
@@ -80,6 +93,12 @@ class MainWindow(FramelessMainWindow):
         self.window_controller = WindowController(self)
         self.terminal_controller = TerminalController(self)
 
+        # Get the application information from preferences
+        self.name = self.preferences.get("name")
+        self.version = self.preferences.get("version")
+        self.dev_phase = self.preferences.get("dev_phase")
+        self.author = self.preferences.get("author")
+
         self.visualization_model = VisualizationModel(self)
         self.connection_controller = ConnectionController(self)
 
@@ -87,12 +106,6 @@ class MainWindow(FramelessMainWindow):
 
         if not self.window_controller.small_mode_toggled:
             self.showMaximized()
-
-        # Get the application information from preferences
-        self.name = self.preferences.get("name")
-        self.version = self.preferences.get("version")
-        self.dev_phase = self.preferences.get("dev_phase")
-        self.author = self.preferences.get("author")
 
         # Set up window properties
         self.setWindowIcon(QIcon(self.preferences.get("icon")))
@@ -120,6 +133,15 @@ class MainWindow(FramelessMainWindow):
 
         self.ui.progress_bar_statusBar.hide()
 
+        self.monitor = FileMonitor("./src/config/visualization/dashboards.json")
+        self.monitor.file_changed.connect(
+            self.visualization_model.dashboards.switch_dashboard
+        )
+
+        self.thread = QThread()
+        self.monitor.moveToThread(self.thread)
+        self.thread.start()
+
         # raise titlebar, show the window and maximize it.
         self.titleBar.raise_()
         self.show()
@@ -134,6 +156,8 @@ class MainWindow(FramelessMainWindow):
 
             for name, setting_data in items.items():
                 full_setting_name = f"{category}.{name}"
+                restart = setting_data.get("restart")
+                restart = restart if restart else False
 
                 # Create a widget for the setting
                 setting_widget = PreferenceWidget(
@@ -143,6 +167,7 @@ class MainWindow(FramelessMainWindow):
                     config_name=full_setting_name,
                     data_type=setting_data.get("preference_type"),
                     data=setting_data,
+                    restart=restart,
                 )
                 self.ui.layout_preferences.addWidget(setting_widget)
 
@@ -155,6 +180,8 @@ class MainWindow(FramelessMainWindow):
         self.data_handler_model.update_value_chain.connect(
             self.visualization_model.updates.update_value_chain
         )
+
+        self.data_handler_model.send_notification.connect(self.notifications.new_msg)
 
         ## WINDOW CONTROLLER
         shortcut = QShortcut(QKeySequence(Qt.Key_F11), self)
@@ -181,6 +208,10 @@ class MainWindow(FramelessMainWindow):
             self.recording_controller.toggle_cloud_backup
         )
 
+        self.ui.btn_joinRoom.clicked.connect(
+            self.window_controller.toggle_join_room_page
+        )
+
         # TERMINAL CONTROLLER
         self.ui.btn_clearTerminal.clicked.connect(self.terminal_controller.clear)
 
@@ -199,7 +230,11 @@ class MainWindow(FramelessMainWindow):
             self.window_controller.toggle_mission_page
         )
 
-        self.ui.btn_GoBack2.clicked.connect(self.window_controller.toggle_mission_page)
+        self.ui.btn_GoBack.clicked.connect(self.window_controller.toggle_mission_page)
+
+        self.ui.btn_createMission.clicked.connect(
+            self.missions_model.create_new_mission
+        )
 
         #
         self.ui.btn_reloadWIndow.clicked.connect(self.restart)
@@ -207,6 +242,7 @@ class MainWindow(FramelessMainWindow):
         self.ui.cb_ports.currentIndexChanged.connect(self.on_port_changed)
 
     # TEMPORAL (
+
     def load_theme(self):
         theme_name = self.preferences.get_preference("dashboard.theme")
 
@@ -237,9 +273,9 @@ class MainWindow(FramelessMainWindow):
 
     # )
 
-    @staticmethod
-    def restart():
-        MainWindow.singleton = MainWindow()
+    def restart(self):
+        launcher_process = subprocess.Popen(["python", "launcher.py"])
+        sys.exit(0)
 
     def on_bauds_changed(self):
         new_bauds = self.ui.cb_bauds.currentText()
@@ -248,3 +284,17 @@ class MainWindow(FramelessMainWindow):
     def on_port_changed(self):
         new_port = self.ui.cb_ports.currentText()
         self.preferences.update("HIDDEN.last_port", str(new_port), 1)
+
+
+class FileMonitor(QObject):
+    file_changed = pyqtSignal(str)
+
+    def __init__(self, file_path):
+        super().__init__()
+        self.watcher = QFileSystemWatcher()
+        self.watcher.addPath(file_path)
+        self.watcher.fileChanged.connect(self.on_file_changed)
+
+    @pyqtSlot(str)
+    def on_file_changed(self, path):
+        self.file_changed.emit(path)
